@@ -1,0 +1,3 @@
+# An ecological example
+
+Would be cool to include some text here on how this process has been used in the wild (e.g., an ecological example from a paper). Or link to a bunch of papers that have done this. Open to ideas!

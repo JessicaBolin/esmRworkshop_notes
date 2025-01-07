@@ -1,0 +1,27 @@
+# Schedule (TBD) {.unnumbered}
+
+XX00: Van departs UCD main campus to BML (sign-up required)
+
+0845: Introductions and housekeeping
+
+0900-0930: ESM overview
+
+0930-1000: Downloading ESMs from ESGF
+
+*Morning tea*
+
+1030-1100: Remapping ESMs
+
+1100-1230: OISST and bias-correction
+
+*Lunch*
+
+1330-1500: Evaluating ESM accuracy and making projections
+
+*Afternoon tea*
+
+1530-1630: Ecological applications
+
+1630-1700: Questions, survey distribution and workshop wrap-up.
+
+XXXX: Van departs BML to UCD main campus (sign-up required)
