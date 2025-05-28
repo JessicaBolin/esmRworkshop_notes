@@ -4,11 +4,8 @@
 Note that interpolation, regridding and remapping mean the same thing (for the purposes of our workshop).
 :::
 
-```{r, include = F}
-pth <- "/Users/admin/Documents/GitHub/BMLworkshop"
-source(paste0(pth, "/__scripts/helpers.R"))
-cmip_pth <- "/__data/cmip6_raw/"
-cmip_out <- "/__data/cmip6_processed"
+```{r, include = F, echo = F}
+source("/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/helpers.R")
 ```
 
 ## Inspect an ESM
@@ -43,7 +40,7 @@ Ew! What's going on here!?
 
 ## Remapping
 
-ESM grids are georeferenced on a sphere, where pole singularities and convergence of longitude meridians at the poles present issues for data visualisation. `Panoply` took care of this internally, but in R, we need to remap our files from a **spherical grid** to a **rectangular grid**. The most common remapping 'method' between grids with spherical coordinates is with **bilinear interpolation**.
+Different institutions can serve their ESM's on different grids. For example, many ESM grids are georeferenced on a sphere, where pole singularities and convergence of longitude meridians at the poles present issues for data visualisation. `Panoply` took care of this internally, but in R, we need to remap our files from a **spherical grid** to a **rectangular grid**. The most common remapping 'method' between grids with spherical coordinates is with **bilinear interpolation**.
 
 ::: callout-caution
 You can also use **first order conservative remapping** if bilinear interpolation fails (which may occur if the input grid is 'unstructured' as opposed to 'spherical').
@@ -66,7 +63,7 @@ nc
 ```
 :::
 
-We can see that the resolution of our file is 1˚, and is on a 0-360˚ lat/lon grid. Let's remap the file so it conforms to -180 to 180˚ lat/lon, crops the extent to the ocean off California, and changes the resolution to 0.25˚ to match the resolution of an observational data product we'll be using in the next step (i.e., OISST for bias correction).
+We can see that the resolution of our file is 1˚, and is on a 0-360˚ lat/lon grid. Let's remap the file so it conforms to -180 to 180˚ lat/lon, crops the extent to the ocean off California, and changes the resolution to 0.25˚ to match the resolution of an observational data product we'll be using in the next step (i.e., OISST for bias correction). Very important to note here that we're not 'increasing' the resolution of our product, *per se* - we're not ***gaining*** any data here, we're just remapping the ESM to a finer resolution.
 
 ------------------------------------------------------------------------
 
@@ -97,7 +94,7 @@ Here, we define a function that leverages the power of `CDO` from within our `R`
 remap_n_crop_temp <- function(nc_file,
                               cell_res = 0.25, 
                               infold = paste0(pth, cmip_pth), 
-                              outfold = paste0(pth, cmip_out),
+                              outfold = paste0(pth, cmip_pth_proc),
                               xmin = -126, xmax = -115, ymin = 32, ymax = 43) {
   
   system(paste0("cdo -L -sellonlatbox,", xmin, ",", xmax, ",", ymin, ",", ymax,  
@@ -108,12 +105,13 @@ remap_n_crop_temp <- function(nc_file,
 
 fileys <- list.files(paste0(pth, cmip_pth)) #list file names of downloaded ESMs
 
-tic(); for (i in 1:length(fileys)) {
-  remap_n_crop_temp(fileys[i])
-  }; toc() 
+w <- 14 #number of workers
+plan(multisession, workers = w) # Change to multi-threaded processing
+tic(); future_walk(fileys, remap_n_crop_temp); toc() #Run the function in parallel (takes 8 sec for Jessie)
+plan(sequential) # Return to single threaded processing 
 ```
 
-> Jessie speed: ~30s
+> Jessie speed: \~8s
 
 ### Function explainer
 
@@ -137,7 +135,7 @@ The next chunk of code contained within the `system()` function uses `CDO` comma
 -   `outfold, "/", nc_file))` = output file path and file name
 
 ::: callout-important
-`CDO` requires syntax (i..e, spaces and commas) to be precise. If you code doesn't run, first check that you have them in the right places.
+`CDO` requires syntax (i..e, spaces and commas) to be precise. If your code doesn't run, first check that you have them in the right places.
 :::
 
 Running this chunk of code within `system()` sends this code to the terminal/shell, opposed to R.
@@ -150,7 +148,7 @@ Finally, we use a `for loop` to iterate our function over each input file. We us
 
 ```{r}
 # Read in one of the processed output files
-rr <- rast(paste0(pth, cmip_out, "/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))
+rr <- rast(paste0(pth, cmip_pth_proc, "/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))
 rr <- rr[[1]] #first layer 
 plot(rr, main = "Remapped and cropped")
 maps::map("state", add = T) #add US state boundaries

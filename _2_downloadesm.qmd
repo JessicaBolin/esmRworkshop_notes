@@ -15,7 +15,7 @@ Today, we will be downloading our model outputs via the ESGF website. We will do
 | Frequency           | `mon`                               | Monthly time-step                                                                                                                      |
 | Variable            | `tos`                               | Sea-surface temperature                                                                                                                |
 
-For more information on what ESM components mean, see Table 1 in Schoeman et al. 2023.
+For more information on what ESM components mean, see Table 1 in [@SCHOEMAN2023].
 
 ## Download `wget` shell scripts
 
@@ -25,7 +25,7 @@ Through the website:
 
 -   Click [here](https://esgf.github.io/index.html) to open the website
 -   Click the [nodes](https://esgf.github.io/nodes.html) link to explore the different nodes available (i.e., different data servers)
--   Click a Metagrid UI node (i.e., [LLNL Metagrid](https://aims2.llnl.gov/search))
+-   Click a Metagrid UI node (i.e., today, we'll use [LLNL Metagrid](https://aims2.llnl.gov/search))
 
 You are now on the main website to download CMIP6 output. Ensure CMIP6 is selected under the 'Project' heading on the top left, and filter by 'Only Globus Transferable'. On the left, there are several filters to play with.
 
@@ -42,11 +42,11 @@ From the left tab, we use the following filters to find the `wget` script for th
 
 ### Download `wget` shell script
 
-Then, download the script by clicking the **Download** icon next to the `wget` download option. This downloads a shell script (i.e., indicated by the `.sh` file extension) that we will later use to download the file through R interfacing with CDO and the command line.
+Then, download the shell script by clicking the **Download** icon next to the `wget` download option. This uses `wget` to download a shell script (i.e., indicated by the `.sh` file extension) that we will later use to download the file through R whilst interfacing with CDO and the command line.
 
 ![](images/downloadwget.png){fig-align="center" width="705"}
 
-Once downloaded, move the file into the `/wget_scripts` folder in your project directory.
+Once downloaded, move the shell script into the `/wget_scripts` folder in your project directory.
 
 ### Rinse and repeat
 
@@ -57,7 +57,7 @@ Now, repeat the process for the SSP2-4.5 and SSP5-8.5 scenarios for `ACCESS-CM2`
 ::: {.callout-warning collapse="true"}
 # Warning: storage
 
-In total, we are downloading eight `.nc` files that comprise 2.65 GB of data. These are just for two models and two scenarios + historical, at a monthly time-step. Storing ESM outputs can take a lot of space - for example, if you're working with daily data across multiple models and climate scenarios, you'll almost certainly need an external hard drive or other storage solution.
+In total, we are about to download eight `.nc` files that comprise 2.65 GB of data. These are just for two models and two scenarios + historical, at a monthly time-step. Storing ESM outputs can take a lot of space - for example, if you're working with daily data across multiple models and climate scenarios, you'll almost certainly need an external hard drive or other storage solution.
 :::
 
 We will use `wget` to download our files from the ESGF Metagrid.
@@ -66,16 +66,18 @@ We will use `wget` to download our files from the ESGF Metagrid.
 
 First, we source our packages and set our directories for where our (i) `wget` scripts are stored, and (ii) where we will store the ESM outputs.
 
-```{r, message = F, warning = F, eval = T}
-pth <- "/Users/admin/Documents/GitHub/BMLworkshop"
-source(paste0(pth, "/__scripts/helpers.R"))
-data_path <- "/__data/cmip6_raw" # directory to store ESM files 
-wget_path <- "/__scripts/wget_scripts" # where wget scripts are stored
+```{r, echo = F, message = F, warning = F, eval = T}
+source("/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/helpers.R")
+```
+
+
+```{r, message = F, warning = F, eval = F}
+source(paste0(getwd(), "/__scripts/helpers.R"))
 ```
 
 ### Prepare for parallel processing
 
-We are harnessing the power of parallel processing to download our ESM outputs. We use `availableCores()` from the `parallelly` package to tell us how many ***available*** cores we have on our machine. It's recommended to use whatever the output is minus two, so that your operating system and other background processes can continue working normally. I have 16 cores on my machine, so I'll use 14 workers.
+We are harnessing the power of parallel processing to download our ESM outputs. We use `availableCores()` from the `parallelly` package to tell us how many ***available*** cores we have on our machine. I recommend to use whatever the output is minus two, so that your operating system and other background processes can continue working normally. I have 16 cores on my machine, so I'll use 14 workers.
 
 ```{r, eval = F}
 parallelly::availableCores() # Output says I have 16 cores on my machine
@@ -88,7 +90,7 @@ Now, we write a function that uses the `system()` function to invoke the termina
 
 ```{r, eval = F}
 wget_files <- function(script) {
-  setwd(paste0(pth, data_path)) #set directory to where data will be stored
+  setwd(paste0(pth, cmip_pth)) #set directory to where data will be stored
   system(paste0("bash ", script, " -s")) #run wget on the shell script 
   setwd(pth) #set directory back to home directory 
 }
@@ -98,7 +100,7 @@ wget_files <- function(script) {
 Here, we list all `wget` scripts that we downloaded from ESGF.
 
 ```{r}
-files <- list.files(paste0(pth, wget_path), #full path where wget scripts are stored
+files <- list.files(paste0(pth, wget_pth), #full path where wget scripts are stored
                     pattern = "wget", #only files with wget in the name
                     full.names = TRUE #list the full path 
                     ) 
@@ -107,7 +109,7 @@ files
 
 ### Run function in parallel
 
-Now, we change to multi-session processing, where multiple workers (sessions) are used to download the files concurrently. We then run the function with `future_walk()` , and use the `tictoc` package to time how long this takes. Once all files have downloaded, we change back to single-threaded processing.
+Now, we change to multi-session processing, where multiple workers (sessions) are used to download the files concurrently. We then run the `wget_files()` function with `future_walk()` , and use the `tictoc` package to time how long this takes. Once all files have downloaded, we change back to single-threaded processing.
 
 ```{r, eval = F}
 
@@ -127,17 +129,17 @@ Download speeds depend on your Wifi connection, the capabilities of your local m
 We can check the files have downloaded by...
 
 ```{r}
-list.files(paste0(pth, data_path))
+list.files(paste0(pth, cmip_pth))
 ```
 
 Great! We have successfully downloaded our ESM outputs.
 
-If your scripts downloaded data for 2100-2300, we can remove those files with the `rm` argument in shell:
+If your scripts have downloaded data for 2100-2300 (i.e., some models will do this), we can remove those files with the `rm` argument in shell:
 
 ```{r, eval = F}
-system(paste0("rm ", pth, data_path, "/", 
+system(paste0("rm ", pth, cmip_pth, "/", 
               "tos_Omon_ACCESS-CM2_ssp585_r1i1p1f1_gn_210101-230012.nc"))
-system(paste0("rm ", pth, data_path, "/", 
+system(paste0("rm ", pth, cmip_pth, "/", 
               "tos_Omon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gn_210101-230012.nc"))
 ```
 

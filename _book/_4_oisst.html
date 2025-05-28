@@ -132,8 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -171,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./_xxxx_schedule.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Schedule</span></a>
+ <span class="menu-text">Schedule (TBD)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -218,14 +217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -248,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#preprocess-oisst" id="toc-preprocess-oisst" class="nav-link" data-scroll-target="#preprocess-oisst"><span class="header-section-number">4.2</span> Preprocess OISST</a></li>
   <li><a href="#visualise" id="toc-visualise" class="nav-link" data-scroll-target="#visualise"><span class="header-section-number">4.3</span> Visualise</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -293,7 +286,7 @@ Oceanography terminology: ‘observations’
 </div>
 <section id="download-oisst" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="download-oisst"><span class="header-section-number">4.1</span> Download OISST</h2>
-<p>Here we define a function that takes two arguments, which denote the start and end of the time period we will use to define our baseline climatology. First, we will download twenty years worth of OISST data, spanning 1994 to 2014, which are our <strong>observations</strong>. We’ll get into why we chose this time period in the next Chapter. The function downloads daily files of OISST from the index site <a href="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/">here</a>.</p>
+<p>Here we define a function that takes two arguments, which denote the start and end of the time period we will use to define our baseline climatology. First, we will download twenty years worth of OISST data, spanning 1995 to 2014, which are our <strong>observations</strong>. We’ll get into why we chose this time period in the next Chapter. The function downloads daily files of OISST from the index site <a href="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/">here</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -338,7 +331,7 @@ Oceanography terminology: ‘observations’
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">download_oisst</span>(<span class="at">yrstrt =</span> <span class="dv">1994</span>, <span class="at">yrend =</span> <span class="dv">2014</span>); <span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">download_oisst</span>(<span class="at">yrstrt =</span> <span class="dv">1995</span>, <span class="at">yrend =</span> <span class="dv">2014</span>); <span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <blockquote class="blockquote">
@@ -352,8 +345,8 @@ Oceanography terminology: ‘observations’
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>oisst_mr <span class="ot">&lt;-</span> <span class="cf">function</span>(yr,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">infile =</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_raw"</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">outfile =</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_processed"</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">infile =</span> <span class="fu">paste0</span>(pth, oisst_pth),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">outfile =</span> <span class="fu">paste0</span>(pth, oisst_pth_proc),</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">126</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">116</span>, <span class="at">ymin =</span> <span class="dv">32</span>, <span class="at">ymax =</span> <span class="dv">43</span>,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cell_res =</span> <span class="fl">0.25</span>) {</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -386,7 +379,7 @@ Oceanography terminology: ‘observations’
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector of years to process</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">1994</span><span class="sc">:</span><span class="dv">2014</span>  <span class="co"># Modify as needed</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">1995</span><span class="sc">:</span><span class="dv">2014</span>  <span class="co"># Modify as needed</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">14</span>)  <span class="co"># Change workers to suit your machine</span></span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">future_map</span>(years, <span class="sc">~</span> <span class="fu">oisst_mr</span>(.x)); <span class="fu">toc</span>()</span>
@@ -435,9 +428,9 @@ Leap years
 <p>Let’s see how <code>OISST</code> compares to the ESM output.</p>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_processed/mean_remap_1994.nc"</span>))[[<span class="dv">1</span>]]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>esm <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/cmip6_processed/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))[[<span class="dv">1</span>]]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(oisst, <span class="at">main =</span> <span class="st">"OISST Jan 1994"</span>)</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, oisst_pth_proc, <span class="st">"/mean_remap_1995.nc"</span>))[[<span class="dv">1</span>]]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>esm <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))[[<span class="dv">1</span>]]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(oisst, <span class="at">main =</span> <span class="st">"OISST Jan 1995"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(esm, <span class="at">main =</span> <span class="st">"ESM Jan 1850"</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -895,4 +888,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

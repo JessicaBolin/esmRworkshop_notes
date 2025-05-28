@@ -152,8 +152,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -238,14 +237,8 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -268,7 +261,7 @@ div.csl-indent {
   <li><a href="#create-dataframes-of-baseline-climatologies" id="toc-create-dataframes-of-baseline-climatologies" class="nav-link" data-scroll-target="#create-dataframes-of-baseline-climatologies"><span class="header-section-number">6.2</span> Create dataframes of baseline climatologies</a></li>
   <li><a href="#construct-taylor-diagram" id="toc-construct-taylor-diagram" class="nav-link" data-scroll-target="#construct-taylor-diagram"><span class="header-section-number">6.3</span> Construct Taylor Diagram</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -292,7 +285,7 @@ div.csl-indent {
 </header>
 
 
-<p>We need to evaluate whether our ESM outputs resemble the our observations during the historical time period (i.e., up to 2014). In our case, <code>OISST</code> runs from 1993 onwards, so we will assess skill for 1993-2014. We can do this using <strong>Taylor Diagrams</strong> <span class="citation" data-cites="TAYLOR2001">(<a href="_xxxxxx_references.html#ref-TAYLOR2001" role="doc-biblioref">Taylor 2001</a>)</span>, which are common tools in climate science for assessing accuracy between model predictions and reference values (typically direct observations).</p>
+<p>We need to evaluate whether our ESM outputs resemble our observations during the historical time period (i.e., up to 2014). In our case, <code>OISST</code> runs from 1995 onwards, so we will assess skill for 1993-2014. We can do this using <strong>Taylor Diagrams</strong> <span class="citation" data-cites="TAYLOR2001">(<a href="_xxxxxx_references.html#ref-TAYLOR2001" role="doc-biblioref">Taylor 2001</a>)</span>, which are common tools in climate science for assessing accuracy between model predictions and reference values (typically direct observations).</p>
 <section id="brief-explainer" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="brief-explainer"><span class="header-section-number">6.1</span> Brief explainer</h2>
 <p>Taylor Diagrams tell you the degree of pattern correspondence between two datasets (i.e., accuracy). The diagram provides the correlation coefficient and root-mean-square difference between the ESM simulations and observed data, along with the ratio of standard deviations of the two patterns, <strong>all in one diagram</strong>.</p>
@@ -307,50 +300,53 @@ div.csl-indent {
 <section id="create-dataframes-of-baseline-climatologies" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="create-dataframes-of-baseline-climatologies"><span class="header-section-number">6.2</span> Create dataframes of baseline climatologies</h2>
 <p>We want a data-frame for each product (i.e., OISST raw observations, raw un-bias-corrected ESMs, and the bias-corrected ensemble mean) containing the average SST for each grid cell across 1994-2014.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__scripts/helpers.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell" data-crop="true">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="st">"/Users/admin/Documents/GitHub/BMLworkshop"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/_2_OISST_climatology.nc"</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>access_bc <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/esm/_4_bias_corrected/tos_mo_ACCESS-CM2_1994-2014_bc_historical_remapped.nc"</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ipsl_bc <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/esm/_4_bias_corrected/tos_mo_IPSL-CM6A-LR_1994-2014_bc_historical_remapped.nc"</span>))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>access_raw <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/cmip6_processed/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>access_raw <span class="ot">&lt;-</span> access_raw[[<span class="fu">time</span>(access_raw) <span class="sc">&gt;</span> <span class="st">"1994-01-01"</span>]]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ipsl_raw <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/cmip6_processed/tos_Omon_IPSL-CM6A-LR_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ipsl_raw <span class="ot">&lt;-</span> ipsl_raw[[<span class="fu">time</span>(ipsl_raw) <span class="sc">&gt;</span> <span class="st">"1994-01-01"</span>]]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert rasters to dataframes -------------------------------------------</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean of each field (i.e., baseline/climatology)</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>oisst_df <span class="ot">&lt;-</span> oisst <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>access_df <span class="ot">&lt;-</span> access_raw <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>access_bc_df <span class="ot">&lt;-</span> access_bc <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ipsl_df <span class="ot">&lt;-</span> ipsl_raw <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ipsl_bc_df <span class="ot">&lt;-</span> ipsl_bc <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge and fix names -----------------------------------------------------</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(oisst_df, access_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)) </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"access_mean"</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata, access_bc_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>))</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"access_mean"</span>, <span class="st">"access_bc_mean"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>alldata2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(oisst_df, ipsl_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)) </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"ipsl_mean"</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>alldata2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata2, ipsl_bc_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>))</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"ipsl_mean"</span>, <span class="st">"ipsl_bc_mean"</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata, alldata2)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> alldata <span class="sc">%&gt;%</span> <span class="co">#ensemble mean</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ens_bc_mean =</span> (access_bc_mean <span class="sc">+</span> ipsl_bc_mean) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>alldata <span class="sc">%&gt;%</span> head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotrix)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, bc_pth, <span class="st">"/_2_OISST_climatology.nc"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>access_bc <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, bc_pth, bc_pth_bc, <span class="st">"/tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ipsl_bc <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, bc_pth, bc_pth_bc, <span class="st">"/tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>access_raw <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>access_raw <span class="ot">&lt;-</span> access_raw[[<span class="fu">time</span>(access_raw) <span class="sc">&gt;</span> <span class="st">"1994-01-01"</span>]]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ipsl_raw <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_IPSL-CM6A-LR_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ipsl_raw <span class="ot">&lt;-</span> ipsl_raw[[<span class="fu">time</span>(ipsl_raw) <span class="sc">&gt;</span> <span class="st">"1994-01-01"</span>]]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert rasters to dataframes -------------------------------------------</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean of each field (i.e., baseline/climatology)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>oisst_df <span class="ot">&lt;-</span> oisst <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>access_df <span class="ot">&lt;-</span> access_raw <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>access_bc_df <span class="ot">&lt;-</span> access_bc <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>ipsl_df <span class="ot">&lt;-</span> ipsl_raw <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ipsl_bc_df <span class="ot">&lt;-</span> ipsl_bc <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge and fix names -----------------------------------------------------</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(oisst_df, access_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)) </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"access_mean"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata, access_bc_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"access_mean"</span>, <span class="st">"access_bc_mean"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>alldata2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(oisst_df, ipsl_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)) </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"ipsl_mean"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>alldata2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata2, ipsl_bc_df, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(alldata2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"oisst_mean"</span>, <span class="st">"ipsl_mean"</span>, <span class="st">"ipsl_bc_mean"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(alldata, alldata2)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> alldata <span class="sc">%&gt;%</span> <span class="co">#ensemble mean</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ens_bc_mean =</span> (access_bc_mean <span class="sc">+</span> ipsl_bc_mean) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>alldata <span class="sc">%&gt;%</span> head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        x      y oisst_mean access_mean access_bc_mean ipsl_mean ipsl_bc_mean
@@ -372,57 +368,57 @@ div.csl-indent {
 </section>
 <section id="construct-taylor-diagram" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="construct-taylor-diagram"><span class="header-section-number">6.3</span> Construct Taylor Diagram</h2>
-<p>Then, we plot our Taylor Diagram. Our <code>OISST</code> observations (i.e., reality) is the red circle. If our models perfectly represent reality, they should all plot on top of this circle. In this case, the raw <code>ACCESS-CM2</code> historical run does OK at simulating reality, with a correlation of ~80%. <code>IPSL</code> does slightly worse at around 75%. However, the bias-corrected ensemble average of the two models (i.e., black triangle) plots directly on top of our observations, with almost a 1:1 correlation, meaning it does <strong>really well</strong> at simulating reality, at least for 1994-2014! Further, the bias-corrected ensemble mean has an improved RMSE (i.e., close to 0) and normalized standard deviation (i.e., 1).</p>
+<p>Then, we plot our Taylor Diagram. Our <code>OISST</code> observations (i.e., reality) is the red circle. If our models perfectly represent reality, they should all plot on top of this circle. In this case, the raw <code>ACCESS-CM2</code> historical run does OK at simulating reality, with a correlation of ~80%. <code>IPSL</code> does slightly worse at around 75%. However, the bias-corrected ensemble average of the two models (i.e., black triangle) plots directly on top of our observations, with almost a 1:1 correlation, meaning it does <strong>really well</strong> at simulating reality, at least for 1995-2014! Further, the bias-corrected ensemble mean has an improved RMSE (i.e., close to 0) and normalized standard deviation (i.e., 1).</p>
 <p>This diagram demonstrates <strong>the sheer value</strong> of bias-correcting ESM outputs, before making projections.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>oisst_mean, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">ref.sd =</span> T, <span class="co">#display arc of ref. std. dev. (i.e., 1)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">normalize=</span><span class="cn">TRUE</span>, <span class="co">#normalize models so ref has SD of 1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd.arcs=</span><span class="cn">TRUE</span>,  <span class="co">#display arcs along SD axes</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex =</span> <span class="dv">4</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">col =</span> <span class="st">"red"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">"Standard deviation (normalised)"</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">pos.cor =</span> T, <span class="co">#show correlation (y-axis) from 0-1 </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">gamma.col =</span> <span class="st">"blue"</span>, <span class="co">#RMSE arcs</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">main=</span><span class="st">"OISST vs. CMIP6 ESM tos (SST) 1994-2014"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add ESM points</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>access_mean,</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"purple"</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>ipsl_mean,</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"forestgreen"</span>)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add bias-corrected point</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>ens_bc_mean,</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"black"</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend ------------------------------------------------------------------</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.7</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>,</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"ACCESS-CM2"</span>, <span class="st">"IPSL-CM6A-LR"</span>),</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"purple"</span>, <span class="st">"forestgreen"</span>), </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.54</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">19</span>,</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"OISST"</span>),</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span> <span class="st">'red'</span>, </span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.45</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>,</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Bias-corrected ESMs"</span>),</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span> <span class="st">'black'</span>, </span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>oisst_mean, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">ref.sd =</span> T, <span class="co">#display arc of ref. std. dev. (i.e., 1)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">normalize=</span><span class="cn">TRUE</span>, <span class="co">#normalize models so ref has SD of 1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd.arcs=</span><span class="cn">TRUE</span>,  <span class="co">#display arcs along SD axes</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex =</span> <span class="dv">4</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">"Standard deviation (normalised)"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">pos.cor =</span> T, <span class="co">#show correlation (y-axis) from 0-1 </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">gamma.col =</span> <span class="st">"blue"</span>, <span class="co">#RMSE arcs</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">main=</span><span class="st">"OISST vs. CMIP6 ESM tos (SST) 1995-2014"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add ESM points</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>access_mean,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"purple"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>ipsl_mean,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"forestgreen"</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add bias-corrected point</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="fu">taylor.diagram</span>(alldata<span class="sc">$</span>oisst_mean,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>               alldata<span class="sc">$</span>access_bc_mean,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">normalize=</span><span class="cn">TRUE</span>,  </span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">pcex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">col=</span> <span class="st">"black"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend ------------------------------------------------------------------</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.7</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"ACCESS-CM2"</span>, <span class="st">"IPSL-CM6A-LR"</span>),</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"purple"</span>, <span class="st">"forestgreen"</span>), </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.54</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">19</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"OISST"</span>),</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span> <span class="st">'red'</span>, </span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">1.2</span>, <span class="fl">1.45</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pt.cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">17</span>,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Bias-corrected ESMs"</span>),</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span> <span class="st">'black'</span>, </span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -877,4 +873,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

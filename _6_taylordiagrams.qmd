@@ -1,6 +1,6 @@
 # Evaluate accuracy of historical ESM projections
 
-We need to evaluate whether our ESM outputs resemble the our observations during the historical time period (i.e., up to 2014). In our case, `OISST` runs from 1993 onwards, so we will assess skill for 1993-2014. We can do this using **Taylor Diagrams** [@TAYLOR2001], which are common tools in climate science for assessing accuracy between model predictions and reference values (typically direct observations).
+We need to evaluate whether our ESM outputs resemble our observations during the historical time period (i.e., up to 2014). In our case, `OISST` runs from 1995 onwards, so we will assess skill for 1993-2014. We can do this using **Taylor Diagrams** [@TAYLOR2001], which are common tools in climate science for assessing accuracy between model predictions and reference values (typically direct observations).
 
 ## Brief explainer
 
@@ -14,19 +14,27 @@ Taylor Diagrams tell you the degree of pattern correspondence between two datase
 
 We want a data-frame for each product (i.e., OISST raw observations, raw un-bias-corrected ESMs, and the bias-corrected ensemble mean) containing the average SST for each grid cell across 1994-2014.
 
-```{r, message=F, warning = F}
+```{r, echo = F}
+pth <- "/Users/admin/Documents/GitHub/esmRworkshop_website"
+```
+
+```{r, message = F, warning = F, eval = T}
+source(paste0(pth, "/__scripts/helpers.R"))
+```
+
+```{r, message = F, warning = F}
 #| code-fold: true
 #| crop: true
 library(terra)
 library(tidyverse)
-pth <- "/Users/admin/Documents/GitHub/BMLworkshop"
+library(plotrix)
 
-oisst <- rast(paste0(pth, "/__data/bias_correct/_2_OISST_climatology.nc"))
-access_bc <- rast(paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected/tos_mo_ACCESS-CM2_1994-2014_bc_historical_remapped.nc"))
-ipsl_bc <- rast(paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected/tos_mo_IPSL-CM6A-LR_1994-2014_bc_historical_remapped.nc"))
-access_raw <- rast(paste0(pth, "/__data/cmip6_processed/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))
+oisst <- rast(paste0(pth, bc_pth, "/_2_OISST_climatology.nc"))
+access_bc <- rast(paste0(pth, bc_pth, bc_pth_bc, "/tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"))
+ipsl_bc <- rast(paste0(pth, bc_pth, bc_pth_bc, "/tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"))
+access_raw <- rast(paste0(pth, cmip_pth_proc, "/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))
 access_raw <- access_raw[[time(access_raw) > "1994-01-01"]]
-ipsl_raw <- rast(paste0(pth, "/__data/cmip6_processed/tos_Omon_IPSL-CM6A-LR_historical_r1i1p1f1_gn_185001-201412.nc"))
+ipsl_raw <- rast(paste0(pth, cmip_pth_proc, "/tos_Omon_IPSL-CM6A-LR_historical_r1i1p1f1_gn_185001-201412.nc"))
 ipsl_raw <- ipsl_raw[[time(ipsl_raw) > "1994-01-01"]]
 
 
@@ -62,7 +70,7 @@ alldata %>% head
 
 ## Construct Taylor Diagram
 
-Then, we plot our Taylor Diagram. Our `OISST` observations (i.e., reality) is the red circle. If our models perfectly represent reality, they should all plot on top of this circle. In this case, the raw `ACCESS-CM2` historical run does OK at simulating reality, with a correlation of \~80%. `IPSL` does slightly worse at around 75%. However, the bias-corrected ensemble average of the two models (i.e., black triangle) plots directly on top of our observations, with almost a 1:1 correlation, meaning it does **really well** at simulating reality, at least for 1994-2014! Further, the bias-corrected ensemble mean has an improved RMSE (i.e., close to 0) and normalized standard deviation (i.e., 1).
+Then, we plot our Taylor Diagram. Our `OISST` observations (i.e., reality) is the red circle. If our models perfectly represent reality, they should all plot on top of this circle. In this case, the raw `ACCESS-CM2` historical run does OK at simulating reality, with a correlation of \~80%. `IPSL` does slightly worse at around 75%. However, the bias-corrected ensemble average of the two models (i.e., black triangle) plots directly on top of our observations, with almost a 1:1 correlation, meaning it does **really well** at simulating reality, at least for 1995-2014! Further, the bias-corrected ensemble mean has an improved RMSE (i.e., close to 0) and normalized standard deviation (i.e., 1).
 
 This diagram demonstrates **the sheer value** of bias-correcting ESM outputs, before making projections.
 
@@ -80,7 +88,7 @@ taylor.diagram(alldata$oisst_mean,
                xlab = "Standard deviation (normalised)",
                pos.cor = T, #show correlation (y-axis) from 0-1 
                gamma.col = "blue", #RMSE arcs
-               main="OISST vs. CMIP6 ESM tos (SST) 1994-2014")
+               main="OISST vs. CMIP6 ESM tos (SST) 1995-2014")
 
 # Add ESM points
 taylor.diagram(alldata$oisst_mean,
@@ -95,7 +103,7 @@ taylor.diagram(alldata$oisst_mean,
 
 # Add bias-corrected point
 taylor.diagram(alldata$oisst_mean,
-               alldata$ens_bc_mean,
+               alldata$access_bc_mean,
                add=TRUE, normalize=TRUE,  
                pcex=2, pch=17, col= "black")
 

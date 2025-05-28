@@ -4,7 +4,13 @@
 
 Our course is not intended for absolute beginners in R. While participants don’t need to be highly proficient, a basic understanding of R and programming syntax is required. For example, participants should know how to create an R project and open a script, read in data using commands, make basic plots using `base` R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the `terra` package and working with `netCDF` files is a plus, but again, not required.
 
-In addition to having R and RStudio already installed, you will need to install (i) `CDO`, (ii) `NCO`, (iii) `wget`, (iv) `Panoply` and (v) a suite of R packages. 
+In addition to having R and RStudio already installed, you will need to install (i) `CDO`, (ii) `NCO`, (iii) `wget`, (iv) `Panoply` and (v) a suite of R packages.
+
+::: callout-important
+We **strongly** recommend bringing a macOS laptop to the workshop. We've found that Windows users often run into issues with installing and using `CDO`, which is required for the workshop (see below). If you have a Windows laptop, you're still welcome to attend, but the instructors will be using macOS during the workshop. As such, we're unlikely to be able to fix any Windows-related errors or software installation problems (and we unfortunately can't spend time troubleshooting any Windows issues).
+
+To see if you may have software issues during our workshop, install the prerequisites below, download this folder [here](https://drive.google.com/drive/folders/17pphDrOyMFz0tm44HdkJd8TT74TOfJ91?usp=sharing), and run the `runme.R` script. If you don't run into any errors, great! If you do, you will need to do some troubleshooting before the workshop.
+:::
 
 ------------------------------------------------------------------------
 
@@ -49,9 +55,7 @@ brew install nco
 
 #### Windows
 
-::: callout-caution
-TBA: FIND THIS OUT
-:::
+Installing `NCO` on windows can be tricky. [Here](https://sourceforge.net/p/nco/discussion/9830/thread/59fe446d/) is a discussion forum.
 
 ------------------------------------------------------------------------
 
@@ -69,9 +73,7 @@ brew install wget
 
 #### Windows
 
-::: callout-caution
-TBA: FIND THIS OUT
-:::
+Check out the link [here](https://gnuwin32.sourceforge.net/packages/wget.htm). You may need to do some extra fiddling - see [here](https://www.tomshardware.com/how-to/use-wget-download-files-command-line#:~:text=Installing%20GNU%20Wget%20on%20Windows,use%20on%20a%20Linux%20PC.) or check out Youtube for further help.
 
 ------------------------------------------------------------------------
 
@@ -103,14 +105,13 @@ pacman::p_load(tidyverse, # Working with 'tidy' data
 
 ```
 
----
+------------------------------------------------------------------------
 
-### Changing your path 
+### Changing your path
 
-Lastly, once you have downloaded the repository, you will need to open `__scripts/helpers.R`, and change your `pth` object to suit your machine (see Line 7). I've set mine as `"/Users/admin/Documents/GitHub/esmRworkshop"`; change yours to reflect where this folder is located on your machine. 
+Lastly, once you have downloaded the repository, you will need to open `__scripts/helpers.R`, and change your `pth` object to suit your machine (see Line 7). I've set mine as `"/Users/admin/Documents/GitHub/esmRworkshop_website"`; change yours to reflect where this folder is located on your machine.
 
----
-
+------------------------------------------------------------------------
 
 ::: {.callout-important collapse="true"}
 ## Below are the dependencies and package versions the instructors will use for the workshop.
@@ -128,47 +129,114 @@ Lastly, once you have downloaded the repository, you will need to open `__script
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       America/Los_Angeles
- date     2024-12-02
+ date     2025-05-28
  rstudio  2024.04.2+764 Chocolate Cosmos (desktop)
  pandoc   NA
 
-─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- package     * version date (UTC) lib source
- cachem        1.1.0   2024-05-16 [1] CRAN (R 4.4.0)
- cli           3.6.3   2024-06-21 [1] CRAN (R 4.4.0)
- devtools      2.4.5   2022-10-11 [1] CRAN (R 4.4.0)
- digest        0.6.36  2024-06-23 [1] CRAN (R 4.4.0)
- ellipsis      0.3.2   2021-04-29 [1] CRAN (R 4.4.0)
- fastmap       1.2.0   2024-05-15 [1] CRAN (R 4.4.0)
- fs            1.6.4   2024-04-25 [1] CRAN (R 4.4.0)
- glue          1.7.0   2024-01-09 [1] CRAN (R 4.4.0)
- htmltools     0.5.8.1 2024-04-04 [1] CRAN (R 4.4.0)
- htmlwidgets   1.6.4   2023-12-06 [1] CRAN (R 4.4.0)
- httpuv        1.6.15  2024-03-26 [1] CRAN (R 4.4.0)
- later         1.3.2   2023-12-06 [1] CRAN (R 4.4.0)
- lifecycle     1.0.4   2023-11-07 [1] CRAN (R 4.4.0)
- magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.4.0)
- memoise       2.0.1   2021-11-26 [1] CRAN (R 4.4.0)
- mime          0.12    2021-09-28 [1] CRAN (R 4.4.0)
- miniUI        0.1.1.1 2018-05-18 [1] CRAN (R 4.4.0)
- pkgbuild      1.4.4   2024-03-17 [1] CRAN (R 4.4.0)
- pkgload       1.4.0   2024-06-28 [1] CRAN (R 4.4.0)
- profvis       0.3.8   2023-05-02 [1] CRAN (R 4.4.0)
- promises      1.3.0   2024-04-05 [1] CRAN (R 4.4.0)
- purrr         1.0.2   2023-08-10 [1] CRAN (R 4.4.0)
- R6            2.5.1   2021-08-19 [1] CRAN (R 4.4.0)
- Rcpp          1.0.12  2024-01-09 [1] CRAN (R 4.4.0)
- remotes       2.5.0   2024-03-17 [1] CRAN (R 4.4.0)
- rlang         1.1.4   2024-06-04 [1] CRAN (R 4.4.0)
- rstudioapi    0.16.0  2024-03-24 [1] CRAN (R 4.4.0)
- sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.4.0)
- shiny         1.8.1.1 2024-04-02 [1] CRAN (R 4.4.0)
- stringi       1.8.4   2024-05-06 [1] CRAN (R 4.4.0)
- stringr       1.5.1   2023-11-14 [1] CRAN (R 4.4.0)
- urlchecker    1.0.1   2021-11-30 [1] CRAN (R 4.4.0)
- usethis       2.2.3   2024-02-19 [1] CRAN (R 4.4.0)
- vctrs         0.6.5   2023-12-01 [1] CRAN (R 4.4.0)
- xtable        1.8-4   2019-04-21 [1] CRAN (R 4.4.0)
+─ Packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ package      * version   date (UTC) lib source
+ abind          1.4-5     2016-07-21 [1] CRAN (R 4.4.0)
+ audio          0.1-11    2023-08-18 [1] CRAN (R 4.4.0)
+ base64enc      0.1-3     2015-07-28 [1] CRAN (R 4.4.0)
+ beepr        * 2.0       2024-07-06 [1] CRAN (R 4.4.0)
+ bitops         1.0-8     2024-07-29 [1] CRAN (R 4.4.0)
+ cachem         1.1.0     2024-05-16 [1] CRAN (R 4.4.0)
+ class          7.3-22    2023-05-03 [1] CRAN (R 4.4.1)
+ classInt       0.4-10    2023-09-05 [1] CRAN (R 4.4.0)
+ cli            3.6.3     2024-06-21 [1] CRAN (R 4.4.0)
+ codetools      0.2-20    2024-03-31 [1] CRAN (R 4.4.1)
+ colorspace     2.1-0     2023-01-23 [1] CRAN (R 4.4.0)
+ crosstalk      1.2.1     2023-11-23 [1] CRAN (R 4.4.0)
+ DBI            1.2.3     2024-06-02 [1] CRAN (R 4.4.0)
+ devtools       2.4.5     2022-10-11 [1] CRAN (R 4.4.0)
+ dichromat      2.0-0.1   2022-05-02 [1] CRAN (R 4.4.0)
+ digest         0.6.36    2024-06-23 [1] CRAN (R 4.4.0)
+ dplyr        * 1.1.4     2023-11-17 [1] CRAN (R 4.4.0)
+ e1071          1.7-14    2023-12-06 [1] CRAN (R 4.4.0)
+ ellipsis       0.3.2     2021-04-29 [1] CRAN (R 4.4.0)
+ fansi          1.0.6     2023-12-08 [1] CRAN (R 4.4.0)
+ fastmap        1.2.0     2024-05-15 [1] CRAN (R 4.4.0)
+ forcats      * 1.0.0     2023-01-29 [1] CRAN (R 4.4.0)
+ fs             1.6.4     2024-04-25 [1] CRAN (R 4.4.0)
+ furrr        * 0.3.1     2022-08-15 [1] CRAN (R 4.4.0)
+ future       * 1.34.0    2024-07-29 [1] CRAN (R 4.4.0)
+ generics       0.1.3     2022-07-05 [1] CRAN (R 4.4.0)
+ ggplot2      * 3.5.1     2024-04-23 [1] CRAN (R 4.4.0)
+ globals        0.16.3    2024-03-08 [1] CRAN (R 4.4.0)
+ glue           1.7.0     2024-01-09 [1] CRAN (R 4.4.0)
+ gtable         0.3.5     2024-04-22 [1] CRAN (R 4.4.0)
+ hms            1.1.3     2023-03-21 [1] CRAN (R 4.4.0)
+ htmltools      0.5.8.1   2024-04-04 [1] CRAN (R 4.4.0)
+ htmlwidgets    1.6.4     2023-12-06 [1] CRAN (R 4.4.0)
+ httpuv         1.6.15    2024-03-26 [1] CRAN (R 4.4.0)
+ httr           1.4.7     2023-08-15 [1] CRAN (R 4.4.0)
+ KernSmooth     2.23-24   2024-05-17 [1] CRAN (R 4.4.1)
+ later          1.3.2     2023-12-06 [1] CRAN (R 4.4.0)
+ lattice        0.22-6    2024-03-20 [1] CRAN (R 4.4.0)
+ leafem         0.2.3     2023-09-17 [1] CRAN (R 4.4.0)
+ leaflet        2.2.2     2024-03-26 [1] CRAN (R 4.4.0)
+ leafsync       0.1.0     2019-03-05 [1] CRAN (R 4.4.0)
+ lifecycle      1.0.4     2023-11-07 [1] CRAN (R 4.4.0)
+ listenv        0.9.1     2024-01-29 [1] CRAN (R 4.4.0)
+ lubridate    * 1.9.3     2023-09-27 [1] CRAN (R 4.4.0)
+ lwgeom         0.2-14    2024-02-21 [1] CRAN (R 4.4.0)
+ magrittr       2.0.3     2022-03-30 [1] CRAN (R 4.4.0)
+ maps           3.4.2     2023-12-15 [1] CRAN (R 4.4.0)
+ memoise        2.0.1     2021-11-26 [1] CRAN (R 4.4.0)
+ mime           0.12      2021-09-28 [1] CRAN (R 4.4.0)
+ miniUI         0.1.1.1   2018-05-18 [1] CRAN (R 4.4.0)
+ munsell        0.5.1     2024-04-01 [1] CRAN (R 4.4.0)
+ ncdf4        * 1.22      2023-11-28 [1] CRAN (R 4.4.0)
+ parallelly   * 1.41.0    2024-12-18 [1] CRAN (R 4.4.1)
+ pillar         1.9.0     2023-03-22 [1] CRAN (R 4.4.0)
+ pkgbuild       1.4.4     2024-03-17 [1] CRAN (R 4.4.0)
+ pkgconfig      2.0.3     2019-09-22 [1] CRAN (R 4.4.0)
+ pkgload        1.4.0     2024-06-28 [1] CRAN (R 4.4.0)
+ plotrix      * 3.8-4     2023-11-10 [1] CRAN (R 4.4.0)
+ png            0.1-8     2022-11-29 [1] CRAN (R 4.4.0)
+ profvis        0.3.8     2023-05-02 [1] CRAN (R 4.4.0)
+ promises       1.3.0     2024-04-05 [1] CRAN (R 4.4.0)
+ proxy          0.4-27    2022-06-09 [1] CRAN (R 4.4.0)
+ purrr        * 1.0.2     2023-08-10 [1] CRAN (R 4.4.0)
+ R6             2.5.1     2021-08-19 [1] CRAN (R 4.4.0)
+ raster       * 3.6-30    2024-10-02 [1] CRAN (R 4.4.1)
+ RColorBrewer   1.1-3     2022-04-03 [1] CRAN (R 4.4.0)
+ Rcpp           1.0.12    2024-01-09 [1] CRAN (R 4.4.0)
+ RCurl        * 1.98-1.16 2024-07-11 [1] CRAN (R 4.4.0)
+ readr        * 2.1.5     2024-01-10 [1] CRAN (R 4.4.0)
+ remotes        2.5.0     2024-03-17 [1] CRAN (R 4.4.0)
+ rlang          1.1.4     2024-06-04 [1] CRAN (R 4.4.0)
+ rstudioapi     0.16.0    2024-03-24 [1] CRAN (R 4.4.0)
+ rvest        * 1.0.4     2024-02-12 [1] CRAN (R 4.4.0)
+ scales         1.3.0     2023-11-28 [1] CRAN (R 4.4.0)
+ sessioninfo    1.2.2     2021-12-06 [1] CRAN (R 4.4.0)
+ sf             1.0-16    2024-03-24 [1] CRAN (R 4.4.0)
+ shiny          1.8.1.1   2024-04-02 [1] CRAN (R 4.4.0)
+ sp           * 2.1-4     2024-04-30 [1] CRAN (R 4.4.0)
+ stars          0.6-6     2024-07-16 [1] CRAN (R 4.4.0)
+ stringi        1.8.4     2024-05-06 [1] CRAN (R 4.4.0)
+ stringr      * 1.5.1     2023-11-14 [1] CRAN (R 4.4.0)
+ terra        * 1.8-29    2025-02-26 [1] CRAN (R 4.4.1)
+ tibble       * 3.2.1     2023-03-20 [1] CRAN (R 4.4.0)
+ tictoc       * 1.2.1     2024-03-18 [1] CRAN (R 4.4.0)
+ tidyr        * 1.3.1     2024-01-24 [1] CRAN (R 4.4.0)
+ tidyselect     1.2.1     2024-03-11 [1] CRAN (R 4.4.0)
+ tidyverse    * 2.0.0     2023-02-22 [1] CRAN (R 4.4.0)
+ timechange     0.3.0     2024-01-18 [1] CRAN (R 4.4.0)
+ tmap         * 3.3-4     2023-09-12 [1] CRAN (R 4.4.0)
+ tmaptools      3.1-1     2021-01-19 [1] CRAN (R 4.4.0)
+ tzdb           0.4.0     2023-05-12 [1] CRAN (R 4.4.0)
+ units          0.8-5     2023-11-28 [1] CRAN (R 4.4.0)
+ urlchecker     1.0.1     2021-11-30 [1] CRAN (R 4.4.0)
+ usethis        2.2.3     2024-02-19 [1] CRAN (R 4.4.0)
+ utf8           1.2.4     2023-10-22 [1] CRAN (R 4.4.0)
+ vctrs          0.6.5     2023-12-01 [1] CRAN (R 4.4.0)
+ viridisLite    0.4.2     2023-05-02 [1] CRAN (R 4.4.0)
+ withr          3.0.0     2024-01-16 [1] CRAN (R 4.4.0)
+ XML            3.99-0.17 2024-06-25 [1] CRAN (R 4.4.0)
+ xml2         * 1.3.6     2023-12-04 [1] CRAN (R 4.4.0)
+ xtable         1.8-4     2019-04-21 [1] CRAN (R 4.4.0)
+ zoo          * 1.8-12    2023-04-13 [1] CRAN (R 4.4.0)
 
  [1] /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library
 ```

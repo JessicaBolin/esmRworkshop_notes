@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -132,8 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -218,14 +237,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -260,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#run-function-in-parallel" id="toc-run-function-in-parallel" class="nav-link" data-scroll-target="#run-function-in-parallel"><span class="header-section-number">2.3.4</span> Run function in parallel</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -334,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>For more information on what ESM components mean, see Table 1 in Schoeman et al.&nbsp;2023.</p>
+<p>For more information on what ESM components mean, see Table 1 in <span class="citation" data-cites="SCHOEMAN2023">(<a href="_xxxxxx_references.html#ref-SCHOEMAN2023" role="doc-biblioref">Schoeman et al. 2023</a>)</span>.</p>
 </section>
 <section id="download-wget-shell-scripts" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="download-wget-shell-scripts"><span class="header-section-number">2.2</span> Download <code>wget</code> shell scripts</h2>
@@ -344,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Click <a href="https://esgf.github.io/index.html">here</a> to open the website</li>
 <li>Click the <a href="https://esgf.github.io/nodes.html">nodes</a> link to explore the different nodes available (i.e., different data servers)</li>
-<li>Click a Metagrid UI node (i.e., <a href="https://aims2.llnl.gov/search">LLNL Metagrid</a>)</li>
+<li>Click a Metagrid UI node (i.e., today, we’ll use <a href="https://aims2.llnl.gov/search">LLNL Metagrid</a>)</li>
 </ul>
 <p>You are now on the main website to download CMIP6 output. Ensure CMIP6 is selected under the ‘Project’ heading on the top left, and filter by ‘Only Globus Transferable’. On the left, there are several filters to play with.</p>
 </section>
@@ -365,13 +378,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="download-wget-shell-script" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="download-wget-shell-script"><span class="header-section-number">2.2.3</span> Download <code>wget</code> shell script</h3>
-<p>Then, download the script by clicking the <strong>Download</strong> icon next to the <code>wget</code> download option. This downloads a shell script (i.e., indicated by the <code>.sh</code> file extension) that we will later use to download the file through R interfacing with CDO and the command line.</p>
+<p>Then, download the shell script by clicking the <strong>Download</strong> icon next to the <code>wget</code> download option. This uses <code>wget</code> to download a shell script (i.e., indicated by the <code>.sh</code> file extension) that we will later use to download the file through R whilst interfacing with CDO and the command line.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/downloadwget.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="705"></p>
 </figure>
 </div>
-<p>Once downloaded, move the file into the <code>/wget_scripts</code> folder in your project directory.</p>
+<p>Once downloaded, move the shell script into the <code>/wget_scripts</code> folder in your project directory.</p>
 </section>
 <section id="rinse-and-repeat" class="level3" data-number="2.2.4">
 <h3 data-number="2.2.4" class="anchored" data-anchor-id="rinse-and-repeat"><span class="header-section-number">2.2.4</span> Rinse and repeat</h3>
@@ -392,7 +405,7 @@ Warning: storage
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In total, we are downloading eight <code>.nc</code> files that comprise 2.65 GB of data. These are just for two models and two scenarios + historical, at a monthly time-step. Storing ESM outputs can take a lot of space - for example, if you’re working with daily data across multiple models and climate scenarios, you’ll almost certainly need an external hard drive or other storage solution.</p>
+<p>In total, we are about to download eight <code>.nc</code> files that comprise 2.65 GB of data. These are just for two models and two scenarios + historical, at a monthly time-step. Storing ESM outputs can take a lot of space - for example, if you’re working with daily data across multiple models and climate scenarios, you’ll almost certainly need an external hard drive or other storage solution.</p>
 </div>
 </div>
 </div>
@@ -401,15 +414,12 @@ Warning: storage
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="define-dependencies"><span class="header-section-number">2.3.1</span> Define dependencies</h3>
 <p>First, we source our packages and set our directories for where our (i) <code>wget</code> scripts are stored, and (ii) where we will store the ESM outputs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="st">"/Users/admin/Documents/GitHub/BMLworkshop"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__scripts/helpers.R"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"/__data/cmip6_raw"</span> <span class="co"># directory to store ESM files </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wget_path <span class="ot">&lt;-</span> <span class="st">"/__scripts/wget_scripts"</span> <span class="co"># where wget scripts are stored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">paste0</span>(<span class="fu">getwd</span>(), <span class="st">"/__scripts/helpers.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="prepare-for-parallel-processing" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="prepare-for-parallel-processing"><span class="header-section-number">2.3.2</span> Prepare for parallel processing</h3>
-<p>We are harnessing the power of parallel processing to download our ESM outputs. We use <code>availableCores()</code> from the <code>parallelly</code> package to tell us how many <strong><em>available</em></strong> cores we have on our machine. It’s recommended to use whatever the output is minus two, so that your operating system and other background processes can continue working normally. I have 16 cores on my machine, so I’ll use 14 workers.</p>
+<p>We are harnessing the power of parallel processing to download our ESM outputs. We use <code>availableCores()</code> from the <code>parallelly</code> package to tell us how many <strong><em>available</em></strong> cores we have on our machine. I recommend to use whatever the output is minus two, so that your operating system and other background processes can continue working normally. I have 16 cores on my machine, so I’ll use 14 workers.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>parallelly<span class="sc">::</span><span class="fu">availableCores</span>() <span class="co"># Output says I have 16 cores on my machine</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="dv">14</span>  <span class="co"># Leave two cores for other background processes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -420,31 +430,31 @@ Warning: storage
 <p>Now, we write a function that uses the <code>system()</code> function to invoke the terminal from within R to run the <code>wget</code> script, which downloads the ESM file. First, we set our working directory to the full path where data will be stored, which we defined above as <code>/data</code>. Then, we run the <code>system()</code> function to run the <code>wget</code> script using <code>bash</code> via the terminal. Once the script has run and the file has downloaded, we set the working directory back to the root directory.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wget_files <span class="ot">&lt;-</span> <span class="cf">function</span>(script) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="fu">paste0</span>(pth, data_path)) <span class="co">#set directory to where data will be stored</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="fu">paste0</span>(pth, cmip_pth)) <span class="co">#set directory to where data will be stored</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"bash "</span>, script, <span class="st">" -s"</span>)) <span class="co">#run wget on the shell script </span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(pth) <span class="co">#set directory back to home directory </span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we list all <code>wget</code> scripts that we downloaded from ESGF.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, wget_path), <span class="co">#full path where wget scripts are stored</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, wget_pth), <span class="co">#full path where wget scripts are stored</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pattern =</span> <span class="st">"wget"</span>, <span class="co">#only files with wget in the name</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">full.names =</span> <span class="cn">TRUE</span> <span class="co">#list the full path </span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    ) </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_access-cm2_historical.sh"
-[2] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_access-cm2_ssp245.sh"    
-[3] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_access-cm2_ssp585.sh"    
-[4] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_ipsl_historical.sh"      
-[5] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_ipsl_ssp245.sh"          
-[6] "/Users/admin/Documents/GitHub/BMLworkshop/__scripts/wget_scripts/wget_script_ipsl_ssp585.sh"          </code></pre>
+<pre><code>[1] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_access-cm2_historical.sh"
+[2] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_access-cm2_ssp245.sh"    
+[3] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_access-cm2_ssp585.sh"    
+[4] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_ipsl_historical.sh"      
+[5] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_ipsl_ssp245.sh"          
+[6] "/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/wget_scripts/wget_script_ipsl_ssp585.sh"          </code></pre>
 </div>
 </div>
 </section>
 <section id="run-function-in-parallel" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="run-function-in-parallel"><span class="header-section-number">2.3.4</span> Run function in parallel</h3>
-<p>Now, we change to multi-session processing, where multiple workers (sessions) are used to download the files concurrently. We then run the function with <code>future_walk()</code> , and use the <code>tictoc</code> package to time how long this takes. Once all files have downloaded, we change back to single-threaded processing.</p>
+<p>Now, we change to multi-session processing, where multiple workers (sessions) are used to download the files concurrently. We then run the <code>wget_files()</code> function with <code>future_walk()</code> , and use the <code>tictoc</code> package to time how long this takes. Once all files have downloaded, we change back to single-threaded processing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> w) <span class="co"># Change to multi-threaded processing</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">future_walk</span>(files, wget_files); <span class="fu">toc</span>() <span class="co">#Run the function in parallel</span></span>
@@ -471,7 +481,7 @@ Download speeds
 </div>
 <p>We can check the files have downloaded by…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, data_path))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, cmip_pth))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"  
 [2] "tos_Omon_ACCESS-CM2_ssp245_r1i1p1f1_gn_201501-210012.nc"      
@@ -482,11 +492,11 @@ Download speeds
 </div>
 </div>
 <p>Great! We have successfully downloaded our ESM outputs.</p>
-<p>If your scripts downloaded data for 2100-2300, we can remove those files with the <code>rm</code> argument in shell:</p>
+<p>If your scripts have downloaded data for 2100-2300 (i.e., some models will do this), we can remove those files with the <code>rm</code> argument in shell:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, pth, data_path, <span class="st">"/"</span>, </span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, pth, cmip_pth, <span class="st">"/"</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tos_Omon_ACCESS-CM2_ssp585_r1i1p1f1_gn_210101-230012.nc"</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, pth, data_path, <span class="st">"/"</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, pth, cmip_pth, <span class="st">"/"</span>, </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tos_Omon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gn_210101-230012.nc"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -507,6 +517,11 @@ Beware of <code>rm</code>
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-SCHOEMAN2023" class="csl-entry" role="listitem">
+Schoeman, David S., Alex Sen Gupta, Cheryl S. Harrison, Jason D. Everett, Isaac Brito-Morales, Lee Hannah, Laurent Bopp, Patrick R. Roehrdanz, and Anthony J. Richardson. 2023. <span>“Demystifying Global Climate Models for Use in the Life Sciences.”</span> <em>Trends in Ecology &amp; Evolution</em> 38 (9): 843–58. https://doi.org/<a href="https://doi.org/10.1016/j.tree.2023.04.005">https://doi.org/10.1016/j.tree.2023.04.005</a>.
+</div>
+</div>
 </section>
 </section>
 
@@ -948,4 +963,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

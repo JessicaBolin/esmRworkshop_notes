@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./_8_ecology.html" rel="next">
+<link href="./_xxxxx_handyresources.html" rel="next">
 <link href="./_6_taylordiagrams.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -152,8 +152,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -191,7 +190,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./_xxxx_schedule.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Schedule</span></a>
+ <span class="menu-text">Schedule (TBD)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -238,14 +237,8 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -280,7 +273,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#uncertainty" id="toc-uncertainty" class="nav-link" data-scroll-target="#uncertainty"><span class="header-section-number">7.3</span> Uncertainty</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -304,7 +297,10 @@ div.csl-indent {
 </header>
 
 
-<p>Time to make some projections! We will make projections on the three IPCC AR6 time periods: near-term (2020-2040) and long-term (2080-2100).</p>
+<p>Time to make some projections! We will make projections on two IPCC AR6 time periods: near-term (2020-2040) and long-term (2080-2100).</p>
+<div class="callout-caveat">
+<p>Note - In general, ESMs (which are externally forced) can’t really be used for short-term forecasts (such as a projection for one year in the future). Here, we show you how to create projections anyway, and you can amend to a time period of interest for your own work.</p>
+</div>
 <section id="time-series" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="time-series"><span class="header-section-number">7.1</span> Time series</h2>
 <p>We are going to create two time series of temperature from 2015 to 2100, for the entire California Current region - one for each SSP.</p>
@@ -375,12 +371,16 @@ div.csl-indent {
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                 ssp, <span class="st">".RDS"</span>))</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">timeseries_ssp</span>(<span class="st">"ssp245"</span>); <span class="fu">toc</span>() <span class="co">#Jessie: 16.32 seconds</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">timeseries_ssp</span>(<span class="st">"ssp585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>ssps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ssp245"</span>, <span class="st">"ssp585"</span>)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">future_walk</span>(ssps, timeseries_ssp); <span class="fu">toc</span>() <span class="co">#26 seconds for both</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># For loop version</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#tic(); timeseries_ssp("ssp245"); toc() #Jessie: 16.32 seconds for one</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#timeseries_ssp("ssp585")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <blockquote class="blockquote">
-<p>Jessie speed: ~17s</p>
+<p>Jessie speed: ~26s</p>
 </blockquote>
 <p>This results in two dataframes for each SSP: (i) one containing the ensemble mean of temperature for each year, and (ii) one containing the mean temperature across each model. For example…</p>
 <div class="cell">
@@ -411,6 +411,19 @@ div.csl-indent {
 4 ACCESS-CM2 2018 14.79648
 5 ACCESS-CM2 2019 14.47969
 6 ACCESS-CM2 2020 15.17875</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Today, we’re using the ensemble mean. But in your own work, you may want to consider using the ensemble median instead. The median may be less impacted by outliers/extremes in the data, especially if you’re using ESMs that are known to be <a href="https://www.nature.com/articles/d41586-022-01192-2">‘too-hot’</a> in your region of interest.</p>
 </div>
 </div>
 </section>
@@ -493,70 +506,61 @@ div.csl-indent {
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey"</span>,</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_rect</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(), </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">2040</span>, <span class="at">xmax =</span> <span class="dv">2060</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">2080</span>, <span class="at">xmax =</span> <span class="dv">2100</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>),</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey"</span>, </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_rect</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(), </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">2080</span>, <span class="at">xmax =</span> <span class="dv">2100</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>),</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey"</span>, </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>(smooth_esm, </span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> values), </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">lwd =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="fu">subset</span>(ssp_smoothed_ind, model <span class="sc">==</span> <span class="st">"ACCESS-CM2"</span>), </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>(smooth_esm, </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> values), </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">lwd =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="fu">subset</span>(ssp_smoothed_ind, model <span class="sc">==</span> <span class="st">"ACCESS-CM2"</span>), </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> values), </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"black"</span>, </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">subset</span>(ssp_smoothed_ind, model <span class="sc">==</span> <span class="st">"IPSL-CM6A-LR"</span>), </span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> values), </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"black"</span>, </span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">subset</span>(ssp_smoothed_ind, model <span class="sc">==</span> <span class="st">"IPSL-CM6A-LR"</span>), </span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> values), </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">col =</span> <span class="st">"black"</span>, </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Year"</span>, </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n.breaks =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"SST (˚C)"</span>, </span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>                       <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">13.5</span>, <span class="fl">20.5</span>)) <span class="sc">+</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.1</span>,.<span class="dv">1</span>,<span class="fl">0.1</span>),<span class="st">"cm"</span>),</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, </span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> <span class="st">"Arial Narrow"</span>,</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, </span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> <span class="st">"Arial Narrow"</span>),</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="sc">-</span><span class="dv">20</span>))) <span class="sc">+</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2019</span>, <span class="at">y =</span> <span class="fl">20.1</span>,</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> sspletter, </span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">9</span>, </span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface =</span> <span class="st">"bold"</span>, </span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2083</span>, <span class="at">y =</span> <span class="fl">13.7</span>,</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">"Long-term"</span>, <span class="at">size =</span> <span class="dv">5</span>, </span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2043</span>, <span class="at">y =</span> <span class="fl">13.7</span>,</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">"Mid-term"</span>, <span class="at">size =</span> <span class="dv">5</span>, </span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2023</span>, <span class="at">y =</span> <span class="fl">13.7</span>,</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">"Short-term"</span>, <span class="at">size =</span> <span class="dv">5</span>, </span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>)</span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ggsave</span>(p1, </span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>           <span class="at">filename =</span> <span class="fu">paste0</span>(outdir, <span class="st">"/"</span>, </span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>                             ssp, <span class="st">"_SST_timeseries_1993-2100_11yrsmooth.png"</span>),</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Run function</span></span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">plot_ts</span>(<span class="st">"ssp245"</span>, <span class="at">sspletter =</span> <span class="st">"SSP2-4.5"</span>); <span class="fu">toc</span>() <span class="co">#Jessie: 0.197 seconds</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ts</span>(<span class="st">"ssp585"</span>, <span class="at">sspletter =</span> <span class="st">"SSP5-8.5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>              <span class="at">col =</span> <span class="st">"black"</span>, </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Year"</span>, </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n.breaks =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"SST (˚C)"</span>, </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                       <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">13.5</span>, <span class="fl">20.5</span>)) <span class="sc">+</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.1</span>,.<span class="dv">1</span>,<span class="fl">0.1</span>),<span class="st">"cm"</span>),</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, </span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> <span class="st">"Arial Narrow"</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> <span class="st">"Arial Narrow"</span>),</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="sc">-</span><span class="dv">20</span>))) <span class="sc">+</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2019</span>, <span class="at">y =</span> <span class="fl">20.1</span>,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> sspletter, </span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">9</span>, </span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface =</span> <span class="st">"bold"</span>, </span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2083</span>, <span class="at">y =</span> <span class="fl">13.7</span>,</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">"Long-term"</span>, <span class="at">size =</span> <span class="dv">5</span>, </span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2023</span>, <span class="at">y =</span> <span class="fl">13.7</span>,</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">"Short-term"</span>, <span class="at">size =</span> <span class="dv">5</span>, </span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"Arial Narrow"</span>, </span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>, </span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">1</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ggsave</span>(p1, </span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>           <span class="at">filename =</span> <span class="fu">paste0</span>(outdir, <span class="st">"/"</span>, </span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>                             ssp, <span class="st">"_SST_timeseries_1995-2100_11yrsmooth.png"</span>),</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Run function</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">plot_ts</span>(<span class="st">"ssp245"</span>, <span class="at">sspletter =</span> <span class="st">"SSP2-4.5"</span>); <span class="fu">toc</span>() <span class="co">#Jessie: 0.197 seconds</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ts</span>(<span class="st">"ssp585"</span>, <span class="at">sspletter =</span> <span class="st">"SSP5-8.5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>This results in two plots: a time series of projected yearly averaged temperature from 2015-2100, for each climate scenario, for the entire California Current ecosystem. The bold black line represents the ensemble mean of the two ESMs, and the two grey lines represent the yearly means for each ESM, respectively, giving us an idea of potential model uncertainty.</p>
@@ -585,7 +589,7 @@ div.csl-indent {
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ssps <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"ssp245"</span>, <span class="st">"ssp585"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>term <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"near"</span>, <span class="st">"mid"</span>, <span class="st">"long"</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">=</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/projections"</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>indir_proj <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/esm/_4_bias_corrected"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>indir_proj <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pth, bc_pth, bc_pth_bc)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>termdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">timeperiod =</span> <span class="fu">c</span>(<span class="st">"near"</span>, <span class="st">"long"</span>),</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">st =</span> <span class="fu">c</span>(<span class="st">"2020-01-01"</span>, <span class="st">"2080-01-01"</span>),</span>
@@ -688,18 +692,18 @@ div.csl-indent {
 </section>
 <section id="delta-difference" class="level3" data-number="7.2.3">
 <h3 data-number="7.2.3" class="anchored" data-anchor-id="delta-difference"><span class="header-section-number">7.2.3</span> Delta difference</h3>
-<p>Now that we have our ensembled projections of SST, we want to inspect the <strong>delta difference</strong>, which is the difference between projected SSTs, and baseline/observed SST experienced between 1994-2014. Essentially, how much will SST change under projected future ocean conditions?</p>
-<p>First, we create our historical average, from 1994-2014:</p>
+<p>Now that we have our ensembled projections of SST, we want to inspect the <strong>delta difference</strong>, which is the difference between projected SSTs, and baseline/observed SST experienced between 1995-2014. Essentially, how much will SST change under projected future ocean conditions?</p>
+<p>First, we create our historical average, from 1995-2014:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Ensemble average of 1994-2014 for both models</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Ensemble average of 1995-2014 for both models</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>bc_pth <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/esm/_4_bias_corrected/"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(bc_pth, <span class="st">"tos_mo_ACCESS-CM2_1994-2014_bc_ssp245_remapped.nc"</span>))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(bc_pth, <span class="st">"tos_mo_IPSL-CM6A-LR_1994-2014_bc_ssp245_remapped.nc"</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(bc_pth, <span class="st">"tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(bc_pth, <span class="st">"tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"</span>))</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">&lt;-</span> <span class="fu">c</span>(r1, r2)</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>mean_hist <span class="ot">&lt;-</span> <span class="fu">mean</span>(rr)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mean_hist, <span class="at">main =</span> <span class="st">"Ensembled SST 1994-2014"</span>); maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mean_hist, <span class="at">main =</span> <span class="st">"Ensembled SST 1995-2014"</span>); maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -771,7 +775,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Woohoo! We’ve made SST projections for the California region using an ensemble of two ESMs, across two time periods, and, for two climate scenarios.</p>
+<p>Woohoo! We’ve made SST projections for the California region using an ensemble of two ESMs, across two time periods, and, for two climate scenarios. Now, we could use these projections for species distribution modelling, marine disease projections… the list is endless! Some useful summary papers that have used ESMs to assess the impact of climate on marine fauna include <span class="citation" data-cites="STOCK2011">(<a href="_xxxxxx_references.html#ref-STOCK2011" role="doc-biblioref">Stock et al. 2011</a>)</span> and <span class="citation" data-cites="DRENKARD2021">(<a href="_xxxxxx_references.html#ref-DRENKARD2021" role="doc-biblioref">Drenkard et al. 2021</a>)</span>.</p>
 </section>
 </section>
 <section id="uncertainty" class="level2" data-number="7.3">
@@ -787,8 +791,14 @@ Brodie, Stephanie, James A. Smith, Barbara A. Muhling, Lewis A. K. Barnett, Gemm
 <div id="ref-CHEUNG2016" class="csl-entry" role="listitem">
 Cheung, William W. L., Thomas L. Frölicher, Rebecca G. Asch, Miranda C. Jones, Malin L. Pinsky, Gabriel Reygondeau, Keith B. Rodgers, et al. 2016. <span>“Building Confidence in Projections of the Responses of Living Marine Resources to Climate Change.”</span> <em>ICES Journal of Marine Science</em> 73 (5): 1283–96. <a href="https://doi.org/10.1093/icesjms/fsv250">https://doi.org/10.1093/icesjms/fsv250</a>.
 </div>
+<div id="ref-DRENKARD2021" class="csl-entry" role="listitem">
+Drenkard, Elizabeth J, Charles Stock, Andrew C Ross, Keith W Dixon, Alistair Adcroft, Michael Alexander, Venkatramani Balaji, et al. 2021. <span>“Next-Generation Regional Ocean Projections for Living Marine Resource Management in a Changing Climate.”</span> <em>ICES Journal of Marine Science</em> 78 (6): 1969–87. <a href="https://doi.org/10.1093/icesjms/fsab100">https://doi.org/10.1093/icesjms/fsab100</a>.
+</div>
 <div id="ref-MORLEY2020" class="csl-entry" role="listitem">
 Morley, James W, Thomas L Frölicher, and Malin L Pinsky. 2020. <span>“Characterizing Uncertainty in Climate Impact Projections: A Case Study with Seven Marine Species on the North American Continental Shelf.”</span> <em>ICES Journal of Marine Science</em> 77 (6): 2118–33. <a href="https://doi.org/10.1093/icesjms/fsaa103">https://doi.org/10.1093/icesjms/fsaa103</a>.
+</div>
+<div id="ref-STOCK2011" class="csl-entry" role="listitem">
+Stock, Charles A., Michael A. Alexander, Nicholas A. Bond, Keith M. Brander, William W. L. Cheung, Enrique N. Curchitser, Thomas L. Delworth, et al. 2011. <span>“On the Use of IPCC-Class Models to Assess the Impact of Climate on Living Marine Resources.”</span> <em>Progress in Oceanography</em> 88 (1): 1–27. https://doi.org/<a href="https://doi.org/10.1016/j.pocean.2010.09.001">https://doi.org/10.1016/j.pocean.2010.09.001</a>.
 </div>
 <div id="ref-THUILLER2019" class="csl-entry" role="listitem">
 Thuiller, Wilfried, Maya Guéguen, Julien Renaud, Dirk N. Karger, and Niklaus E. Zimmermann. 2019. <span>“Uncertainty in Ensembles of Global Biodiversity Scenarios.”</span> <em>Nature Communications</em> 10 (1): 1446. <a href="https://doi.org/10.1038/s41467-019-09519-w">https://doi.org/10.1038/s41467-019-09519-w</a>.
@@ -1224,8 +1234,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./_8_ecology.html" class="pagination-link" aria-label="An ecological example">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./_xxxxx_handyresources.html" class="pagination-link" aria-label="Handy resources">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1234,4 +1244,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

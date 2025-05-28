@@ -20,8 +20,6 @@ XX00: Van departs UCD main campus to BML (sign-up required)
 
 *Afternoon tea*
 
-1530-1630: Ecological applications
-
-1630-1700: Questions, survey distribution and workshop wrap-up.
+1530-1700: Questions, troubleshooting, survey distribution and workshop wrap-up.
 
 XXXX: Van departs BML to UCD main campus (sign-up required)

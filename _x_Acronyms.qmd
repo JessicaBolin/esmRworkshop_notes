@@ -4,7 +4,7 @@ We will be using **a lot** of acronyms during today's workshop..!
 
 -   `ACCESS-CM2` = Australian Community Climate and Earth System Simulator Coupled Model Version 2
 -   `CDO` = Climate Data Operators
--   CMIP6 = Coupled Model Inter comparison Project Version 6
+-   CMIP6 = Coupled Model Intercomparison Project Version 6
 -   ESGF = Earth System Grid Federation
 -   ESM = Earth System Model
 -   GCM = Global Coupled Model

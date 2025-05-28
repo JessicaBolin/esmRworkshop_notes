@@ -4,8 +4,7 @@
 
 # Global path -------------------------------------------------------------
 
-pth <- "/Users/admin/Documents/GitHub/BMLworkshop" # THIS NEEDS TO CHANGE PER PERSON
-# replace with getwd() if using R Project 
+pth <- getwd() # THIS NEEDS TO CHANGE PER PERSON
 
 # Other paths -------------------------------------------------------------
 

@@ -132,8 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -171,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./_xxxx_schedule.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Schedule</span></a>
+ <span class="menu-text">Schedule (TBD)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -218,14 +217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -257,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#check-that-it-worked" id="toc-check-that-it-worked" class="nav-link" data-scroll-target="#check-that-it-worked"><span class="header-section-number">3.3</span> Check that it worked</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -341,7 +334,7 @@ Important
 </section>
 <section id="remapping" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="remapping"><span class="header-section-number">3.2</span> Remapping</h2>
-<p>ESM grids are georeferenced on a sphere, where pole singularities and convergence of longitude meridians at the poles present issues for data visualisation. <code>Panoply</code> took care of this internally, but in R, we need to remap our files from a <strong>spherical grid</strong> to a <strong>rectangular grid</strong>. The most common remapping ‘method’ between grids with spherical coordinates is with <strong>bilinear interpolation</strong>.</p>
+<p>Different institutions can serve their ESM’s on different grids. For example, many ESM grids are georeferenced on a sphere, where pole singularities and convergence of longitude meridians at the poles present issues for data visualisation. <code>Panoply</code> took care of this internally, but in R, we need to remap our files from a <strong>spherical grid</strong> to a <strong>rectangular grid</strong>. The most common remapping ‘method’ between grids with spherical coordinates is with <strong>bilinear interpolation</strong>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -388,7 +381,7 @@ We can also check more detailed metadata contained in the ESM file using <code>n
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">nc_open</span>(<span class="fu">paste0</span>(pth, cmip_pth, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>nc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>File /Users/admin/Documents/GitHub/BMLworkshop/__data/cmip6_raw//tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc (NC_FORMAT_NETCDF4_CLASSIC):
+<pre><code>File /Users/admin/Documents/GitHub/esmRworkshop_website/__data/cmip6_raw/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc (NC_FORMAT_NETCDF4_CLASSIC):
 
      6 variables (excluding dimension variables):
         double time_bnds[bnds,time]   (Chunking: [2,1])  (Compression: level 1)
@@ -504,7 +497,7 @@ seaIce: CICE5.1.2 (same grid as ocean)
 </div>
 </div>
 </div>
-<p>We can see that the resolution of our file is 1˚, and is on a 0-360˚ lat/lon grid. Let’s remap the file so it conforms to -180 to 180˚ lat/lon, crops the extent to the ocean off California, and changes the resolution to 0.25˚ to match the resolution of an observational data product we’ll be using in the next step (i.e., OISST for bias correction).</p>
+<p>We can see that the resolution of our file is 1˚, and is on a 0-360˚ lat/lon grid. Let’s remap the file so it conforms to -180 to 180˚ lat/lon, crops the extent to the ocean off California, and changes the resolution to 0.25˚ to match the resolution of an observational data product we’ll be using in the next step (i.e., OISST for bias correction). Very important to note here that we’re not ‘increasing’ the resolution of our product, <em>per se</em> - we’re not <strong><em>gaining</em></strong> any data here, we’re just remapping the ESM to a finer resolution.</p>
 <hr>
 <section id="a-brief-intro-to-cdo" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="a-brief-intro-to-cdo"><span class="header-section-number">3.2.1</span> A (brief) intro to CDO</h3>
@@ -540,7 +533,7 @@ Common CDO operators
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remap_n_crop_temp <span class="ot">&lt;-</span> <span class="cf">function</span>(nc_file,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">cell_res =</span> <span class="fl">0.25</span>, </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">infold =</span> <span class="fu">paste0</span>(pth, cmip_pth), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">outfold =</span> <span class="fu">paste0</span>(pth, cmip_out),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">outfold =</span> <span class="fu">paste0</span>(pth, cmip_pth_proc),</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">126</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">115</span>, <span class="at">ymin =</span> <span class="dv">32</span>, <span class="at">ymax =</span> <span class="dv">43</span>) {</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"cdo -L -sellonlatbox,"</span>, xmin, <span class="st">","</span>, xmax, <span class="st">","</span>, ymin, <span class="st">","</span>, ymax,  </span>
@@ -551,12 +544,13 @@ Common CDO operators
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>fileys <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, cmip_pth)) <span class="co">#list file names of downloaded ESMs</span></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(fileys)) {</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remap_n_crop_temp</span>(fileys[i])</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  }; <span class="fu">toc</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="dv">14</span> <span class="co">#number of workers</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> w) <span class="co"># Change to multi-threaded processing</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">future_walk</span>(fileys, remap_n_crop_temp); <span class="fu">toc</span>() <span class="co">#Run the function in parallel (takes 8 sec for Jessie)</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential) <span class="co"># Return to single threaded processing </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <blockquote class="blockquote">
-<p>Jessie speed: ~30s</p>
+<p>Jessie speed: ~8s</p>
 </blockquote>
 </section>
 <section id="function-explainer" class="level3" data-number="3.2.3">
@@ -590,7 +584,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>CDO</code> requires syntax (i..e, spaces and commas) to be precise. If you code doesn’t run, first check that you have them in the right places.</p>
+<p><code>CDO</code> requires syntax (i..e, spaces and commas) to be precise. If your code doesn’t run, first check that you have them in the right places.</p>
 </div>
 </div>
 <p>Running this chunk of code within <code>system()</code> sends this code to the terminal/shell, opposed to R.</p>
@@ -602,7 +596,7 @@ Important
 <h2 data-number="3.3" class="anchored" data-anchor-id="check-that-it-worked"><span class="header-section-number">3.3</span> Check that it worked</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in one of the processed output files</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_out, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">&lt;-</span> rr[[<span class="dv">1</span>]] <span class="co">#first layer </span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr, <span class="at">main =</span> <span class="st">"Remapped and cropped"</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"state"</span>, <span class="at">add =</span> T) <span class="co">#add US state boundaries</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -619,7 +613,7 @@ Important
 dimensions  : 44, 45, 1  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
 extent      : -126.125, -114.875, 32, 43  (xmin, xmax, ymin, ymax)
-coord. ref. : lon/lat WGS 84 
+coord. ref. : lon/lat WGS 84 (CRS84) (OGC:CRS84) 
 source      : tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc:tos 
 varname     : tos (Sea Surface Temperature) 
 name        : tos_1 
@@ -1070,4 +1064,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

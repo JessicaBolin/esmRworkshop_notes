@@ -14,7 +14,7 @@ Whether data are referred to as **observations** depends on who you to talk to. 
 
 ## Download OISST
 
-Here we define a function that takes two arguments, which denote the start and end of the time period we will use to define our baseline climatology. First, we will download twenty years worth of OISST data, spanning 1994 to 2014, which are our **observations**. We'll get into why we chose this time period in the next Chapter. The function downloads daily files of OISST from the index site [here](https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/).
+Here we define a function that takes two arguments, which denote the start and end of the time period we will use to define our baseline climatology. First, we will download twenty years worth of OISST data, spanning 1995 to 2014, which are our **observations**. We'll get into why we chose this time period in the next Chapter. The function downloads daily files of OISST from the index site [here](https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/).
 
 ```{r, include = F}
 pth <- "/Users/admin/Documents/GitHub/BMLworkshop"
@@ -64,7 +64,7 @@ download_oisst <- function(yrstrt, yrend) {
   }
 }
 
-tic(); download_oisst(yrstrt = 1994, yrend = 2014); toc()
+tic(); download_oisst(yrstrt = 1995, yrend = 2014); toc()
 ```
 
 > Jessie speed: \~2 hours (for 20 years of data).
@@ -76,8 +76,8 @@ As with the ESMs, we need to preprocess them. However, OISST are provided as dai
 ```{r, eval = F}
 #| code-fold: true
 oisst_mr <- function(yr,
-                     infile = paste0(pth, "/__data/oisst_raw"),
-                     outfile = paste0(pth, "/__data/oisst_processed"),
+                     infile = paste0(pth, oisst_pth),
+                     outfile = paste0(pth, oisst_pth_proc),
                      xmin = -126, xmax = -116, ymin = 32, ymax = 43,
                      cell_res = 0.25) {
   
@@ -110,7 +110,7 @@ oisst_mr <- function(yr,
 }
 
 # Vector of years to process
-years <- 1994:2014  # Modify as needed
+years <- 1995:2014  # Modify as needed
 
 plan(multisession, workers = 14)  # Change workers to suit your machine
 tic(); future_map(years, ~ oisst_mr(.x)); toc()
@@ -143,9 +143,9 @@ Let's see how `OISST` compares to the ESM output.
 ```{r fig.show="hold"}
 #| layout-ncol: 2
 #| code-fold: true
-oisst <- terra::rast(paste0(pth, "/__data/oisst_processed/mean_remap_1994.nc"))[[1]]
-esm <- terra::rast(paste0(pth, "/__data/cmip6_processed/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))[[1]]
-terra::plot(oisst, main = "OISST Jan 1994")
+oisst <- terra::rast(paste0(pth, oisst_pth_proc, "/mean_remap_1995.nc"))[[1]]
+esm <- terra::rast(paste0(pth, cmip_pth_proc, "/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"))[[1]]
+terra::plot(oisst, main = "OISST Jan 1995")
 maps::map("world", add = T)
 terra::plot(esm, main = "ESM Jan 1850")
 maps::map("world", add = T)

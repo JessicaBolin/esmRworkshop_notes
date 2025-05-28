@@ -1,6 +1,10 @@
 # Making projections
 
-Time to make some projections! We will make projections on the three IPCC AR6 time periods: near-term (2020-2040) and long-term (2080-2100).
+Time to make some projections! We will make projections on two IPCC AR6 time periods: near-term (2020-2040) and long-term (2080-2100).
+
+::: callout-caveat
+Note - In general, ESMs (which are externally forced) can't really be used for short-term forecasts (such as a projection for one year in the future). Here, we show you how to create projections anyway, and you can amend to a time period of interest for your own work.
+:::
 
 ## Time series
 
@@ -11,7 +15,7 @@ We are going to create two time series of temperature from 2015 to 2100, for the
 Because we are interested in the long-term trend of temperature out to 2100, we are going to average our temperature values across each year, and, apply a five-year moving window to smooth out any year-to-year variability.
 
 ```{r, include = F}
-pth <- "/Users/admin/Documents/GitHub/BMLworkshop"
+pth <- "/Users/admin/Documents/GitHub/esmRworkshop_website"
 source(paste0(pth, "/__scripts/helpers.R"))
 ```
 
@@ -79,11 +83,15 @@ timeseries_ssp <- function(ssp) {
                  ssp, ".RDS"))
 }
 
-tic(); timeseries_ssp("ssp245"); toc() #Jessie: 16.32 seconds
-timeseries_ssp("ssp585")
+ssps <- c("ssp245", "ssp585")
+tic(); future_walk(ssps, timeseries_ssp); toc() #26 seconds for both
+
+# For loop version
+#tic(); timeseries_ssp("ssp245"); toc() #Jessie: 16.32 seconds for one
+#timeseries_ssp("ssp585")
 ```
 
-> Jessie speed: ~17s
+> Jessie speed: \~26s
 
 This results in two dataframes for each SSP: (i) one containing the ensemble mean of temperature for each year, and (ii) one containing the mean temperature across each model. For example...
 
@@ -100,6 +108,10 @@ ind <- readRDS("__data/timeseries/sst_year_proj_ind_ssp245.RDS")
 ind <- do.call (rbind, ind)
 head(ind)
 ```
+
+::: callout-caution
+Today, we're using the ensemble mean. But in your own work, you may want to consider using the ensemble median instead. The median may be less impacted by outliers/extremes in the data, especially if you're using ESMs that are known to be ['too-hot'](https://www.nature.com/articles/d41586-022-01192-2) in your region of interest.
+:::
 
 ### Bind everything and apply 5-yr smooth
 
@@ -155,7 +167,7 @@ tic(); smooth_esms("ssp245", window_size = 5); toc()
 smooth_esms("ssp585", window_size = 5)
 ```
 
-> Jessie speed: ~0.01s
+> Jessie speed: \~0.01s
 
 This creates four objects in our global environment, which we will use to plot our time series: `ssp_smoothed_ind_ssp245`, `ssp_smoothed_ind_ssp585`, `smooth_esm_ssp245` and `smooth_esm_ssp585`.
 
@@ -180,10 +192,6 @@ plot_ts <- function(ssp, sspletter) {
             mapping = aes(xmin = 2020, xmax = 2040, ymin = -Inf, ymax = Inf),
              fill = "grey",
             alpha = 0.4) +
-   geom_rect(data = data.frame(), 
-             mapping = aes(xmin = 2040, xmax = 2060, ymin = -Inf, ymax = Inf),
-             fill = "grey", 
-             alpha = 0.4) +
    geom_rect(data = data.frame(), 
              mapping = aes(xmin = 2080, xmax = 2100, ymin = -Inf, ymax = Inf),
              fill = "grey", 
@@ -224,11 +232,6 @@ plot_ts <- function(ssp, sspletter) {
             family = "Arial Narrow", 
             hjust = 0, 
             vjust = 1) + 
-   annotate("text", x = 2043, y = 13.7,
-            label = "Mid-term", size = 5, 
-            family = "Arial Narrow", 
-            hjust = 0, 
-            vjust = 1) +
    annotate("text", x = 2023, y = 13.7,
             label = "Short-term", size = 5, 
             family = "Arial Narrow", 
@@ -237,7 +240,7 @@ plot_ts <- function(ssp, sspletter) {
  
      ggsave(p1, 
            filename = paste0(outdir, "/", 
-                             ssp, "_SST_timeseries_1993-2100_11yrsmooth.png"),
+                             ssp, "_SST_timeseries_1995-2100_11yrsmooth.png"),
            width = 8, height = 5)
   
 }
@@ -268,7 +271,7 @@ models = c("ACCESS-CM2", "IPSL-CM6A-LR")
 ssps = c("ssp245", "ssp585")
 term = c("near", "mid", "long")
 outdir = paste0(pth, "/__data/projections")
-indir_proj <- paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected")
+indir_proj <- paste0(pth, bc_pth, bc_pth_bc)
 
 termdf <- data.frame(timeperiod = c("near", "long"),
                      st = c("2020-01-01", "2080-01-01"),
@@ -301,7 +304,7 @@ tic(); for (k in term) {
 
 ```
 
-> Jessie speed: ~2s
+> Jessie speed: \~2s
 
 This results in...
 
@@ -339,7 +342,7 @@ tic(); for (k in term) {
 }; toc() #Jessie: 0.3 seconds
 ```
 
-> Jessie speed: ~0.3s
+> Jessie speed: \~0.3s
 
 ```{r}
 list.files(paste0(pth, "/__data/projections/ens"))
@@ -347,19 +350,19 @@ list.files(paste0(pth, "/__data/projections/ens"))
 
 ### Delta difference
 
-Now that we have our ensembled projections of SST, we want to inspect the **delta difference**, which is the difference between projected SSTs, and baseline/observed SST experienced between 1994-2014. Essentially, how much will SST change under projected future ocean conditions?
+Now that we have our ensembled projections of SST, we want to inspect the **delta difference**, which is the difference between projected SSTs, and baseline/observed SST experienced between 1995-2014. Essentially, how much will SST change under projected future ocean conditions?
 
-First, we create our historical average, from 1994-2014:
+First, we create our historical average, from 1995-2014:
 
 ```{r}
 #| code-fold: true
-#Ensemble average of 1994-2014 for both models
+#Ensemble average of 1995-2014 for both models
 bc_pth <- paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected/")
-r1 <- rast(paste0(bc_pth, "tos_mo_ACCESS-CM2_1994-2014_bc_ssp245_remapped.nc"))
-r2 <- rast(paste0(bc_pth, "tos_mo_IPSL-CM6A-LR_1994-2014_bc_ssp245_remapped.nc"))
+r1 <- rast(paste0(bc_pth, "tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"))
+r2 <- rast(paste0(bc_pth, "tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"))
 rr <- c(r1, r2)
 mean_hist <- mean(rr)
-plot(mean_hist, main = "Ensembled SST 1994-2014"); maps::map("world", add = T)
+plot(mean_hist, main = "Ensembled SST 1995-2014"); maps::map("world", add = T)
 ```
 
 Then, we subtract the baseline SST from our projections...
@@ -388,7 +391,7 @@ tic(); for (i in ssps) {
 }; toc() 
 ```
 
-> Jessie speed: ~0.3s
+> Jessie speed: \~0.3s
 
 ```{r}
 list.files(paste0(pth, "/__data/projections/delta"))
@@ -472,7 +475,7 @@ plot(r1, main = "Delta SST Long-term",
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 ```
 
-Woohoo! We've made SST projections for the California region using an ensemble of two ESMs, across two time periods, and, for two climate scenarios.
+Woohoo! We've made SST projections for the California region using an ensemble of two ESMs, across two time periods, and, for two climate scenarios. Now, we could use these projections for species distribution modelling, marine disease projections... the list is endless! Some useful summary papers that have used ESMs to assess the impact of climate on marine fauna include [@STOCK2011] and [@DRENKARD2021].
 
 ## Uncertainty
 

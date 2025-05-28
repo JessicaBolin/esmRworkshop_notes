@@ -4,7 +4,7 @@ project:
 book:
   title: "R for marine ecologists: wrangling Earth System Model outputs"
   author: "Jessica Bolin"
-  date: "12/3/2024"
+  date: "05/29/2025"
   cover-image: images/cmsi.png
   sidebar:
     style: docked
@@ -22,12 +22,9 @@ book:
     - _5_biascorrection.qmd
     - _6_taylordiagrams.qmd
     - _7_projections.qmd
-    - _8_ecology.qmd
     - _xxxxx_handyresources.qmd
     - _xxxxxx_references.qmd
-  downloads: [pdf]
-  repo-url: https://github.com/JessicaBolin/kudoa-in-swordfish
-  repo-actions: [issue]
+  repo-url: https://github.com/JessicaBolin
   
 
 bibliography: references.bib
@@ -36,8 +33,8 @@ format:
   html:
     theme: cosmo
     grid:
-      sidebar-width: 350px
-      body-width: 700px
+      sidebar-width: 400px
+      body-width: 800px
       margin-width: 500px
       gutter-width: 1.5rem
   pdf:

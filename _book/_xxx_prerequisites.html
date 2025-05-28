@@ -132,8 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for marine ecologists: wrangling Earth System Model outputs</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/JessicaBolin/kudoa-in-swordfish" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./R-for-marine-ecologists--wrangling-Earth-System-Model-outputs.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/JessicaBolin" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -218,14 +217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./_8_ecology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An ecological example</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./_xxxxx_handyresources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Handy resources</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -254,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#changing-your-path" id="toc-changing-your-path" class="nav-link" data-scroll-target="#changing-your-path">Changing your path</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -282,6 +275,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>Our course is not intended for absolute beginners in R. While participants don’t need to be highly proficient, a basic understanding of R and programming syntax is required. For example, participants should know how to create an R project and open a script, read in data using commands, make basic plots using <code>base</code> R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the <code>terra</code> package and working with <code>netCDF</code> files is a plus, but again, not required.</p>
 <p>In addition to having R and RStudio already installed, you will need to install (i) <code>CDO</code>, (ii) <code>NCO</code>, (iii) <code>wget</code>, (iv) <code>Panoply</code> and (v) a suite of R packages.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We <strong>strongly</strong> recommend bringing a macOS laptop to the workshop. If you have a Windows laptop, that’s OK, but the instructors will be using macOS during the workshop, as we’re all macOS natives. As such, we’re unlikely to be able to fix any Windows-related errors or software installation problems (and we unfortunately can’t spend time troubleshooting any Windows issues).</p>
+</div>
+</div>
 <hr>
 <section id="cdo" class="level3">
 <h3 class="anchored" data-anchor-id="cdo">CDO</h3>
@@ -317,19 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="windows-1" class="level4">
 <h4 class="anchored" data-anchor-id="windows-1">Windows</h4>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Caution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>TBA: FIND THIS OUT</p>
-</div>
-</div>
+<p>Installing <code>NCO</code> on windows can be tricky. <a href="https://sourceforge.net/p/nco/discussion/9830/thread/59fe446d/">Here</a> is a discussion forum.</p>
 <hr>
 </section>
 </section>
@@ -345,19 +339,7 @@ Caution
 </section>
 <section id="windows-2" class="level4">
 <h4 class="anchored" data-anchor-id="windows-2">Windows</h4>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Caution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>TBA: FIND THIS OUT</p>
-</div>
-</div>
+<p>Check out the link <a href="https://gnuwin32.sourceforge.net/packages/wget.htm">here</a>. You may need to do some extra fiddling - see <a href="https://www.tomshardware.com/how-to/use-wget-download-files-command-line#:~:text=Installing%20GNU%20Wget%20on%20Windows,use%20on%20a%20Linux%20PC.">here</a> or check out Youtube for further help.</p>
 <hr>
 </section>
 </section>
@@ -391,7 +373,7 @@ Caution
 <p>Lastly, once you have downloaded the repository, you will need to open <code>__scripts/helpers.R</code>, and change your <code>pth</code> object to suit your machine (see Line 7). I’ve set mine as <code>"/Users/admin/Documents/GitHub/esmRworkshop"</code>; change yours to reflect where this folder is located on your machine.</p>
 <hr>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -400,7 +382,7 @@ Below are the dependencies and package versions the instructors will use for the
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> devtools<span class="sc">::</span><span class="fu">session_info</span>()</span>
@@ -905,4 +887,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JessicaBolin/kudoa-in-swordfish/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

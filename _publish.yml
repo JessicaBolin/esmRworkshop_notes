@@ -1,0 +1,6 @@
+- source: project
+  quarto-pub:
+    - id: d2998d9a-73d2-42fb-9f2a-92cce79bf28f
+      url: 'https://jessicabolin.quarto.pub/esmrworkshop_dev'
+    - id: 9f0bdccd-d596-47f2-a7f4-b958a6ea6f19
+      url: 'https://jessicabolin-private.quarto.pub/esmrworkshop2025-notes'
