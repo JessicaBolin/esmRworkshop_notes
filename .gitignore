@@ -6,3 +6,5 @@
 /.quarto/
 
 /__data
+
+.encrypt.R

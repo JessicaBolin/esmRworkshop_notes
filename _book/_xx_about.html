@@ -238,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Welcome to the workshop! This workshop is designed to assist you in getting started with using Earth System Model (ESM) outputs using R.</p>
-<p>The workshop will run from X am to X pm (PST) on day month 2025.</p>
+<p>The workshop will run from 10 am to 5 pm (PST) on Tuesday 3rd June, 2025.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/meansst_ssp585_long.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="412"></p>
@@ -246,36 +246,72 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="instructors" class="level2">
 <h2 class="anchored" data-anchor-id="instructors">Instructors</h2>
-<p>Today’s instructors are <strong>Jessica Bolin</strong>, <strong>Mikaela Provost</strong> [and others].</p>
-<p><strong>Jessie</strong> is a Postdoc in Provost Lab, working on modeling and mapping climate refugia for red abalone across California. Jessie has a background in quantitative marine science and obtained her PhD from the University of the Sunshine Coast in 2024, and has broad research interests spanning climate adaptation, fisheries forecasting, marine disease ecology and sustainable seafood. Jessie has been using R since 2016, and has worked with ESMs since 2021. <code>jabbolin@ucdavis.edu</code></p>
-<p><strong>Mikaela</strong> is an Assistant Professor at UC Davis, and the leader of Provost Lab. <code>mmprovost@ucdavis.edu</code></p>
-<p>For further information or questions regarding this workshop, please contact Jessie or Mikaela.</p>
+<p>Today’s instructors are <strong>Jessica Bolin</strong>, <strong>Mikaela Provost</strong>, <strong>Mer Pozo Buil</strong>, <strong>Nerea Lezama-Ochoa</strong> and <strong>Mary Fisher</strong></p>
+<p><a href="https://jessicabolin.github.io/"><strong>Jessie</strong></a> is a Postdoc in Provost Lab, working on modeling and mapping climate refugia for red abalone across California. Jessie has a background in quantitative marine science and obtained her PhD from the University of the Sunshine Coast in 2024, and has broad research interests spanning climate adaptation, fisheries forecasting, marine disease ecology and sustainable seafood. Jessie has been using R since 2016, and has worked with ESMs since 2021. <code>jabbolin@ucdavis.edu</code></p>
+<p><a href="https://mmprovost.com/"><strong>Mikaela</strong></a> is an Assistant Professor at UC Davis, and the leader of Provost Lab. Mikaela’s research uses theoretical and empirical approaches to address applied problems in fisheries management and marine conservation. Her projects span multiple species and places, and the methods I use can be adapted for a wide variety of taxa. <code>mmprovost@ucdavis.edu</code></p>
+<p><a href="https://www.merpozobuil.com/"><strong>Mer</strong></a> is an Associate Project Scientist at the University of California Santa Cruz and works collaboratively with the NOAA’s Southwest Fisheries Science Center. Mer’s research interests are in ocean modeling and large-scale circulation, specifically about subsurface ocean variability, large-scale changes in water masses and circulation, and how they affect upwelling systems.</p>
+<p><a href="https://nereota1.wixsite.com/nlezamaochoa"><strong>Nerea</strong></a> is an Associate Project Scientist at the University of California Santa Cruz and works collaboratively with the NOAA’s Southwest Fisheries Science Center. Nerea is currently working on the conservation and management of species taken incidentally in tropical tuna purse seine fisheries (bycatch). Nerea’s main research interests are ecological modeling, spatial ecology, oceanography and ecosystem-based management approaches for the conservation of marine top predators.</p>
+<p><a href="https://marinescience.ucdavis.edu/research-programs/conservation/kelp-restoration/project-personnel"><strong>Mary</strong></a> is a Postdoc in the Baskett Lab, and an interdisciplinary marine scientist interested in how adaptation to climate change affects coupled human-natural systems. Her research has drawn on quantitative and qualitative techniques to explore trade-offs and unexpected consequences associated with climate adaptation in US West Coast fisheries.</p>
 </section>
 <section id="chapter-index" class="level2">
 <h2 class="anchored" data-anchor-id="chapter-index">Chapter index</h2>
 <ol type="1">
-<li><p>What is an ESM?</p></li>
-<li><p>Download ESM output from ESGF</p></li>
-<li><p>Remapping</p></li>
-<li><p>OISST / observed data</p></li>
-<li><p>Bias correction &amp; downscaling</p></li>
-<li><p>Evaluate accuracy of historical ESM projections</p></li>
-<li><p>Making projections</p></li>
+<li><strong>What is an ESM?</strong>
+<ol type="1">
+<li>Experiments</li>
+<li>Climate scenarios (SSPs)</li>
+</ol></li>
+<li><strong>Download ESM output from ESGF</strong>
+<ol type="1">
+<li>The ESGF database</li>
+<li>Download <code>wget</code> shell scripts</li>
+<li>Download <code>.nc</code> files with <code>wget</code> scripts</li>
+</ol></li>
+<li><strong>Remapping</strong>
+<ol type="1">
+<li>Inspect an ESM</li>
+<li>Remapping with CDO and R</li>
+</ol></li>
+<li><strong>OISST / observed data</strong>
+<ol type="1">
+<li>Download OISST</li>
+<li>Preprocess OISST</li>
+<li>Visualize OISST</li>
+</ol></li>
+<li><strong>Bias correction &amp; downscaling</strong>
+<ol type="1">
+<li>OISST and ESM climatologies</li>
+<li>ESM anomalies</li>
+<li>Interpolate ESM anomalies to OISST grid</li>
+<li>Bias correction</li>
+</ol></li>
+<li><strong>Evaluate accuracy of historical ESM projections</strong>
+<ol type="1">
+<li>Brief explainer</li>
+<li>Create baseline climatologies</li>
+<li>Taylor Diagrams</li>
+</ol></li>
+<li><strong>Making projections</strong>
+<ol type="1">
+<li>Time series</li>
+<li>Spatial projections</li>
+<li>Uncertainty</li>
+</ol></li>
 </ol>
 </section>
 <section id="workshop-materials" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-materials">Workshop materials</h2>
 <p>The workshop data are ~<code>15 GB</code>, so ensure you have enough storage space on your machine before downloading. If you don’t have enough storage on your local machine, bring an external SSD/Hard-drive.</p>
-<p>If you’re a Github user, you can fork and clone the workshop repository <a href="#0">here</a>. Then, you will then need to download the workshop data <a href="#0">here</a>, which needs to be copied into the root directory. We’ve added the <code>/data</code> folder to the <code>.gitignore</code> file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).</p>
-<p>If you’re not familiar with Github, you can download the complete workshop repository <a href="">here</a> as a <code>.zip</code> file.</p>
+<p>If you’re a Github user, you can fork and clone the workshop repository <a href="https://github.com/JessicaBolin/esmRworkshop_notes">here</a>. Then, you will then need to download the workshop data <a href="https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&amp;dl=0">here</a>, which needs to be copied into the root directory. We’ve added the /data folder to the .gitignore file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).</p>
+<p>If you’re not familiar with Github, you can download the complete workshop repository <a href="https://www.dropbox.com/scl/fo/fk1tl1oc13pbez3840ckt/ADqqX_9BRAi0aXIdIkowVSU?rlkey=l9943ao0o2qi0d2c3lidgfdmk&amp;dl=0">here</a> as a .zip file.</p>
 <p>Alternatively, you can obtain the materials on the day from us via USB.</p>
 <p>We have inserted the expected time duration for running processor-intensive chunks of code in <strong>blockquotes</strong> throughout the eBook. This is based on Jessie’s machine (MacBook Pro 2023 M3 Max 64 GB Memory). Your machine may be faster or slower, depending on its specifications.</p>
 </section>
 <section id="what-to-bring" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-bring">What to bring</h2>
 <ul>
-<li><p>Laptop (highly, highly, highly recommend <code>macOS</code>) with internet connection. <strong>Please ensure you have administrator permissions</strong> - consult with your IT department on how to do this. Windows laptops are OK, but the instructors are all macOS natives - we will be using macOS during the workshop, and are unlikely to be able to fix any Windows-related software installation problems.</p></li>
-<li><p>Install the necessary software, listed on the <code>Prerequisites</code> page.</p></li>
+<li>Laptop (highly, highly, <strong>highly</strong> recommend <code>macOS</code>) with internet connection. <strong>Please ensure you have administrator permissions</strong> - consult with your IT department on how to do this. Windows laptops are OK, but the instructors are all macOS natives - we will be using macOS during the workshop, and are unlikely to be able to fix any Windows-related software installation problems that are unfortunately common with some of the tools we’ll be using.</li>
+<li>Install the necessary software, listed on the <code>Prerequisites</code> page.</li>
 </ul>
 </section>
 <section id="expected-outcomes" class="level2">
@@ -286,16 +322,17 @@ ul.task-list li input[type="checkbox"] {
 <li>Use <code>CDO</code> to speed up netCDF file manipulation</li>
 <li>Download ESM output from ESGF and understand terminology re. variables/naming conventions</li>
 <li>Remap and bias-correct ESM outputs from the CMIP6 suite across multiple climate scenarios and time periods</li>
-<li>Make publication-quality maps</li>
+<li>Make publication-quality figures</li>
 </ul>
 </section>
 <section id="transportation-tofrom-uc-davis" class="level2">
 <h2 class="anchored" data-anchor-id="transportation-tofrom-uc-davis">Transportation to/from UC Davis</h2>
-<p>We have arranged for a UCD minivan to transport participants to/from UC Davis main campus, if needed. We have space for 12 participants - first-in, first-served. Sign up here. (TBD)</p>
+<p>We are arranging for a UCD minivan to transport participants to/from UC Davis main campus, The van has space for up to 12 participants - first-in, first-served. Sign up sheet TBA.</p>
 </section>
 <section id="food" class="level2">
 <h2 class="anchored" data-anchor-id="food">Food</h2>
-<p>Lunch will be provided, with vegan and vegetarian options available. Coffee and snacks will be available throughout the day.</p>
+<p>Lunch (sandwiches) will be provided, with vegan and vegetarian options available.<br>
+</p>
 </section>
 <section id="acknowledgements" class="level2">
 <h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>

@@ -1,5 +1,7 @@
 project:
   type: book
+  output-dir: "./_output"
+  post-render: encrypt.r
 
 book:
   title: "R for marine ecologists: wrangling Earth System Model outputs"
@@ -41,4 +43,5 @@ format:
     documentclass: scrreprt
 
 editor: visual
+
 
