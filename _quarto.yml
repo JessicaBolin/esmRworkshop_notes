@@ -26,7 +26,7 @@ book:
     - _7_projections.qmd
     - _xxxxx_handyresources.qmd
     - _xxxxxx_references.qmd
-  repo-url: https://github.com/JessicaBolin
+  repo-url: https://github.com/JessicaBolin/esmRworkshop
   
 
 bibliography: references.bib

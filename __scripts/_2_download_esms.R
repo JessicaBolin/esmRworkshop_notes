@@ -44,3 +44,4 @@ system(paste0("rm ", pth, cmip_pth, "/",
               "tos_Omon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gn_210101-230012.nc"))
 
 list.files(paste0(pth, cmip_pth)) #fixed. nice! 
+
