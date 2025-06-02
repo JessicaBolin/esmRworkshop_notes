@@ -16,12 +16,14 @@ When bias correcting, we need to calculate the mean baseline climatology across 
 # Defining climatologies
 
 We often use 30 years to define a climatology in marine ecology, but you can shorten or lengthen your climatology based on what makes sense for your question and study system. We used 20 years today to save time.
+
+Further, in your own work, you may want to calculate monthly or seasonal climatologies, as opposed to a broad multi-decadal climatology (because this will smooth out monthly or seasonal variability). This will all depend on your study system and question, but something to consider when bias correcting ESM output.
 :::
 
 The simplest form of bias correction is the “delta-change” method (e.g., \[S2\]). The first step in this procedure for a timeseries of any given climate variable is to identify an appropriate set of observational data and then to compute the mean value of that observed variable over a “baseline” period for which both observations and model output are available.
 
 | Step | Description                                                                                                                                                                                                                                                                                                                                                                                                                          | Output/s                                                                                      |
-|-------------------|-----------------------------------|-------------------|
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | 1    | Merge all daily OISST files into a single file                                                                                                                                                                                                                                                                                                                                                                                       | `_1_OISST_baseline_combined.nc`                                                               |
 | 2    | Calculate the OISST climatology for 1995-2014, to be used later for bias correction.                                                                                                                                                                                                                                                                                                                                                 | `_2_OISST_climatology.nc`                                                                     |
 | 3    | Calculate the climatology for each historical run of each ESM for 1995-2014. We call this our **ESM baseline**.                                                                                                                                                                                                                                                                                                                      | Two climatology files (one per model) in `__data/bias_correct/esm/_1_climatology`             |
@@ -164,7 +166,7 @@ tic(); anom_esm("ACCESS-CM2"); toc() #Jessie: 0.689 seconds
 anom_esm("IPSL-CM6A-LR")
 ```
 
-The above code results in temperature anomalies for both ESMs (i.e., deviations from the mean). In the image below, the anomalies below represent the ESM projections for `ACCESS-CM2` SSP2-4.5, **minus** the corresponding historical climatology/baseline (1995-2014) created in Step 4.
+The above code results in temperature anomalies for both ESMs (i.e., deviations from the mean). In the image below, the anomalies below represent the ESM projections for `ACCESS-CM2` SSP2-4.5, **minus** the corresponding historical climatology/baseline (1995-2014) created in Step 3.
 
 ```{r}
 rr <- terra::rast(paste0(pth, bc_pth, bc_pth_anom, "/tos_mo_ACCESS-CM2_2015-2100_anom_ssp245.nc"))
@@ -197,7 +199,7 @@ plot(r, main = "OISST land mask"); values(r) %>% range(na.rm=T); maps::map("worl
 
 ## Interpolate ESM anomalies to OISST grid
 
-Here, we use **bilinear interpolation** to remap the course CMIP6 ESM anomalies created in Step 5 to the spatial extent and resolution of OISST, filling in missing cells (i.e., cells close to the coast) with nearest neighbor. Note that this can be processor intensive, especially if working with multiple ESMs and SSPs, so we use parallel processing with `furrr`.
+Here, we use **bilinear interpolation** to remap the course CMIP6 ESM anomalies created in Step 4 to the spatial extent and resolution of OISST, filling in missing cells (i.e., cells close to the coast) with nearest neighbor. Note that this can be processor intensive, especially if working with multiple ESMs and SSPs, so we use parallel processing with `furrr`.
 
 The code below uses a combination of `NCO` and `CDO`.
 
@@ -360,7 +362,7 @@ files <- list.files(input_folder, pattern = "anom", full.names = TRUE) # Files t
 ```
 :::
 
-Below left, we see the ESM anomalies created in Step 5, where we subtracted the ESM climatology (1995-2014) from the projections (2015-2100). On the right is the output of this step, representing the remapped anomalies using the OISST mask. Both of these fields represent an `ACCESS-CM2` SSP2-4.5 temperature projection for January 2015.
+Below left, we see the ESM anomalies created in Step 6, where we subtracted the ESM climatology (1995-2014) from the projections (2015-2100). On the right is the output of this step, representing the remapped anomalies using the OISST mask. Both of these fields represent an `ACCESS-CM2` SSP2-4.5 temperature projection for January 2015.
 
 ```{r}
  par(mfrow=c(1,2))
@@ -384,7 +386,7 @@ system(paste0("cdo griddes ", inputfile))
 
 ## Bias correction
 
-Now, the final step: **delta-change bias correction**. Here, we add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies created in Step 7. This results in a bias-corrected estimate of ocean surface temperature for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”.
+Now, the final step: **delta-change bias correction**. Here, we add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies created in Step 6. This results in a bias-corrected estimate of ocean surface temperature for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”.
 
 ```{r, eval = F}
 #| code-fold: true
@@ -447,11 +449,11 @@ maps::map("world", add = T)
 
 ```
 
-Above: All fields represent January 2015 for `ACCESS-CM2` SSP-2.45. Top left: Bias corrected ocean surface temperature (Step 8). Top right: Raw temperature field for the ESM. Bottom left: Remapped anomalies using the OISST grid (Step 7). Bottom right: Anomalies using the raw ESM grid (Step 5).
+Above: All fields represent January 2015 for `ACCESS-CM2` SSP-2.45. Top left: Bias corrected ocean surface temperature (Step 8). Top right: Raw temperature field for the ESM. Bottom left: Remapped anomalies using the OISST grid (Step 6). Bottom right: Anomalies using the raw ESM grid (Step 4).
 
 ## Rinse and repeat
 
-Now, we repeat Steps 5-8 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, **from the historical run**.
+Now, we repeat Steps 4-7 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, **from the historical run**.
 
 ```{r}
 list.files(paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected"),

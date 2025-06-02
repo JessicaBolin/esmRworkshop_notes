@@ -14,9 +14,9 @@ Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil*
 
 [**Mikaela**](https://mmprovost.com/) is an Assistant Professor at UC Davis, and the leader of Provost Lab. Mikaela's research uses theoretical and empirical approaches to address applied problems in fisheries management and marine conservation. Her projects span multiple species and places, and the methods I use can be adapted for a wide variety of taxa. `mmprovost@ucdavis.edu`
 
-[**Mer**](https://www.merpozobuil.com/) is an Associate Project Scientist at the University of California Santa Cruz and works collaboratively with the NOAA’s Southwest Fisheries Science Center. Mer's research interests are in ocean modeling and large-scale circulation, specifically about subsurface ocean variability, large-scale changes in water masses and circulation, and how they affect upwelling systems.
+[**Mer**](https://www.merpozobuil.com/) is an Associate Project Scientist at the University of California Santa Cruz. Mer's research interests are in ocean modeling and large-scale circulation, specifically about subsurface ocean variability, large-scale changes in water masses and circulation, and how they affect upwelling systems.
 
-[**Nerea**](https://nereota1.wixsite.com/nlezamaochoa) is an Associate Project Scientist at the University of California Santa Cruz and works collaboratively with the NOAA’s Southwest Fisheries Science Center. Nerea is currently working on the conservation and management of species taken incidentally in tropical tuna purse seine fisheries (bycatch). Nerea's main research interests are ecological modeling, spatial ecology, oceanography and ecosystem-based management approaches for the conservation of marine top predators.
+[**Nerea**](https://nereota1.wixsite.com/nlezamaochoa) is an Associate Project Scientist at the University of California Santa Cruz. Nerea is currently working on the conservation and management of species taken incidentally in tropical tuna purse seine fisheries (bycatch). Nerea's main research interests are ecological modeling, spatial ecology, oceanography and ecosystem-based management approaches for the conservation of marine top predators.
 
 [**Mary**](https://marinescience.ucdavis.edu/research-programs/conservation/kelp-restoration/project-personnel) is a Postdoc in the Baskett Lab, and an interdisciplinary marine scientist interested in how adaptation to climate change affects coupled human-natural systems. Her research has drawn on quantitative and qualitative techniques to explore trade-offs and unexpected consequences associated with climate adaptation in US West Coast fisheries.
 
@@ -54,7 +54,7 @@ Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil*
 
 The workshop data are \~`15 GB`, so ensure you have enough storage space on your machine before downloading, or bring an external SSD/Hard-drive.
 
-If you’re a Github user, send Jessie your Github username to be given access to the repo, and you will then be able to fork and clone the repo [here](https://github.com/JessicaBolin/esmRworkshop_notes). Then, you will then need to download the workshop `__data` folder [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0), which needs to be copied into the root directory of `esmRworkshop_notes`. We’ve added the `/__data` folder to the `.gitignore` file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files). 
+If you’re a Github user, send Jessie your Github username to be given access to the repo, and you will then be able to fork and clone the repo [here](https://github.com/JessicaBolin/esmRworkshop_notes). Then, you will then need to download the workshop `__data` folder [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0), which needs to be copied into the root directory of `esmRworkshop_notes`. We’ve added the `/__data` folder to the `.gitignore` file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).
 
 If you don't use Github, you can instead download the complete workshop repository [here](https://www.dropbox.com/scl/fo/fk1tl1oc13pbez3840ckt/ADqqX_9BRAi0aXIdIkowVSU?rlkey=l9943ao0o2qi0d2c3lidgfdmk&dl=0).
 
@@ -91,7 +91,7 @@ Lunch (sandwiches) will be provided, with vegan and vegetarian options available
 
 We acknowledge funding from the UC Davis Coastal and Marine Science Institute's internal grant scheme (2024-2025), and thank Bodega Marine Laboratory for providing space and equipment to run the workshop.
 
-We are very thankful for Barb Muhling (NOAA SWFSC) and Alice Pidd (UniSC) who reviewed workshop materials. We also thank Isaac Brito-Morales for developing the following `R` workshop materials [here](https://isaakbm.github.io/NACECC_workshop_2024/) and [here](https://isaakbm.github.io/ESM_240/) on analysing netCDFs and climate data, which our workshop took inspiration from. We also thank Dave Schoeman who developed and shared the first iteration of some code in this workshop, and who introduced Jessie to the world of climate models in the first place!
+We are very thankful for Barb Muhling (UCSC) and Alice Pidd (UniSC) who reviewed workshop materials. We also thank Isaac Brito-Morales for developing the following `R` workshop materials [here](https://isaakbm.github.io/NACECC_workshop_2024/) and [here](https://isaakbm.github.io/ESM_240/) on analysing netCDFs and climate data, which our workshop took inspiration from. We also thank Dave Schoeman who developed and shared the first iteration of some code in this workshop, and who introduced Jessie to the world of climate models in the first place!
 
 ## About this book
 

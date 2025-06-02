@@ -125,17 +125,6 @@ Once done, we will have a directory containing 20 years' worth of preprocessed O
 list.files(paste0(pth, "/__data/oisst_processed"))
 ```
 
-::: {.callout-important collapse="true"}
-# Leap years
-
-Here, we've created monthly means of OISST from the daily SST fields, to match the temporal resolution of our monthly ESM projections. However, if working with with daily data, you might want to remove February 29th to get around any calendar issues when merging files for bias correction (particularly if working with daily ESM data). This code removes the 29th day of February, and sets the calendar to Gregorian (i.e., 365 days) for `infile`. We skipped this today to save time, as it can take a while to process (merging 20 years' worth of daily files is processor-intensive, and results in a large file).
-
-```{r, eval = F}
-cdo_code <- paste0("cdo -L -setcalendar,365_day -delete,month=2,day=29 ", infile, " ", outfile)
-system(cdo_code)
-```
-:::
-
 ## Visualise
 
 Let's see how `OISST` compares to the ESM output.

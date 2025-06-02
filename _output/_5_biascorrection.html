@@ -300,15 +300,16 @@ Defining climatologies
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We often use 30 years to define a climatology in marine ecology, but you can shorten or lengthen your climatology based on what makes sense for your question and study system. We used 20 years today to save time.</p>
+<p>Further, in your own work, you may want to calculate monthly or seasonal climatologies, as opposed to a broad multi-decadal climatology (because this will smooth out monthly or seasonal variability). This will all depend on your study system and question, but something to consider when bias correcting ESM output.</p>
 </div>
 </div>
 </div>
 <p>The simplest form of bias correction is the “delta-change” method (e.g., [S2]). The first step in this procedure for a timeseries of any given climate variable is to identify an appropriate set of observational data and then to compute the mean value of that observed variable over a “baseline” period for which both observations and model output are available.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 48%">
-<col style="width: 25%">
+<col style="width: 1%">
+<col style="width: 80%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -533,7 +534,7 @@ time (days) : 2004-06-30 </code></pre>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="fu">anom_esm</span>(<span class="st">"IPSL-CM6A-LR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>The above code results in temperature anomalies for both ESMs (i.e., deviations from the mean). In the image below, the anomalies below represent the ESM projections for <code>ACCESS-CM2</code> SSP2-4.5, <strong>minus</strong> the corresponding historical climatology/baseline (1995-2014) created in Step 4.</p>
+<p>The above code results in temperature anomalies for both ESMs (i.e., deviations from the mean). In the image below, the anomalies below represent the ESM projections for <code>ACCESS-CM2</code> SSP2-4.5, <strong>minus</strong> the corresponding historical climatology/baseline (1995-2014) created in Step 3.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, bc_pth, bc_pth_anom, <span class="st">"/tos_mo_ACCESS-CM2_2015-2100_anom_ssp245.nc"</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">"ACCESS-CM2 anomalies SSP245 Jan 2015"</span>); maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -580,7 +581,7 @@ time (days) : 2004-06-30 </code></pre>
 </section>
 <section id="interpolate-esm-anomalies-to-oisst-grid" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="interpolate-esm-anomalies-to-oisst-grid"><span class="header-section-number">5.6</span> Interpolate ESM anomalies to OISST grid</h2>
-<p>Here, we use <strong>bilinear interpolation</strong> to remap the course CMIP6 ESM anomalies created in Step 5 to the spatial extent and resolution of OISST, filling in missing cells (i.e., cells close to the coast) with nearest neighbor. Note that this can be processor intensive, especially if working with multiple ESMs and SSPs, so we use parallel processing with <code>furrr</code>.</p>
+<p>Here, we use <strong>bilinear interpolation</strong> to remap the course CMIP6 ESM anomalies created in Step 4 to the spatial extent and resolution of OISST, filling in missing cells (i.e., cells close to the coast) with nearest neighbor. Note that this can be processor intensive, especially if working with multiple ESMs and SSPs, so we use parallel processing with <code>furrr</code>.</p>
 <p>The code below uses a combination of <code>NCO</code> and <code>CDO</code>.</p>
 <p>The resulting four files are ESM anomalies, that have been remapped and interpolated using OISST.</p>
 <div class="cell">
@@ -744,7 +745,7 @@ There’s a lot going on in this function. Let’s break it down…
 </div>
 </div>
 </div>
-<p>Below left, we see the ESM anomalies created in Step 5, where we subtracted the ESM climatology (1995-2014) from the projections (2015-2100). On the right is the output of this step, representing the remapped anomalies using the OISST mask. Both of these fields represent an <code>ACCESS-CM2</code> SSP2-4.5 temperature projection for January 2015.</p>
+<p>Below left, we see the ESM anomalies created in Step 6, where we subtracted the ESM climatology (1995-2014) from the projections (2015-2100). On the right is the output of this step, representing the remapped anomalies using the OISST mask. Both of these fields represent an <code>ACCESS-CM2</code> SSP2-4.5 temperature projection for January 2015.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">rast</span>(<span class="fu">paste0</span>(pth, bc_pth, bc_pth_anom, <span class="st">"/tos_mo_ACCESS-CM2_2015-2100_anom_ssp245.nc"</span>))[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> </span>
@@ -780,7 +781,7 @@ Troubleshooting CDO gridding errors
 </section>
 <section id="bias-correction" class="level2" data-number="5.7">
 <h2 data-number="5.7" class="anchored" data-anchor-id="bias-correction"><span class="header-section-number">5.7</span> Bias correction</h2>
-<p>Now, the final step: <strong>delta-change bias correction</strong>. Here, we add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies created in Step 7. This results in a bias-corrected estimate of ocean surface temperature for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”.</p>
+<p>Now, the final step: <strong>delta-change bias correction</strong>. Here, we add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies created in Step 6. This results in a bias-corrected estimate of ocean surface temperature for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -852,11 +853,11 @@ Troubleshooting CDO gridding errors
 </div>
 </div>
 </div>
-<p>Above: All fields represent January 2015 for <code>ACCESS-CM2</code> SSP-2.45. Top left: Bias corrected ocean surface temperature (Step 8). Top right: Raw temperature field for the ESM. Bottom left: Remapped anomalies using the OISST grid (Step 7). Bottom right: Anomalies using the raw ESM grid (Step 5).</p>
+<p>Above: All fields represent January 2015 for <code>ACCESS-CM2</code> SSP-2.45. Top left: Bias corrected ocean surface temperature (Step 8). Top right: Raw temperature field for the ESM. Bottom left: Remapped anomalies using the OISST grid (Step 6). Bottom right: Anomalies using the raw ESM grid (Step 4).</p>
 </section>
 <section id="rinse-and-repeat" class="level2" data-number="5.8">
 <h2 data-number="5.8" class="anchored" data-anchor-id="rinse-and-repeat"><span class="header-section-number">5.8</span> Rinse and repeat</h2>
-<p>Now, we repeat Steps 5-8 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, <strong>from the historical run</strong>.</p>
+<p>Now, we repeat Steps 4-7 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, <strong>from the historical run</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/bias_correct/esm/_4_bias_corrected"</span>),</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">pattern =</span> <span class="st">"1995-2014"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
