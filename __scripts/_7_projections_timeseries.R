@@ -143,7 +143,6 @@ plot_ts <- function(ssp, sspletter) {
   smooth_esm <- get(paste0("smooth_esm_", ssp)) #relies on this already being in your env
   ssp_smoothed_ind <- get(paste0("ssp_smoothed_ind_", ssp))
   
-  # Make a kick-ass plot
   p1 <- ggplot() +
     geom_line(smooth_esm, 
               mapping = aes(x = date, y = values), 

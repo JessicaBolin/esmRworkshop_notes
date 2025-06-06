@@ -7,7 +7,7 @@ The Earth System Grid Federation (ESGF) manages the database for handling climat
 Today, we will be downloading our model outputs via the ESGF website. We will download the simulations for two models, with the following components:
 
 | Component Name      | Variable Name                       | Description                                                                                                                            |
-|-------------------|-------------------|----------------------------------|
+|---------------------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | Activity ID         | `ScenarioMIP`                       | ScenarioMIP                                                                                                                            |
 | Source ID           | `ACCESS-CM2`, `IPSL-CM6A-LR`        | Model names                                                                                                                            |
 | Experiment ID       | `SSP2-4.5`, `SSP5-8.5` `historical` | Climate scenario (`historical` ranges 1850-2014; `SSPs` range 2015-2100).                                                              |
@@ -69,7 +69,6 @@ First, we source our packages and set our directories for where our (i) `wget` s
 ```{r, echo = F, message = F, warning = F, eval = T}
 source("/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/helpers.R")
 ```
-
 
 ```{r, message = F, warning = F, eval = F}
 source(paste0(getwd(), "/__scripts/helpers.R"))

@@ -14,6 +14,9 @@ source(paste0(getwd(), "/__scripts/helpers.R"))
 
 # 7.2.1 Ensemble for each model -------------------------------------------------
 
+# Create projections for indiviudla ESMs, across both time periods and SSPs,
+# and save outputs as .nc files. 
+
 models = c("ACCESS-CM2", "IPSL-CM6A-LR")
 ssps = c("ssp245", "ssp585")
 term = c("near", "long")
@@ -49,15 +52,19 @@ tic(); for (k in term) {
   }
 }; toc() #Jessie: 1.8 seconds
 
-list.files(paste0(pth, "/__data/projections/ind"))
+#list.files(paste0(pth, "/__data/projections/ind"))
+#testr <- rast(list.files(paste0(pth, "/__data/projections/ind"), full.names = T)[1])
+#testr %>% plot(main = "ACCESS-CM2 SSP245 long-term (1980-2100) SST")
+
 
 
 # 7.2.2 Actual ensemble ---------------------------------------------------------
 
+
+
 tic(); for (k in term) {
   for (i in ssps) {
     
-      
       allfiles_proj <- list.files(paste0(pth, "/__data/projections/ind"), 
                                   pattern = i, full.names = T)
       allfiles_proj <- allfiles_proj[grep(k, allfiles_proj)]
@@ -78,6 +85,11 @@ tic(); for (k in term) {
 }; toc() #Jessie: 0.3 seconds
 
 list.files(paste0(pth, "/__data/projections/ens"))
+#testr <- rast(list.files(paste0(pth, "/__data/projections/ens"), full.names = T)[1])
+#testr %>% plot(main = "Ensembled SSP245 long-term (1980-2100) SST")
+
+
+
 
 
 # 7.2.3 Delta difference --------------------------------------------------------
@@ -88,12 +100,16 @@ outdir = paste0(pth, proj_pth, "/delta")
 # Historical --------------------------------------------------------------
 
 #Ensemble average of 1995-2014 for both models
+# Using this for delta projections
 full_pth <- paste0(pth, bc_pth, bc_pth_bc, "/")
+# Read in both rasters from the two ESMs
 r1 <- rast(paste0(full_pth, "tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"))
 r2 <- rast(paste0(full_pth, "tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"))
 rr <- c(r1, r2)
-mean_hist <- mean(rr)
+mean_hist <- mean(rr) #calculate ensemble mean 
 plot(mean_hist, main = "Ensembled SST 1995-2014"); maps::map("world", add = T)
+
+
 
 
 # Delta projections -------------------------------------------------------
@@ -117,6 +133,9 @@ tic(); for (i in ssps) {
 }; toc() #Jessie: 0.226 seconds
 
 list.files(paste0(pth, "/__data/projections/delta"))
+#testr <- rast(list.files(paste0(pth, "/__data/projections/delta"), full.names = T)[1])
+#testr %>% plot(main = "Ensembled SSP245 long-term (1980-2100) Delta SST")
+
 
 
 # 7.2.4 Plot ---------------------------------------------------------------------
@@ -134,7 +153,7 @@ list.files(paste0(pth, "/__data/projections/delta"))
 deltapth = paste0(pth, "/__data/projections/delta/")
 
 
-# Long --------------------------------------------------------------------
+# Long SSP585 --------------------------------------------------------------------
 
 par(mfrow=c(2,3))
 
@@ -150,9 +169,7 @@ plot(r1, main = "Delta SST",
      col = viridis::mako(255),
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 
-
-
-# Near --------------------------------------------------------------------
+# Near SSP585 --------------------------------------------------------------------
 
 r2 <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp585_near_proj.nc"))
 plot(r2, main = "Mean SST",
