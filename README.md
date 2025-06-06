@@ -1,6 +1,6 @@
 # R for marine ecologists: wrangling Earth System Model outputs
 
-**Workshop date:** Tuesday, June 3rd 2025  
+**Pilot Workshop date:** Tuesday, June 3rd 2025  
 **Location:** Lecture Hall, Bodega Marine Laboratory, Bodega Bay, CA  
 **Instructors:** Jessica Bolin, Mikaela Provost, Mer Pozo Buil, Nerea Lezama-Ochoa, Mary Fisher
 
@@ -12,4 +12,29 @@ Our workshop is designed around Step 8 (pre-process the data) in the workflow of
 
 Our workshop is supported by CMSI, and is hosted by Bodega Marine Lab. We thank both organisations for their funding and support.
 
-Workshop advertisement: https://jessicabolin.quarto.pub/esmrworkshop2025/ 
+Workshop advertisement: https://jessicabolin.quarto.pub/esmrworkshop2025/  
+Workshop notes: https://jessicabolin.quarto.pub/esmrworkshop_notes/ 
+
+
+## Contributing and Support
+We welcome contributions and feedback from the community! This workshop is designed to be open and collaborative, and we encourage marine ecologists, educators, and climate data users to help improve and expand this resource.
+
+🤝 How to Contribute  
+- Fork the repository and create a new branch for your feature or fix.
+- Make your changes and submit a pull request (PR).
+- Please include a clear description of your changes and why they are useful.
+
+You can contribute by:  
+- Suggesting improvements to the R code, documentation, or workflows.
+- Adding additional examples, datasets, or climate variables.
+- Translating materials into other languages.
+- Improving accessibility or user-friendliness of the Quarto site.
+
+🐞 Reporting Issues  
+To report a bug, ask a question, or suggest a feature:
+- Open an issue via the Issues tab.
+- Or, email Jessica Bolin (jabbolin(at)ucdavis(dot)edu)
+
+Please provide as much context as possible, including error messages, steps to reproduce, and your R session info if applicable.
+
+
