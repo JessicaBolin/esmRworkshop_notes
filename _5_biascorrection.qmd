@@ -23,51 +23,18 @@ Further, in your own work, you may want to calculate monthly or seasonal climato
 The simplest form of bias correction is the “delta-change” method (e.g., \[S2\]). The first step in this procedure for a timeseries of any given climate variable is to identify an appropriate set of observational data and then to compute the mean value of that observed variable over a “baseline” period for which both observations and model output are available.
 
 | Step | Description                                                                                                                                                                                                                                                                                                                                                                                                                          | Output/s                                                                                      |
-|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| 1    | Merge all daily OISST files into a single file                                                                                                                                                                                                                                                                                                                                                                                       | `_1_OISST_baseline_combined.nc`                                                               |
-| 2    | Calculate the OISST climatology for 1995-2014, to be used later for bias correction.                                                                                                                                                                                                                                                                                                                                                 | `_2_OISST_climatology.nc`                                                                     |
-| 3    | Calculate the climatology for each historical run of each ESM for 1995-2014. We call this our **ESM baseline**.                                                                                                                                                                                                                                                                                                                      | Two climatology files (one per model) in `__data/bias_correct/esm/_1_climatology`             |
-| 4    | Calculate ESM anomalies for each model/SSP combination, by subtracting the ESM baseline from each monthly projection from 2015-2100. This results in a set of anomalies (i.e., deviations from the mean).                                                                                                                                                                                                                            | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_2_anomalies`          |
-| 5    | Create a **land mask** using OISST, used later for bias correction. The mask has the same grid attributes as OISST (i.e., 0.25˚, WGS84 lon/lat).                                                                                                                                                                                                                                                                                     | `_3_OISST_mask.nc`                                                                            |
-| 6    | Interpolate the ESM anomalies onto the OISST grid, using **bilinear interpolation** to remap the courser CMIP data to the finer grid of the OISST land mask, and fills missing cells (i.e., coastal cells) using the **nearest neighbor** value.                                                                                                                                                                                     | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_3_anomalies_remapped` |
-| 7    | **Delta-change bias correction**: add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies in Step 7. This results in a bias-corrected estimate of SST for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”. | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_4_bias_corrected`     |
+|------------|-------------------------------------------------|------------|
+| 1    | Calculate the OISST climatology for 1995-2014, to be used later for bias correction.                                                                                                                                                                                                                                                                                                                                                 | `_2_OISST_climatology.nc`                                                                     |
+| 2    | Calculate the climatology for each historical run of each ESM for 1995-2014. We call this our **ESM baseline**.                                                                                                                                                                                                                                                                                                                      | Two climatology files (one per model) in `__data/bias_correct/esm/_1_climatology`             |
+| 3    | Calculate ESM anomalies for each model/SSP combination, by subtracting the ESM baseline from each monthly projection from 2015-2100. This results in a set of anomalies (i.e., deviations from the mean).                                                                                                                                                                                                                            | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_2_anomalies`          |
+| 4    | Create a **land mask** using OISST, used later for bias correction. The mask has the same grid attributes as OISST (i.e., 0.25˚, WGS84 lon/lat).                                                                                                                                                                                                                                                                                     | `_3_OISST_mask.nc`                                                                            |
+| 5    | Interpolate the ESM anomalies onto the OISST grid, using **bilinear interpolation** to remap the courser CMIP data to the finer grid of the OISST land mask, and fills missing cells (i.e., coastal cells) using the **nearest neighbor** value.                                                                                                                                                                                     | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_3_anomalies_remapped` |
+| 6    | **Delta-change bias correction**: add the OISST climatology (1995-2014; i.e., the observed mean) to the remapped ESM anomalies in Step 7. This results in a bias-corrected estimate of SST for each ESM projection. The adjustment to the projection for each time step in the time series amounts to the difference between the means of the observations and ESM outputs over the baseline period – hence the name “delta-change”. | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_4_bias_corrected`     |
 
 Below, we'll go through the steps in more detail:
 
-## Merge daily OISST files
-
-Merge all daily OISST files into a single file
-
 ```{r, echo = F, message = F, warning = F}
 source("/Users/admin/Documents/GitHub/esmRworkshop_website/__scripts/helpers.R")
-```
-
-```{r, eval = F}
-#| code-fold: true
-# List all processed OISST files
-day_ncs <- dir(paste0(pth, oisst_pth_proc), full.names = TRUE) %>% 
-  paste0(., collapse = " ") 
-
-# CDO code
-cdo_code <- paste0("cdo -s -L ", #Deploy CDO silently and in low memory mode
-                   "-f nc4 ",  # Output file should be netCDF format
-                   "-z zip ", # Compress the output file using zip
-                   "-mergetime ", # Merge multiple input netCDF files
-                   day_ncs, # The names of the input files
-                   " ", 
-                   paste0(pth, bc_pth, "/_1_OISST_baseline_combined.nc")) # output file 
-
-# Run 
-tic(); system(cdo_code); toc() 
-```
-
-> Jessie speed: 0.2s
-
-The `.nc` output has 240 layers (one for each month from January 1995 to December 2014).
-
-```{r}
-rr <- terra::rast(paste0(pth, bc_pth, "/_1_OISST_baseline_combined.nc"))
-rr
 ```
 
 ## Create OISST climatology (1995-2014)
@@ -80,7 +47,7 @@ Here, for simplicity, we've defined our 'climatology' as the SST averaged over t
 
 ```{r, eval = F}
 #| code-fold: true
-input_file <- paste0(pth, bc_pth, "/_1_OISST_baseline_combined.nc")
+input_file <- paste0(pth, "/__data/oisst_processed/sst.mon.mean_remap.nc")
 output_file <- paste0(pth, bc_pth, "/_2_OISST_climatology.nc")
 
 # Calculate the mean in each grid cell (across all years in the time period)
@@ -103,7 +70,7 @@ plot(r, main = "OISST climatology 1995-2014") #smoothed over
 histclim <- function(model) {
 
 ### HISTORICAL 
-# This creates a climatology/baseline 1993-2014 file using the ESM's historical run
+# This creates a climatology/baseline 1995-2014 file using the ESM's historical run
 # Create baseline file 1993-2014 and mean
 filey <- list.files(paste0(pth, cmip_pth_proc), 
                     pattern = "historical", full.names = T)
@@ -453,7 +420,7 @@ Above: All fields represent January 2015 for `ACCESS-CM2` SSP-2.45. Top left: Bi
 
 ## Rinse and repeat
 
-Now, we repeat Steps 4-7 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, **from the historical run**.
+Now, we repeat Steps 3-6 for the 1995-2014 time period from both ESMs. This results in bias-corrected monthly temperature fields for this time period, **from the historical run**.
 
 ```{r}
 list.files(paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected"),

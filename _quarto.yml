@@ -1,12 +1,11 @@
 project:
   type: book
   output-dir: "./_output"
-  post-render: encrypt.r
 
 book:
   title: "R for marine ecologists: wrangling Earth System Model outputs"
   author: "Jessica Bolin"
-  date: "05/29/2025"
+  date: "06/06/2025"
   cover-image: images/cmsi.png
   sidebar:
     style: docked
@@ -26,6 +25,7 @@ book:
     - _7_projections.qmd
     - _xxxxx_handyresources.qmd
     - _xxxxxx_references.qmd
+    - _xxxxxxx_feedback.qmd
   repo-url: https://github.com/JessicaBolin/esmRworkshop
   
 

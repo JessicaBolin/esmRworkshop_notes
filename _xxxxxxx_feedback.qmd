@@ -1,0 +1,33 @@
+# Feedback and contributing {.unnumbered}
+
+If you have suggestions for improving the workshop, or run into a bug, we'd love to hear from you. We've outlined the steps for contributing and reporting bugs in the `README.md` associated with the workshop's [Github repository](https://github.com/JessicaBolin/esmRworkshop_notes).
+
+Below are examples of feedback we've received from previous iterations of the workshop.
+
+------------------------------------------------------------------------
+
+*“The workshop was very well run, and the website notes were super helpful - the organizers did a great job!”*
+
+*“Learning the theory and limitations of the models themselves was especially helpful when thinking about how to apply these methods to my own work.”*
+
+*“Thank you for having this workshop at BML! It is hard for residents at BML to access these kinds of workshops, so I really appreciate it.”*
+
+*“\[The instructors\] did a great job explaining all the complicated concepts and answered any questions we had!”*
+
+*“Exceeded my expectations. I wasn't expecting to learn all that we learned and I feel well-prepared to work with model outputs and build on the code/materials we received.*
+
+*“I didn't know where to look for resources, and so being provided resources, code, and a walk-through was super helpful and has made me feel more confident on where to start.”*
+
+*“I think it was the perfect blend of theory and practice! I am grateful to have so many new resources to explore! I think the various different scripts will help me learn the steps. Thank you so much for sharing these resources and for explaining everything so well! I had a blast!”*
+
+*“I now have great code that I can use for other projects (and that I actually understand). We went through so many important steps. Thank you!!! Most beautiful workshop website ever.”*
+
+*“I especially liked when we walked through each of the functions so I knew what was happening there, and then having plots to show intermediate steps.”*
+
+*"I learned a lot of foundational skills in downloading and plotting ESM data. As someone with no experience with this kind of data before, it was really helpful."*
+
+------------------------------------------------------------------------
+
+![](images/IMG_6928.jpeg){fig-align="center" width="658"}
+
+**Above**: Participants at Bodega Bay Marine Lab, June 2025.

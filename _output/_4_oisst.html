@@ -227,6 +227,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">References</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./_xxxxxxx_feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback and contributing</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -286,120 +292,74 @@ Oceanography terminology: ‘observations’
 </div>
 <section id="download-oisst" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="download-oisst"><span class="header-section-number">4.1</span> Download OISST</h2>
-<p>Here we define a function that takes two arguments, which denote the start and end of the time period we will use to define our baseline climatology. First, we will download twenty years worth of OISST data, spanning 1995 to 2014, which are our <strong>observations</strong>. We’ll get into why we chose this time period in the next Chapter. The function downloads daily files of OISST from the index site <a href="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/">here</a>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set destination folder</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>oFold <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_raw/"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set base URL</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the links that appear there as yyyymm dates</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url) <span class="co"># Read the HTML</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sFld <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(<span class="fu">html_nodes</span>(pg, <span class="st">"a"</span>), <span class="st">"href"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Extract the links</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d"</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="co"># Just the folders with 6 digits (i.e., one per month)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what files might already be in the folder</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">dir</span>(oFold, <span class="at">pattern =</span> <span class="st">".nc"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract identifiers from the file names - works at level of month</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ncs <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"oisst-avhrr-v02r01."</span>, <span class="st">""</span>, f) <span class="sc">%&gt;%</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">d</span><span class="sc">\\</span><span class="st">.nc"</span>, <span class="st">""</span>, .) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(., <span class="st">"/"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude files (months) that are already downlaoded</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>sFld <span class="ot">&lt;-</span> sFld[<span class="sc">!</span>sFld <span class="sc">%in%</span> ncs]</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>download_oisst <span class="ot">&lt;-</span> <span class="cf">function</span>(yrstrt, yrend) {</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset sFld to only include time period of interest</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  ind1 <span class="ot">&lt;-</span> <span class="fu">grep</span>(yrstrt, sFld) <span class="sc">%&gt;%</span> min </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  ind2 <span class="ot">&lt;-</span> <span class="fu">grep</span>(yrend, sFld) <span class="sc">%&gt;%</span> max</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  sFld <span class="ot">&lt;-</span> sFld[ind1<span class="sc">:</span>ind2] </span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(sFld) <span class="co">#downloading 372 files for 30 yrs</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> sFld) {</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    urli <span class="ot">&lt;-</span> <span class="fu">paste0</span>(url, <span class="st">"/"</span>, i)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    pgi <span class="ot">&lt;-</span> <span class="fu">read_html</span>(urli) <span class="co"># Read the HTML</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    sFldi <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(<span class="fu">html_nodes</span>(pgi, <span class="st">"a"</span>), <span class="st">"href"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Extract the links</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">grep</span>(<span class="st">".nc"</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="co"># Just the netCDFs</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> sFldi) {</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">download.file</span>(<span class="fu">paste0</span>(urli, j), <span class="fu">paste0</span>(oFold, j))</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">download_oisst</span>(<span class="at">yrstrt =</span> <span class="dv">1995</span>, <span class="at">yrend =</span> <span class="dv">2014</span>); <span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<p>Today, we’re going to download monthly means of SST from 1995-2014 (i.e., 20 years). These are our <strong>observations</strong>. We’ll get into why we chose this time period in the next Chapter. Our monthly means are provided as a single <code>.nc</code> file from the NOAA Physical Sciences Laboratory thredds website.</p>
+<p><a href="https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html">Here</a> is the link to the home page of OISST.</p>
+<p>Under <strong>’Download and Plot Data</strong>’, there are a bunch of files across different temporal resolutions and summary statistics. Find the row that corresponds to <strong>Variable</strong>: Sea surface temperature, <strong>Statistic</strong>: Monthly Mean, <strong>Level</strong>: Surface, and <strong>Timescale</strong>: Monthly. Click the blue #1 icon (i.e., there is one file associated with this row). A drop down file appears called <code>/Datasets/noaa.oisst.v2.highres/sst.mon.mean.nc</code>. Click the blue book icon next to this, which links to the <code>thredds</code> catalog hosting the file. See below for what this looks like.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/oisst_download.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="499"></p>
+</figure>
 </div>
-<blockquote class="blockquote">
-<p>Jessie speed: ~2 hours (for 20 years of data).</p>
-</blockquote>
+<p>Clicking the book icon will result in seeing a variety of options for downloading the file. You can download the file directly within your browser, by selecting the <code>HTTPServer</code> option. However, the file is 2177 MB (i.e., &gt;2GB), because it contains the monthly means for a global grid for each month from 1991 to 2025! That’s a lot of data to download!</p>
+<p>Perhaps a more space-savvy option is to select the <code>NetCDFsubset</code> option. This allows us to select the time period and spatial bounding box we want, thereby reducing the file size.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/oisst_thredds.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="577"></p>
+</figure>
+</div>
+<p>Once we select <code>NetcdfSubset</code>, we now select the specific fields we want. Below, I’ve:</p>
+<ul>
+<li><p>Selected the variable check box (i.e., <em>Monthly Mean of Sea Surface Temperature</em>)</p></li>
+<li><p>Changed the time period to Start: 1995-01-01 and End: 2014-12-01</p></li>
+<li><p>Specified the Output format as <code>netCDF4-classic</code></p></li>
+</ul>
+<p>I could reduce the file size further by entering in the spatial bounding box for California (using latitudinal and longitudinal coordinates), however I’m using these files for other purposes, so I’ve kept it as a global grid.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/oisst_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="568"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/oisst_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="354"></p>
+</figure>
+</div>
+<p>You’ll see at the bottom of the page it produces a ‘<strong>NCSS request URL</strong>’. When you click ‘Submit’, your browser will download the amended file.</p>
+<p><a href="https://psl.noaa.gov/thredds/ncss/grid/Datasets/noaa.oisst.v2.highres/sst.mon.mean.nc?var=sst&amp;north=90.000&amp;west=-180.000&amp;east=180.000&amp;south=-90.000&amp;horizStride=1&amp;time_start=1995-01-01T00:00:00Z&amp;time_end=2014-12-01T00:00:00Z&amp;&amp;&amp;accept=netcdf4-classic&amp;addLatLon=true"><code>https://psl.noaa.gov/thredds/ncss/grid/Datasets/noaa.oisst.v2.highres/sst.mon.mean.nc?var=sst&amp;north=90.000&amp;west=-180.000&amp;east=180.000&amp;south=-90.000&amp;horizStride=1&amp;time_start=1995-01-01T00:00:00Z&amp;time_end=2014-12-01T00:00:00Z&amp;&amp;&amp;accept=netcdf4-classic&amp;addLatLon=true</code></a></p>
+<p>Downloading this file took about 10 seconds, and the file is only ~450 MB. Much better!</p>
 </section>
 <section id="preprocess-oisst" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="preprocess-oisst"><span class="header-section-number">4.2</span> Preprocess OISST</h2>
-<p>As with the ESMs, we need to preprocess them. However, OISST are provided as daily files, so we need to calculate monthly averages so they are comparable with our projections. We do this using the <code>-mergetime</code> and <code>monmean</code> operators. Then, as with the ESMs, we need to crop and remap the OISST fields to the same resolution and extent and off the California coast.</p>
+<p>As with the ESMs, we need to preprocess our observations, by cropping and remapping the OISST fields to the same resolution and extent off the California coast.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>oisst_mr <span class="ot">&lt;-</span> <span class="cf">function</span>(yr,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">infile =</span> <span class="fu">paste0</span>(pth, oisst_pth),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">outfile =</span> <span class="fu">paste0</span>(pth, oisst_pth_proc),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">126</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">116</span>, <span class="at">ymin =</span> <span class="dv">32</span>, <span class="at">ymax =</span> <span class="dv">43</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cell_res =</span> <span class="fl">0.25</span>) {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine all daily files for X year into one file</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  merged_1yr <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cdo -mergetime "</span>, </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                 infile, <span class="st">"/"</span>, <span class="st">"oisst-avhrr-v02r01."</span>, yr, <span class="st">"*.nc "</span>, </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                 outfile, <span class="st">"/"</span>, <span class="st">"oisst-avhrr-merged_"</span>, yr, <span class="st">".nc"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(merged_1yr) <span class="co"># takes a few seconds</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate monthly means for X year</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  mthmeans <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cdo -L monmean "</span>, </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                   outfile, <span class="st">"/oisst-avhrr-merged_"</span>, yr, <span class="st">".nc "</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                   outfile, <span class="st">"/mean_"</span>, yr, <span class="st">".nc"</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(mthmeans)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select SST, crop and remap </span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  oisst_regrid <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cdo -L -select,name=,sst "</span>, </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"-sellonlatbox,"</span>, xmin, <span class="st">","</span>, xmax, <span class="st">","</span>, ymin, <span class="st">","</span>, ymax,  </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" -remapbil,r"</span>, <span class="dv">360</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>cell_res), <span class="st">"x"</span>, <span class="dv">180</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>cell_res), </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" "</span>, outfile, <span class="st">"/mean_"</span>, yr, <span class="st">".nc"</span>, </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" "</span>, outfile, <span class="st">"/mean_remap_"</span>, yr, <span class="st">".nc"</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(oisst_regrid)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove temporary files </span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, outfile, <span class="st">"/"</span>, <span class="st">"oisst-avhrr-merged_"</span>, yr, <span class="st">".nc"</span>))</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, outfile, <span class="st">"/mean_"</span>, yr, <span class="st">".nc"</span>))</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector of years to process</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">1995</span><span class="sc">:</span><span class="dv">2014</span>  <span class="co"># Modify as needed</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">14</span>)  <span class="co"># Change workers to suit your machine</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(); <span class="fu">future_map</span>(years, <span class="sc">~</span> <span class="fu">oisst_mr</span>(.x)); <span class="fu">toc</span>()</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential) <span class="co"># Return to sequential processing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>oisst_mr <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">infile =</span> <span class="fu">paste0</span>(pth, oisst_pth),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">outfile =</span> <span class="fu">paste0</span>(pth, oisst_pth_proc),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">126</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">116</span>, <span class="at">ymin =</span> <span class="dv">32</span>, <span class="at">ymax =</span> <span class="dv">43</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cell_res =</span> <span class="fl">0.25</span>) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select SST, crop and remap </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  oisst_regrid <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cdo -L -select,name=,sst "</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"-sellonlatbox,"</span>, xmin, <span class="st">","</span>, xmax, <span class="st">","</span>, ymin, <span class="st">","</span>, ymax,  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" -remapbil,r"</span>, <span class="dv">360</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>cell_res), <span class="st">"x"</span>, <span class="dv">180</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>cell_res), </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" "</span>, infile, <span class="st">"/sst.mon.mean.nc.nc4"</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                   <span class="st">" "</span>, outfile, <span class="st">"/sst.mon.mean_remap.nc"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(oisst_regrid)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">oisst_mr</span>() <span class="co">#run with default function arguments</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <blockquote class="blockquote">
 <p>Jessie speed: ~1-2 min</p>
 </blockquote>
-<p>Once done, we will have a directory containing 20 years’ worth of preprocessed OISST monthly fields.</p>
+<p>Once done, we will have a directory containing our file of 20 years’ worth of preprocessed OISST monthly fields.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_processed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, <span class="st">"/__data/oisst_processed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "mean_remap_1994.nc" "mean_remap_1995.nc" "mean_remap_1996.nc"
- [4] "mean_remap_1997.nc" "mean_remap_1998.nc" "mean_remap_1999.nc"
- [7] "mean_remap_2000.nc" "mean_remap_2001.nc" "mean_remap_2002.nc"
-[10] "mean_remap_2003.nc" "mean_remap_2004.nc" "mean_remap_2005.nc"
-[13] "mean_remap_2006.nc" "mean_remap_2007.nc" "mean_remap_2008.nc"
-[16] "mean_remap_2009.nc" "mean_remap_2010.nc" "mean_remap_2011.nc"
-[19] "mean_remap_2012.nc" "mean_remap_2013.nc" "mean_remap_2014.nc"</code></pre>
+<pre><code>[1] "sst.mon.mean_remap.nc"</code></pre>
 </div>
 </div>
 </section>
@@ -408,20 +368,20 @@ Oceanography terminology: ‘observations’
 <p>Let’s see how <code>OISST</code> compares to the ESM output.</p>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, oisst_pth_proc, <span class="st">"/mean_remap_1995.nc"</span>))[[<span class="dv">1</span>]]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>esm <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))[[<span class="dv">1</span>]]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(oisst, <span class="at">main =</span> <span class="st">"OISST Jan 1995"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(esm, <span class="at">main =</span> <span class="st">"ESM Jan 1850"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>oisst <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, oisst_pth_proc, <span class="st">"/sst.mon.mean_remap.nc"</span>))[[<span class="dv">1</span>]]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>esm <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">paste0</span>(pth, cmip_pth_proc, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))[[<span class="dv">1</span>]]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(oisst, <span class="at">main =</span> <span class="st">"OISST Jan 1995"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(esm, <span class="at">main =</span> <span class="st">"ESM Jan 1850"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="_4_oisst_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="_4_oisst_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="_4_oisst_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+<p><img src="_4_oisst_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
