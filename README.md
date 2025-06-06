@@ -24,11 +24,7 @@ We welcome contributions and feedback from the community! This workshop is desig
 - Make your changes and submit a pull request (PR).
 - Please include a clear description of your changes and why they are useful.
 
-You can contribute by:  
-- Suggesting improvements to the R code, documentation, or workflows.
-- Adding additional examples, datasets, or climate variables.
-- Translating materials into other languages.
-- Improving accessibility or user-friendliness of the Quarto site.
+You can contribute by (i) suggesting improvements to the R code, documentation, or workflows, (ii) adding additional examples, datasets, or climate variables, (iii) translating materials into other languages and (iv) improving accessibility or user-friendliness of the Quarto site.
 
 🐞 Reporting Issues  
 To report a bug, ask a question, or suggest a feature:
