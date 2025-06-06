@@ -12,7 +12,6 @@ Our workshop is designed around Step 8 (pre-process the data) in the workflow of
 
 Our workshop is supported by CMSI, and is hosted by Bodega Marine Lab. We thank both organisations for their funding and support.
 
-Workshop advertisement: https://jessicabolin.quarto.pub/esmrworkshop2025/  
 Workshop notes: https://jessicabolin.quarto.pub/esmrworkshop_notes/ 
 
 
@@ -32,5 +31,3 @@ To report a bug, ask a question, or suggest a feature:
 - Or, email Jessica Bolin (jabbolin(at)ucdavis(dot)edu)
 
 Please provide as much context as possible, including error messages, steps to reproduce, and your R session info if applicable.
-
-
