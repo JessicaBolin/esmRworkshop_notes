@@ -26,7 +26,7 @@ book:
     - _xxxxx_handyresources.qmd
     - _xxxxxx_references.qmd
     - _xxxxxxx_feedback.qmd
-  repo-url: https://github.com/JessicaBolin/esmRworkshop
+  repo-url: https://github.com/JessicaBolin/esmRworkshop_notes
   
 
 bibliography: references.bib
