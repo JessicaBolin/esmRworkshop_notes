@@ -14,15 +14,15 @@ Workshop notes: https://jessicabolin.quarto.pub/esmrworkshop_notes/
 
 We welcome contributions and feedback from the community! This workshop is designed to be open and collaborative, and we encourage marine ecologists, educators, and climate data users to help improve and expand this resource.
 
-🤝 How to contribute:\
-- Fork the repository and create a new branch for your feature or fix. \
-- Make your changes and submit a pull request. \
+🤝 How to contribute:
+- Fork the repository and create a new branch for your feature or fix. 
+- Make your changes and submit a pull request. 
 - Please include a clear description of your changes and why they are useful.
 
 You can contribute by, for example, (i) suggesting improvements to the R code, documentation, or workflows, (ii) adding additional examples, data sets, or climate variables, (iii) translating materials into other languages and (iv) improving accessibility or user-friendliness of the Quarto site.
 
-🐞 Reporting bugs:\
-- Open an issue via the Issues tab. \
+🐞 Reporting bugs:
+- Open an issue via the Issues tab. 
 - Or, email Jessica Bolin (jabbolin(at)ucdavis(dot)edu)
 
 Please provide as much context as possible, including error messages, steps to reproduce, and your R session info via `sessionInfo()` , if applicable.
