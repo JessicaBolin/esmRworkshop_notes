@@ -1,6 +1,6 @@
-# Schedule (TBD) {.unnumbered}
+# Schedule  {.unnumbered}
 
-TBD: Van departs UCD main campus to BML (sign-up required)
+0745: Van departs UCD main campus to BML (sign-up required)
 
 1000: Introductions and housekeeping
 
@@ -12,7 +12,7 @@ TBD: Van departs UCD main campus to BML (sign-up required)
 
 1230-1330: *Lunch*
 
-1330: OISST 
+1330: OISST
 
 1400: Bias-correction and downscaling
 
@@ -20,6 +20,6 @@ TBD: Van departs UCD main campus to BML (sign-up required)
 
 1530: Making projections
 
-1630-1700: Questions, troubleshooting, workshop wrap-up.
+1600: Questions, troubleshooting, workshop wrap-up.
 
-TBD: Van departs BML to UCD main campus (sign-up required)
+1630: Van departs BML to UCD main campus (sign-up required)
