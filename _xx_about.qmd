@@ -52,9 +52,9 @@ Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil*
 
 ## Workshop materials
 
-The workshop data are \~`15 GB`, so ensure you have enough storage space on your machine before downloading, or bring an external SSD/Hard-drive.
+The workshop data are \~`2.5 GB`, so ensure you have enough storage space on your machine before downloading, or bring an external SSD/Hard-drive.
 
-If you’re a Github user, send Jessie your Github username to be given access to the repo, and you will then be able to fork and clone the repo [here](https://github.com/JessicaBolin/esmRworkshop_notes). Then, you will then need to download the workshop `__data` folder [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0), which needs to be copied into the root directory of `esmRworkshop_notes`. We’ve added the `/__data` folder to the `.gitignore` file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).
+If you’re a Github user, you can fork and clone the repo [here](https://github.com/JessicaBolin/esmRworkshop_notes). Then, you will then need to download the workshop `__data` folder [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0), which needs to be copied into the root directory of `esmRworkshop_notes`. We’ve added the `/__data` folder to the `.gitignore` file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).
 
 If you don't use Github, you can instead download the complete workshop repository [here](https://www.dropbox.com/scl/fo/fk1tl1oc13pbez3840ckt/ADqqX_9BRAi0aXIdIkowVSU?rlkey=l9943ao0o2qi0d2c3lidgfdmk&dl=0).
 
