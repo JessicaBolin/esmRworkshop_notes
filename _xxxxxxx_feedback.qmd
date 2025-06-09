@@ -26,6 +26,8 @@ Below are examples of feedback we've received from previous iterations of the wo
 
 *"I learned a lot of foundational skills in downloading and plotting ESM data. As someone with no experience with this kind of data before, it was really helpful."*
 
+*"I enjoyed both the theoretical and technical aspects of the workshop. I think it provided a good foundation and toolset overview. The review of accessing CMIP6 data was incredibly useful and can be applied in many contexts and projects."*
+
 ------------------------------------------------------------------------
 
 ![](images/IMG_6928.jpeg){fig-align="center" width="658"}
