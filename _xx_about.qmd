@@ -8,7 +8,7 @@ The workshop will run from 10 am to 5 pm (PST) on Tuesday 3rd June, 2025.
 
 ## Instructors
 
-Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil**, **Nerea Lezama-Ochoa** and **Mary Fisher**
+Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil** and  **Nerea Lezama-Ochoa**.
 
 [**Jessie**](https://jessicabolin.github.io/) is a Postdoc in Provost Lab, working on modeling and mapping climate refugia for red abalone across California. Jessie has a background in quantitative marine science and obtained her PhD from the University of the Sunshine Coast in 2024, and has broad research interests spanning climate adaptation, fisheries forecasting, marine disease ecology and sustainable seafood. Jessie has been using R since 2016, and has worked with ESMs since 2021. `jabbolin@ucdavis.edu`
 
@@ -17,8 +17,6 @@ Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil*
 [**Mer**](https://www.merpozobuil.com/) is an Associate Project Scientist at the University of California Santa Cruz. Mer's research interests are in ocean modeling and large-scale circulation, specifically about subsurface ocean variability, large-scale changes in water masses and circulation, and how they affect upwelling systems.
 
 [**Nerea**](https://nereota1.wixsite.com/nlezamaochoa) is an Associate Project Scientist at the University of California Santa Cruz. Nerea is currently working on the conservation and management of species taken incidentally in tropical tuna purse seine fisheries (bycatch). Nerea's main research interests are ecological modeling, spatial ecology, oceanography and ecosystem-based management approaches for the conservation of marine top predators.
-
-[**Mary**](https://marinescience.ucdavis.edu/research-programs/conservation/kelp-restoration/project-personnel) is a Postdoc in the Baskett Lab, and an interdisciplinary marine scientist interested in how adaptation to climate change affects coupled human-natural systems. Her research has drawn on quantitative and qualitative techniques to explore trade-offs and unexpected consequences associated with climate adaptation in US West Coast fisheries.
 
 ## Chapter index
 
@@ -81,7 +79,7 @@ By the end of the course, participants should be able to:
 
 ## Transportation to/from UC Davis
 
-We are arranging for a UCD minivan to transport participants to/from UC Davis main campus, The van has space for up to 12 participants - first-in, first-served. Sign up sheet TBA.
+We are arranging for a UCD minivan to transport participants to/from UC Davis main campus, The van will be driven by Mary Fisher and has space for up to 12 participants - first-in, first-served. Sign up sheet TBA.
 
 ## Food
 

@@ -2,7 +2,7 @@
 
 **Workshop date:** 06/03/2025\
 **Location:** Lecture Hall, Bodega Marine Laboratory\
-**Instructors:** Jessica Bolin, Mikaela Provost, Nerea Lezama-Ochoa, Mer Pozo Buil, Mary Fisher
+**Instructors:** Jessica Bolin, Mikaela Provost, Nerea Lezama-Ochoa and Mer Pozo Buil
 
 `R` is undoubtedly the programming language of choice for many marine ecologists. However, navigating the complexities of downloading, processing and wrangling gridded oceanographic data within `R` can represent a steep learning curve. As climate-related projects continue to receive funding and the impacts of climate variability and change on our oceans become increasingly evident, **the ability to efficiently interact with, and use, Earth System Model (ESM) outputs for our research is more critical than ever**.
 
