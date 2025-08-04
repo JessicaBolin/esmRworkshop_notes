@@ -10,6 +10,4 @@ The aim of our one-day `R` course is to train students, researchers and faculty 
 
 Our workshop is designed around Step 8 (pre-process the data) in the workflow of best practices for using ESMs for marine ecologists, as defined in Figure 1 within [@SCHOEMAN2023].
 
-![](images/schoemanworkflow.jpg)
-
 Our workshop is supported by CMSI, and is hosted by Bodega Marine Lab. We thank both organisations for their funding and support.
