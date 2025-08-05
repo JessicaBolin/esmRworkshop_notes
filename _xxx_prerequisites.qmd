@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-Our course is not intended for absolute beginners in R. While participants don’t need to be highly proficient, a basic understanding of R and programming syntax is required. For example, participants should know how to create an R project and open a script, read in data using commands, make basic plots using `base` R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the `terra` package and working with `netCDF` files is a plus, but again, not required.
+Our course is not intended for absolute beginners in `R`. While participants don’t need to be highly proficient, a basic understanding of `R` and programming syntax is required. For example, participants should know how to create an `R` project and open a script, read in data using commands, make basic plots using `base` R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the `terra` package and working with `netCDF` files is a plus, but again, not required.
 
-In addition to having R and RStudio already installed, you will need to install (i) `CDO`, (ii) `NCO`, (iii) `wget`, (iv) `Panoply` and (v) a suite of R packages.
+In addition to having `R` and RStudio already installed, you will need to install (i) `CDO`, (ii) `NCO`, (iii) `wget`, (iv) `Panoply` and (v) a suite of R packages.
 
 ::: callout-important
 We **strongly** recommend bringing a macOS laptop to the workshop. We've found that Windows users often run into issues with installing and using `CDO`, which is required for the workshop (see below). If you have a Windows laptop, you're still welcome to attend, but the instructors will be using macOS during the workshop. As such, we're unlikely to be able to fix any Windows-related errors or software installation problems (and we unfortunately can't spend time troubleshooting any Windows issues).
@@ -16,11 +16,11 @@ To see if you may have software issues during our workshop, install the prerequi
 
 ### CDO
 
-You will need **CDO** (Climate Data Operators) installed prior to the workshop. CDO comprises a suite of over 600 operators for standard (and speedy) processing of climate and forecast model outputs. More information on CDO found [here](https://code.mpimet.mpg.de/projects/cdo).
+You will need **CDO** (Climate Data Operators) installed prior to the workshop. `CDO` comprises a suite of over 600 operators for standard (and speedy) processing of climate and forecast model outputs. More information on `CDO` found [here](https://code.mpimet.mpg.de/projects/cdo).
 
 #### MacOS
 
-The simplest way to install CDO is via Homebrew. If you haven't already installed Homebrew, do so [here](https://brew.sh/). Then, open terminal and run the following code:
+The simplest way to install `CDO` is via Homebrew. If you haven't already installed Homebrew, do so [here](https://brew.sh/). Then, open terminal and run the following code:
 
 ```{r, eval = F}
 brew install cdo
@@ -30,7 +30,7 @@ More information available on the [CDO MacOS website](https://code.mpimet.mpg.de
 
 #### Windows
 
-CDO is meant for use on POSIX-compatible operating systems (e.g., like Linux and MacOS), so downloading on Windows requires some extra steps.
+`CDO` is meant for use on POSIX-compatible operating systems (e.g., like Linux and MacOS), so downloading on Windows requires some extra steps.
 
 Recent versions of Windows (\>=10) includes an Ubuntu embedded Linux, offering the opportunity to install CDO via Ubuntu's native package manager. First, install the Ubuntu app from the Microsoft Store application. Then open the Ubuntu terminal and type:
 
@@ -45,7 +45,7 @@ More information available on the [CDO Windows website](https://code.mpimet.mpg.
 
 ### NCO
 
-Similar to CDO, we will install [NCO (netCDF operators)](https://nco.sourceforge.net/), which are a suite of operators that take netCDF file formats and facilitate file manipulation.
+Similar to `CDO`, we will install [NCO (netCDF operators)](https://nco.sourceforge.net/), which are a suite of operators that take netCDF file formats and facilitate file manipulation.
 
 #### Mac
 

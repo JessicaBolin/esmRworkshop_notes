@@ -8,7 +8,7 @@ The workshop will run from 10 am to 5 pm (PST) on Tuesday 3rd June, 2025.
 
 ## Instructors
 
-Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil** and  **Nerea Lezama-Ochoa**.
+Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil** and **Nerea Lezama-Ochoa**.
 
 [**Jessie**](https://jessicabolin.github.io/) is a Postdoc in Provost Lab, working on modeling and mapping climate refugia for red abalone across California. Jessie has a background in quantitative marine science and obtained her PhD from the University of the Sunshine Coast in 2024, and has broad research interests spanning climate adaptation, fisheries forecasting, marine disease ecology and sustainable seafood. Jessie has been using R since 2016, and has worked with ESMs since 2021. `jabbolin@ucdavis.edu`
 
@@ -64,7 +64,7 @@ We have inserted the expected time duration for running processor-intensive chun
 
 ## What to bring
 
--   Laptop (highly, highly, **highly** recommend `macOS`) with internet connection. **Please ensure you have administrator permissions** - consult with your IT department on how to do this. Windows laptops are OK, but the instructors are all macOS natives - we will be using macOS during the workshop, and are unlikely to be able to fix any Windows-related software installation problems that are unfortunately common with some of the tools we'll be using.
+-   Laptop (highly, highly, **highly** recommend `macOS`) with internet connection. **Please ensure you have administrator permissions** - consult with your IT department on how to do this. 
 -   Install the necessary software, listed on the `Prerequisites` page.
 
 ## Expected outcomes
