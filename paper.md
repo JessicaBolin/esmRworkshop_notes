@@ -19,14 +19,13 @@ authors:
   - name: Mikaela M. Provost
     affiliation: "1, 2" 
 affiliations:
- - name: Coastal and Marine Sciences Institute, University of California, Davis
-   index: 1
- - name: Department of Wildlife, Fish, and Conservation Biology,
- University of California, Davis
-   index: 2
- - name: Institute of Marine Sciences, University of California, Santa Cruz
-   index: 3  
-date: 04 August 2025
+  - name: Coastal and Marine Sciences Institute, University of California, Davis
+    index: 1
+  - name: Department of Wildlife, Fish, and Conservation Biology, University of California, Davis
+    index: 2
+  - name: Institute of Marine Sciences, University of California, Santa Cruz
+    index: 3
+date: 2025-08-04
 bibliography: paper.bib
 ---
 
