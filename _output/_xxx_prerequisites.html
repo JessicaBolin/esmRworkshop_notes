@@ -279,8 +279,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>Our course is not intended for absolute beginners in R. While participants don’t need to be highly proficient, a basic understanding of R and programming syntax is required. For example, participants should know how to create an R project and open a script, read in data using commands, make basic plots using <code>base</code> R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the <code>terra</code> package and working with <code>netCDF</code> files is a plus, but again, not required.</p>
-<p>In addition to having R and RStudio already installed, you will need to install (i) <code>CDO</code>, (ii) <code>NCO</code>, (iii) <code>wget</code>, (iv) <code>Panoply</code> and (v) a suite of R packages.</p>
+<p>Our course is not intended for absolute beginners in <code>R</code>. While participants don’t need to be highly proficient, a basic understanding of <code>R</code> and programming syntax is required. For example, participants should know how to create an <code>R</code> project and open a script, read in data using commands, make basic plots using <code>base</code> R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the <code>terra</code> package and working with <code>netCDF</code> files is a plus, but again, not required.</p>
+<p>In addition to having <code>R</code> and RStudio already installed, you will need to install (i) <code>CDO</code>, (ii) <code>NCO</code>, (iii) <code>wget</code>, (iv) <code>Panoply</code> and (v) a suite of R packages.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -298,10 +298,10 @@ Important
 <hr>
 <section id="cdo" class="level3">
 <h3 class="anchored" data-anchor-id="cdo">CDO</h3>
-<p>You will need <strong>CDO</strong> (Climate Data Operators) installed prior to the workshop. CDO comprises a suite of over 600 operators for standard (and speedy) processing of climate and forecast model outputs. More information on CDO found <a href="https://code.mpimet.mpg.de/projects/cdo">here</a>.</p>
+<p>You will need <strong>CDO</strong> (Climate Data Operators) installed prior to the workshop. <code>CDO</code> comprises a suite of over 600 operators for standard (and speedy) processing of climate and forecast model outputs. More information on <code>CDO</code> found <a href="https://code.mpimet.mpg.de/projects/cdo">here</a>.</p>
 <section id="macos" class="level4">
 <h4 class="anchored" data-anchor-id="macos">MacOS</h4>
-<p>The simplest way to install CDO is via Homebrew. If you haven’t already installed Homebrew, do so <a href="https://brew.sh/">here</a>. Then, open terminal and run the following code:</p>
+<p>The simplest way to install <code>CDO</code> is via Homebrew. If you haven’t already installed Homebrew, do so <a href="https://brew.sh/">here</a>. Then, open terminal and run the following code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>brew install cdo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -309,7 +309,7 @@ Important
 </section>
 <section id="windows" class="level4">
 <h4 class="anchored" data-anchor-id="windows">Windows</h4>
-<p>CDO is meant for use on POSIX-compatible operating systems (e.g., like Linux and MacOS), so downloading on Windows requires some extra steps.</p>
+<p><code>CDO</code> is meant for use on POSIX-compatible operating systems (e.g., like Linux and MacOS), so downloading on Windows requires some extra steps.</p>
 <p>Recent versions of Windows (&gt;=10) includes an Ubuntu embedded Linux, offering the opportunity to install CDO via Ubuntu’s native package manager. First, install the Ubuntu app from the Microsoft Store application. Then open the Ubuntu terminal and type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sudo apt<span class="sc">-</span>get upgrade</span>
@@ -321,7 +321,7 @@ Important
 </section>
 <section id="nco" class="level3">
 <h3 class="anchored" data-anchor-id="nco">NCO</h3>
-<p>Similar to CDO, we will install <a href="https://nco.sourceforge.net/">NCO (netCDF operators)</a>, which are a suite of operators that take netCDF file formats and facilitate file manipulation.</p>
+<p>Similar to <code>CDO</code>, we will install <a href="https://nco.sourceforge.net/">NCO (netCDF operators)</a>, which are a suite of operators that take netCDF file formats and facilitate file manipulation.</p>
 <section id="mac" class="level4">
 <h4 class="anchored" data-anchor-id="mac">Mac</h4>
 <div class="cell">
