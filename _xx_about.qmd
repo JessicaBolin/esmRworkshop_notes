@@ -4,8 +4,6 @@ Welcome to the workshop! This workshop is designed to assist you in getting star
 
 The workshop will run from 10 am to 5 pm (PST) on Tuesday 3rd June, 2025.
 
-![](images/meansst_ssp585_long.png){fig-align="center" width="412"}
-
 ## Instructors
 
 Today's instructors are **Jessica Bolin**, **Mikaela Provost**, **Mer Pozo Buil** and **Nerea Lezama-Ochoa**.
@@ -64,7 +62,7 @@ We have inserted the expected time duration for running processor-intensive chun
 
 ## What to bring
 
--   Laptop (highly, highly, **highly** recommend `macOS`) with internet connection. **Please ensure you have administrator permissions** - consult with your IT department on how to do this. 
+-   Laptop (highly, highly, **highly** recommend `macOS`) with internet connection. **Please ensure you have administrator permissions** - consult with your IT department on how to do this.
 -   Install the necessary software, listed on the `Prerequisites` page.
 
 ## Expected outcomes
