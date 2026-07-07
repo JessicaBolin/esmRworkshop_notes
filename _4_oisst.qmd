@@ -58,7 +58,7 @@ You'll see at the bottom of the page it produces a '**NCSS request URL**'. When 
 Downloading this file took about 10 seconds, and the file is only \~450 MB. Much better!
 
 ```{r, include = F}
-pth <- "/Users/admin/Desktop/esmRworkshop_notes"
+pth <- "/Users/admin/Documents/GitHub/esmRworkshop_notes"
 source(paste0(pth, "/__scripts/helpers.R"))
 ```
 
@@ -96,7 +96,7 @@ list.files(paste0(pth, "/__data/oisst_processed"))
 
 ## Visualise
 
-Let's see how `OISST` compares to the ESM output. The warning `Warning message: [rast] guessed crs` may appear in the console for some users - this is expected in this context, and can be safely ignored. 
+Let's see how `OISST` compares to the ESM output. The warning `Warning message: [rast] guessed crs` may appear in the console for some users - this is expected in this context, and can be safely ignored.
 
 ```{r fig.show="hold"}
 #| layout-ncol: 2

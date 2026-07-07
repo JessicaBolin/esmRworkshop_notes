@@ -303,15 +303,34 @@ div.csl-indent {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objective:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol start="2" type="1">
+<li><p>Downloading ESM output (theory and live coding)</p>
+<ul>
+<li>Access and download CMIP6 model output from the Earth System Grid Federation (ESGF).</li>
+<li>Use shell scripts and R to efficiently download and manage large climate datasets.</li>
+</ul></li>
+</ol>
+</div>
+</div>
 <section id="downloading-cmip6-earth-system-models" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="downloading-cmip6-earth-system-models"><span class="header-section-number">2.1</span> Downloading CMIP6 Earth System Models</h2>
 <p>The Earth System Grid Federation (ESGF) manages the database for handling climate science data, and supports the Coupled Model Intercomparison Project, which is currently in its sixth iteration (CMIP6).</p>
 <p>Today, we will be downloading our model outputs via the ESGF website. We will download the simulations for two models, with the following components:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 19%">
-<col style="width: 70%">
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -353,7 +372,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>For more information on what ESM components mean, see Table 1 in <span class="citation" data-cites="SCHOEMAN2023">(<a href="_xxxxxx_references.html#ref-SCHOEMAN2023" role="doc-biblioref">Schoeman et al. 2023</a>)</span>.</p>
+<p>For more information on what ESM components mean, see Table 1 in <span class="citation" data-cites="SCHOEMAN2023">(<a href="#ref-SCHOEMAN2023" role="doc-biblioref">Schoeman et al. 2023</a>)</span>.</p>
 </section>
 <section id="download-wget-shell-scripts" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="download-wget-shell-scripts"><span class="header-section-number">2.2</span> Download <code>wget</code> shell scripts</h2>
@@ -400,7 +419,7 @@ div.csl-indent {
 <section id="download-.nc-files-with-wget-scripts" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="download-.nc-files-with-wget-scripts"><span class="header-section-number">2.3</span> Download <code>.nc</code> files with <code>wget</code> scripts</h2>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -409,7 +428,7 @@ Warning: storage
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In total, we are about to download eight <code>.nc</code> files that comprise 2.65 GB of data. These are just for two models and two scenarios + historical, at a monthly time-step. Storing ESM outputs can take a lot of space - for example, if you’re working with daily data across multiple models and climate scenarios, you’ll almost certainly need an external hard drive or other storage solution.</p>
 </div>
@@ -449,12 +468,12 @@ Warning: storage
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    ) </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_historical.sh"
-[2] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_ssp245.sh"    
-[3] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_ssp585.sh"    
-[4] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_historical.sh"      
-[5] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_ssp245.sh"          
-[6] "/Users/admin/Desktop/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_ssp585.sh"          </code></pre>
+<pre><code>[1] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_historical.sh"
+[2] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_ssp245.sh"    
+[3] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_access-cm2_ssp585.sh"    
+[4] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_historical.sh"      
+[5] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_ssp245.sh"          
+[6] "/Users/admin/Documents/GitHub/esmRworkshop_notes/__scripts/wget_scripts/wget_script_ipsl_ssp585.sh"          </code></pre>
 </div>
 </div>
 </section>
@@ -470,7 +489,7 @@ Warning: storage
 <p>Jessie speed: 30s to 1 min</p>
 </blockquote>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -479,7 +498,7 @@ Download speeds
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Download speeds depend on your Wifi connection, the capabilities of your local machine, and the performance of the server/node you’re attempting to connect to. You can check whether ESGF servers are online <a href="https://aims2.llnl.gov/nodes/">here</a>.</p>
 </div>
@@ -489,16 +508,11 @@ Download speeds
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">paste0</span>(pth, cmip_pth))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"  
-[2] "tos_Omon_ACCESS-CM2_ssp245_r1i1p1f1_gn_201501-210012.nc"      
-[3] "tos_Omon_ACCESS-CM2_ssp585_r1i1p1f1_gn_201501-210012.nc"      
-[4] "tos_Omon_IPSL-CM6A-LR_historical_r1i1p1f1_gn_185001-201412.nc"
-[5] "tos_Omon_IPSL-CM6A-LR_ssp245_r1i1p1f1_gn_201501-210012.nc"    
-[6] "tos_Omon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gn_201501-210012.nc"    </code></pre>
+<pre><code>character(0)</code></pre>
 </div>
 </div>
 <p>Great! We have successfully downloaded our ESM outputs.</p>
-<p>If your scripts have downloaded data for 2100-2300 (i.e., some models will do this), we can remove those files with the <code>rm</code> argument in shell:</p>
+<p>If your scripts have downloaded data for 2100-2300 (i.e., some models will do this, but not all, and is subject to change), we can remove those files with the <code>rm</code> argument in shell:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">"rm "</span>, pth, cmip_pth, <span class="st">"/"</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tos_Omon_ACCESS-CM2_ssp585_r1i1p1f1_gn_210101-230012.nc"</span>))</span>
@@ -506,7 +520,7 @@ Download speeds
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tos_Omon_IPSL-CM6A-LR_ssp585_r1i1p1f1_gn_210101-230012.nc"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -515,7 +529,7 @@ Beware of <code>rm</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>rm</code> is a handy function for removing files, but there is no way of retrieving them if you’ve accidentally removed the wrong file. So, use this function wisely and make sure you’re 100% confident you’re removing the correct file!</p>
 </div>
@@ -523,7 +537,7 @@ Beware of <code>rm</code>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-SCHOEMAN2023" class="csl-entry" role="listitem">
 Schoeman, David S., Alex Sen Gupta, Cheryl S. Harrison, Jason D. Everett, Isaac Brito-Morales, Lee Hannah, Laurent Bopp, Patrick R. Roehrdanz, and Anthony J. Richardson. 2023. <span>“Demystifying Global Climate Models for Use in the Life Sciences.”</span> <em>Trends in Ecology &amp; Evolution</em> 38 (9): 843–58. https://doi.org/<a href="https://doi.org/10.1016/j.tree.2023.04.005">https://doi.org/10.1016/j.tree.2023.04.005</a>.
 </div>

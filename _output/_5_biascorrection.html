@@ -275,6 +275,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objective:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol start="5" type="1">
+<li><p>Bias correction (theory and live coding)</p>
+<ul>
+<li>Explain the purpose of bias correction and the delta method.</li>
+<li>Apply the delta method to generate bias-corrected climate projections in R.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this chapter, we are coding in R, but R is calling CDO commands through the terminal. See the Resources page for more information on CDO and how the tool works.</p>
+</div>
+</div>
 <p>ESMs are free-running simulations with mean-state biases and coarse spatial resolutions. This can present problems if you’re working with nearshore coastal species, for example, since data often don’t come close to the coast. One common method of getting around this is by interpolating data using <strong>bias correction</strong>. Bias correction uses an <code>observational</code> data product to remove mean-state biases and downscale the resolution to a finer resolution.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -293,7 +325,7 @@ Important
 <p>We will use the <a href="https://www.ncei.noaa.gov/products/optimum-interpolation-sst">OISST V2.1</a> dataset to bias-correct our ESM outputs of sea-surface temperature.</p>
 <p>When bias correcting, we need to calculate the mean baseline climatology across the same time period for both the observed and ESM datasets. Since the <strong>historical</strong> run for the CMIP6 ESMs comprise 1850-2014. Today, we will define our climatology as a 20 year time span. Therefore, we will download twenty years of OISST data, from 1995 to 2014.</p>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -302,7 +334,7 @@ Defining climatologies
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We often use 30 years to define a climatology in marine ecology, but you can shorten or lengthen your climatology based on what makes sense for your question and study system. We used 20 years today to save time.</p>
 <p>Further, in your own work, you may want to calculate monthly or seasonal climatologies, as opposed to a broad multi-decadal climatology (because this will smooth out monthly or seasonal variability). This will all depend on your study system and question, but something to consider when bias correcting ESM output.</p>
@@ -312,9 +344,9 @@ Defining climatologies
 <p>The simplest form of bias correction is the “delta-change” method (e.g., [S2]). The first step in this procedure for a timeseries of any given climate variable is to identify an appropriate set of observational data and then to compute the mean value of that observed variable over a “baseline” period for which both observations and model output are available.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 67%">
-<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 50%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -360,7 +392,7 @@ Defining climatologies
 <section id="create-oisst-climatology-1995-2014" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="create-oisst-climatology-1995-2014"><span class="header-section-number">5.1</span> Create OISST climatology (1995-2014)</h2>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -369,7 +401,7 @@ Defining ‘climatologies’
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here, for simplicity, we’ve defined our ‘climatology’ as the SST averaged over the 20 year period between 1995-2014. However, you may want to consider calculating monthly climatologies (i.e., average SST over Jan, Feb, March etc. across the 20 year period), or even seasonal climatologies, so that you can capture and remove this sort of variability during the step of bias correction, for example. We highly recommend consulting with a physical oceanographer if doing bias correction and have questions about defining climatologies and temporal modes of variability.</p>
 </div>
@@ -611,7 +643,7 @@ time (days) : 2004-12-16 </code></pre>
 <p>Jessie speed: ~6s</p>
 </blockquote>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -620,7 +652,7 @@ There’s a lot going on in this function. Let’s break it down…
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <section id="create-output_file-name" class="level3" data-number="5.5.1">
 <h3 data-number="5.5.1" class="anchored" data-anchor-id="create-output_file-name"><span class="header-section-number">5.5.1</span> Create output_file name</h3>

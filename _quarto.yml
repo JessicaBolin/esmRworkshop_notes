@@ -1,6 +1,10 @@
 project:
   type: book
   output-dir: "./_output"
+  resources:
+    - "!__data/"
+    - "!*.nc"
+  
 
 book:
   title: "R for marine ecologists: wrangling Earth System Model outputs"

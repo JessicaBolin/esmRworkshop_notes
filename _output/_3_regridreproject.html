@@ -280,6 +280,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objective:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol start="3" type="1">
+<li><p>Regridding and statistically downscaling (live coding)</p>
+<ul>
+<li>Explain why regridding and statistical downscaling are required for ESMs.</li>
+<li>Apply regridding and statistical downscaling methods to ESM outputs in R.</li>
+</ul></li>
+</ol>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -368,7 +387,7 @@ time (days) : 1850-01-16 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -377,14 +396,14 @@ We can also check more detailed metadata contained in the ESM file using <code>n
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This gives you the same information after reading a file into <code>Panoply</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">nc_open</span>(<span class="fu">paste0</span>(pth, cmip_pth, <span class="st">"/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc"</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>nc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>File /Users/admin/Desktop/esmRworkshop_notes/__data/cmip6_raw/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc (NC_FORMAT_NETCDF4_CLASSIC):
+<pre><code>File /Users/admin/Documents/GitHub/esmRworkshop_notes/__data/cmip6_raw/tos_Omon_ACCESS-CM2_historical_r1i1p1f1_gn_185001-201412.nc (NC_FORMAT_NETCDF4_CLASSIC):
 
      6 variables (excluding dimension variables):
         double time_bnds[bnds,time]   (Chunking: [2,1])  (Compression: level 1)
@@ -508,7 +527,7 @@ seaIce: CICE5.1.2 (same grid as ocean)
 <p>cdo <strong>-operator</strong> <em>input_file/s output_file/s</em></p>
 <p>Where we: (i) call <code>cdo</code>, (ii) specify the operator, (iii) define the input file/s, (iv) define the output file/s.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -517,7 +536,7 @@ Common CDO operators
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>cdo -yearmean</code> calculates the annual mean of a monthly data input netCDF file<br>
 <code>cdo -yearmin</code> calculates the annual min of a monthly data input netCDF file<br>
