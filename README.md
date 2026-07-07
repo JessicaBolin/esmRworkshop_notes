@@ -1,8 +1,5 @@
 # R for marine ecologists: wrangling Earth System Model outputs
 
-<a href="https://doi.org/10.5281/zenodo.21249372"><img src="https://zenodo.org/badge/913501397.svg" alt="DOI"></a>
-
-
 📅 **Pilot Workshop date:** Tuesday, June 3rd 2025\
 📍 **Location:** Lecture Hall, Bodega Marine Laboratory, Bodega Bay, CA\
 👩‍🏫 **Instructors:** Jessica Bolin, Mikaela Provost, Mer Pozo Buil, Nerea Lezama-Ochoa, Mary Fisher\
