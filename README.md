@@ -23,3 +23,5 @@ You can contribute by, for example, (i) suggesting improvements to the R code, d
 🐞 Reporting bugs: - Open an issue via the Issues tab. - Or, email Jessica Bolin (jabbolin(at)ucdavis(dot)edu)
 
 Please provide as much context as possible, including error messages, steps to reproduce, and your R session info via `sessionInfo()` , if applicable.
+
+Zenodo DOI: 10.5281/zenodo.21249373
