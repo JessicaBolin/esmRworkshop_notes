@@ -8,7 +8,7 @@
 \
 Our workshop is supported by CMSI, and is hosted by Bodega Marine Lab. We thank both organisations for their funding and support.
 
-Workshop notes: https://jessicabolin.quarto.pub/esmrworkshop_notes/
+Workshop notes: https://jessicabolin.github.io/esmRworkshop_notes/
 
 Workshop data required [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0).
 
