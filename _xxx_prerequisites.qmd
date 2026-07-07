@@ -2,6 +2,18 @@
 
 ## Prerequisites
 
+::: callout-important
+## Workshop materials
+
+The workshop data are \~`2.5 GB`, so ensure you have enough storage space on your machine before downloading, or bring an external SSD/Hard-drive.
+
+If you’re a Github user, you can fork and clone the repo [here](https://github.com/JessicaBolin/esmRworkshop_notes). Then, you will then need to download the workshop `__data` folder [here](https://www.dropbox.com/scl/fo/vpnemwbu7fhkp2vkbyroa/AJk1nPUnrAhUnPLTash4WNQ?rlkey=2tpyr0zu6scbleafvjkclkzet&dl=0), which needs to be copied into the root directory of `esmRworkshop_notes`. We’ve added the `/__data` folder to the `.gitignore` file within the root directory, since we’ll be working with large files (and Github breaks when pushing/pulling large files).
+
+If you don't use Github, you can instead download the complete workshop repository [here](https://www.dropbox.com/scl/fo/fk1tl1oc13pbez3840ckt/ADqqX_9BRAi0aXIdIkowVSU?rlkey=l9943ao0o2qi0d2c3lidgfdmk&dl=0).
+
+On the day, we'll be working with code contained in the `__scripts` directory.
+:::
+
 Our course is not intended for absolute beginners in `R`. While participants don’t need to be highly proficient, a basic understanding of `R` and programming syntax is required. For example, participants should know how to create an `R` project and open a script, read in data using commands, make basic plots using `base` R, and write for loops. A basic understanding of the shell/command line is advantageous, but not required. Further, previous experience using the `terra` package and working with `netCDF` files is a plus, but again, not required.
 
 In addition to having `R` and RStudio already installed, you will need to install (i) `CDO`, (ii) `NCO`, (iii) `wget`, (iv) `Panoply` and (v) a suite of R packages.
@@ -23,6 +35,8 @@ You will need **CDO** (Climate Data Operators) installed prior to the workshop. 
 The simplest way to install `CDO` is via Homebrew. If you haven't already installed Homebrew, do so [here](https://brew.sh/). Then, open terminal and run the following code:
 
 ```{r, eval = F}
+#### In Terminal
+
 brew install cdo
 ```
 
@@ -35,6 +49,8 @@ More information available on the [CDO MacOS website](https://code.mpimet.mpg.de
 Recent versions of Windows (\>=10) includes an Ubuntu embedded Linux, offering the opportunity to install CDO via Ubuntu's native package manager. First, install the Ubuntu app from the Microsoft Store application. Then open the Ubuntu terminal and type:
 
 ```{r, eval = F}
+#### In Terminal
+
 sudo apt-get upgrade
 sudo apt-get install cdo #write your password, if prompted
 ```
@@ -50,6 +66,8 @@ Similar to `CDO`, we will install [NCO (netCDF operators)](https://nco.sourcefor
 #### Mac
 
 ```{r, eval = F}
+#### In Terminal
+
 brew install nco
 ```
 
@@ -68,6 +86,8 @@ Installing `NCO` on windows can be tricky. [Here](https://sourceforge.net/p/nco/
 Run the following in terminal:
 
 ```{r, eval = F}
+#### In Terminal
+
 brew install wget
 ```
 
@@ -77,11 +97,15 @@ Check out the link [here](https://gnuwin32.sourceforge.net/packages/wget.htm). Y
 
 ------------------------------------------------------------------------
 
-### Panoply
+### Panoply (optional)
 
 [Panoply](https://www.giss.nasa.gov/tools/panoply/) is a data viewer for netCDF, HDF and GRIB data arrays, administered by NASA Goddard Space Flight Center. **Panoply requires that your computer has a compatible Java 11 (or later version) JRE or JDK installed.**
 
 Download Panoply [here](https://www.giss.nasa.gov/tools/panoply/download/).
+
+::: callout-important
+Panoply is **optional**. All coding exercises can be completed without it, but it provides a convenient way to inspect and visualize netCDF files.
+:::
 
 ------------------------------------------------------------------------
 
@@ -90,6 +114,8 @@ Download Panoply [here](https://www.giss.nasa.gov/tools/panoply/download/).
 Ensure you have the following R packages installed, listed below.
 
 ```{r, eval = F}
+#### In R
+
 #Install pacman 
 if (!require("pacman")) install.packages("pacman") 
 
@@ -98,7 +124,7 @@ pacman::p_load(tidyverse, # Working with 'tidy' data
                furrr, parallelly, purrr, # Run functions in parallel
                tictoc, beepr, # Understand code execution time 
                ncdf4, raster, terra, # For working with netCDFs
-               tmap, # Map visualization 
+               tmap, maps, viridis, # Map visualization 
                plotrix, # Taylor Diagrams
                RCurl, xml2, rvest, # Downloading files 
                zoo) 
@@ -117,6 +143,8 @@ Lastly, once you have downloaded the repository, you will need to open `__script
 ## Below are the dependencies and package versions the instructors will use for the workshop.
 
 ```{r, eval = F}
+#### In R
+
 > devtools::session_info()
 
 ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────

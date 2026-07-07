@@ -1,5 +1,18 @@
 # Bias correction & downscaling
 
+::: callout-note
+# Learning objective:
+
+5.  Bias correction (theory and live coding)
+
+    -   Explain the purpose of bias correction and the delta method.
+    -   Apply the delta method to generate bias-corrected climate projections in R.
+:::
+
+::: callout-tip
+In this chapter, we are coding in R, but R is calling CDO commands through the terminal. See the Resources page for more information on CDO and how the tool works.
+:::
+
 ESMs are free-running simulations with mean-state biases and coarse spatial resolutions. This can present problems if you're working with nearshore coastal species, for example, since data often don't come close to the coast. One common method of getting around this is by interpolating data using **bias correction**. Bias correction uses an `observational` data product to remove mean-state biases and downscale the resolution to a finer resolution.
 
 ::: callout-important
@@ -23,7 +36,7 @@ Further, in your own work, you may want to calculate monthly or seasonal climato
 The simplest form of bias correction is the “delta-change” method (e.g., \[S2\]). The first step in this procedure for a timeseries of any given climate variable is to identify an appropriate set of observational data and then to compute the mean value of that observed variable over a “baseline” period for which both observations and model output are available.
 
 | Step | Description                                                                                                                                                                                                                                                                                                                                                                                                                          | Output/s                                                                                      |
-|------------|-------------------------------------------------|------------|
+|-----------------|--------------------------------------|-----------------|
 | 1    | Calculate the OISST climatology for 1995-2014, to be used later for bias correction.                                                                                                                                                                                                                                                                                                                                                 | `_2_OISST_climatology.nc`                                                                     |
 | 2    | Calculate the climatology for each historical run of each ESM for 1995-2014. We call this our **ESM baseline**.                                                                                                                                                                                                                                                                                                                      | Two climatology files (one per model) in `__data/bias_correct/esm/_1_climatology`             |
 | 3    | Calculate ESM anomalies for each model/SSP combination, by subtracting the ESM baseline from each monthly projection from 2015-2100. This results in a set of anomalies (i.e., deviations from the mean).                                                                                                                                                                                                                            | Four files (one per model/SSP combination) in `__data/bias_correct/esm/_2_anomalies`          |

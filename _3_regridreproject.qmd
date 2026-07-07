@@ -1,5 +1,15 @@
 # Remapping
 
+::: callout-note
+# Learning objective:
+
+3.  Regridding and statistically downscaling (live coding)
+
+    -   Explain why regridding and statistical downscaling are required for ESMs.
+    -   Apply regridding and statistical downscaling methods to ESM outputs in R.
+:::
+
+
 ::: callout-important
 Note that interpolation, regridding and remapping mean the same thing (for the purposes of our workshop).
 :::

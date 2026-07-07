@@ -1,5 +1,14 @@
 # Evaluate accuracy of historical ESM projections
 
+::: callout-note
+# Learning objective:
+
+6.  Evaluating ESM accuracy (live coding)
+
+    -   Evaluate ESM performance during the observational period using quantitative metrics and visualizations (e.g., Taylor diagrams).
+    -   Interpret model performance to inform model selection for ecological applications.
+:::
+
 We need to evaluate whether our ESM outputs resemble our observations during the historical time period (i.e., up to 2014). In our case, `OISST` runs from 1995 onwards, so we will assess skill for 1993-2014. We can do this using **Taylor Diagrams** [@TAYLOR2001], which are common tools in climate science for assessing accuracy between model predictions and reference values (typically direct observations).
 
 ## Brief explainer

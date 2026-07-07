@@ -1,5 +1,14 @@
 # OISST
 
+::: callout-note
+# Learning objective:
+
+4.  Observations (theory and live coding)
+
+    -   Identify suitable observational datasets (e.g., OISST) for bias correction.
+    -   Regrid and prepare observational datasets for comparison with ESM outputs.
+:::
+
 We need to download **observed** data of sea-surface temperature for our next step of **bias correction**, which is explained further in the next chapter.
 
 Today, we will use the [OISST V2.1](https://www.ncei.noaa.gov/products/optimum-interpolation-sst) dataset to bias correct our ESM outputs of sea-surface temperature.
@@ -87,7 +96,7 @@ list.files(paste0(pth, "/__data/oisst_processed"))
 
 ## Visualise
 
-Let's see how `OISST` compares to the ESM output.
+Let's see how `OISST` compares to the ESM output. The warning `Warning message: [rast] guessed crs` may appear in the console for some users - this is expected in this context, and can be safely ignored. 
 
 ```{r fig.show="hold"}
 #| layout-ncol: 2

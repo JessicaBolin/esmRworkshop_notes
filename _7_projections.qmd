@@ -1,5 +1,14 @@
 # Making projections
 
+::: callout-note
+# Learning objective:
+
+7.  Making projections (live coding)
+
+    -   Generate future sea-surface temperature projections from the two CMIP6 models and two climate scenarios.
+    -   Visualize projected changes through time series plots and spatial maps.
+:::
+
 Time to make some projections! We will make projections on two IPCC AR6 time periods: near-term (2020-2040) and long-term (2080-2100).
 
 ::: callout-caveat
@@ -358,10 +367,10 @@ First, we create our historical average, from 1995-2014:
 #| code-fold: true
 #Ensemble average of 1995-2014 for both models
 bc_pth <- paste0(pth, "/__data/bias_correct/esm/_4_bias_corrected/")
-r1 <- rast(paste0(bc_pth, "tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"))
-r2 <- rast(paste0(bc_pth, "tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"))
-rr <- c(r1, r2)
-mean_hist <- mean(rr)
+bc_hist_remap_access <- rast(paste0(bc_pth, "tos_mo_ACCESS-CM2_1995-2014_bc_historical_remapped.nc"))
+bc_hist_remap_ipsl <- rast(paste0(bc_pth, "tos_mo_IPSL-CM6A-LR_1995-2014_bc_historical_remapped.nc"))
+bc_hist_avg <- c(bc_hist_remap_access, bc_hist_remap_ipsl)
+mean_hist <- mean(bc_hist_avg)
 plot(mean_hist, main = "Ensembled SST 1995-2014"); maps::map("world", add = T)
 ```
 
@@ -374,18 +383,18 @@ ssps = c("ssp245", "ssp585")
 tic(); for (i in ssps) {
   
   near_mean <- rast(paste0(pth, "/__data/projections/ens/mean_ens_", i, "_near_proj.nc"))
-  rr <- near_mean - mean_hist
-  writeCDF(rr, paste0(outdir, "/delta_mean_ens_near_", i, ".nc"),
+  delta_near <- near_mean - mean_hist
+  writeCDF(delta_near, paste0(outdir, "/delta_mean_ens_near_", i, ".nc"),
            overwrite = T)
   
   mid_mean <- rast(paste0(pth, "/__data/projections/ens/mean_ens_", i, "_mid_proj.nc"))
-  rr <- mid_mean - mean_hist
-  writeCDF(rr, paste0(outdir, "/delta_mean_ens_mid_", i, ".nc"),
+  delta_mid <- mid_mean - mean_hist
+  writeCDF(delta_mid, paste0(outdir, "/delta_mean_ens_mid_", i, ".nc"),
            overwrite = T)
   
   long_mean <- rast(paste0(pth, "/__data/projections/ens/mean_ens_", i, "_long_proj.nc"))
-  rr <- long_mean - mean_hist
-  writeCDF(rr, paste0(outdir, "/delta_mean_ens_long_", i, ".nc"),
+  delta_long <- long_mean - mean_hist
+  writeCDF(delta_long, paste0(outdir, "/delta_mean_ens_long_", i, ".nc"),
            overwrite = T)
   
 }; toc() 
@@ -409,29 +418,29 @@ library(terra)
 deltapth = "/Users/admin/Documents/GitHub/BMLworkshop/__data/projections/delta/"
 
 
-r2 <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp245_near_proj.nc"))
-plot(r2, main = "Mean SST Near-term",
+mean_sst_near <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp245_near_proj.nc"))
+plot(mean_sst_near, main = "Mean SST Near-term",
      col = viridis::viridis(255),
      range = c(11,22)); maps::map("world", add = T, fill = T, col = "grey")
-r3 <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp245_near_proj.nc"))
-plot(r3, main = "Std Dev SST Near-term",
+sd_sst_near <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp245_near_proj.nc"))
+plot(sd_sst_near, main = "Std Dev SST Near-term",
      col = viridis::magma(255),
      range = c(0,2)); maps::map("world", add = T, fill = T, col = "grey")
-r1 <- rast(paste0(deltapth, "delta_mean_ens_near_ssp245.nc"))
-plot(r1, main = "Delta SST Near-term",
+delta_sst_near <- rast(paste0(deltapth, "delta_mean_ens_near_ssp245.nc"))
+plot(delta_sst_near, main = "Delta SST Near-term",
      col = viridis::mako(255),
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 
 
-r2 <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp245_long_proj.nc"))
-plot(r2, main = "Mean SST Long-term",
+mean_sst_long <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp245_long_proj.nc"))
+plot(mean_sst_long, main = "Mean SST Long-term",
      range = c(11,22)); maps::map("world", add = T, fill = T, col = "grey")
-r3 <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp245_long_proj.nc"))
-plot(r3, main = "Std Dev SD Long-term" ,
+sd_sst_long <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp245_long_proj.nc"))
+plot(sd_sst_long, main = "Std Dev SD Long-term" ,
      col = viridis::magma(255),
      range = c(0,2)); maps::map("world", add = T, fill = T, col = "grey")
-r1 <- rast(paste0(deltapth, "delta_mean_ens_long_ssp245.nc"))
-plot(r1, main = "Delta SST Long-term",
+delta_sst_long <- rast(paste0(deltapth, "delta_mean_ens_long_ssp245.nc"))
+plot(delta_sst_long, main = "Delta SST Long-term",
      col = viridis::mako(255),
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 ```
@@ -448,29 +457,29 @@ library(terra)
 deltapth = "/Users/admin/Documents/GitHub/BMLworkshop/__data/projections/delta/"
 
 
-r2 <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp585_near_proj.nc"))
-plot(r2, main = "Mean SST Near-term",
+mean_sst_near <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp585_near_proj.nc"))
+plot(mean_sst_near, main = "Mean SST Near-term",
      col = viridis::viridis(255),
      range = c(11,22)); maps::map("world", add = T, fill = T, col = "grey")
-r3 <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp585_near_proj.nc"))
-plot(r3, main = "Std Dev SST Near-term",
+sd_sst_near <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp585_near_proj.nc"))
+plot(sd_sst_near, main = "Std Dev SST Near-term",
      col = viridis::magma(255),
      range = c(0,2)); maps::map("world", add = T, fill = T, col = "grey")
-r1 <- rast(paste0(deltapth, "delta_mean_ens_near_ssp585.nc"))
-plot(r1, main = "Delta SST Near-term",
+delta_sst_near <- rast(paste0(deltapth, "delta_mean_ens_near_ssp585.nc"))
+plot(delta_sst_near, main = "Delta SST Near-term",
      col = viridis::mako(255),
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 
 
-r2 <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp585_long_proj.nc"))
-plot(r2, main = "Mean SST Long-term",
+mean_sst_long <- rast(paste0(pth, "/__data/projections/ens/mean_ens_ssp585_long_proj.nc"))
+plot(mean_sst_long, main = "Mean SST Long-term",
      range = c(11,22)); maps::map("world", add = T, fill = T, col = "grey")
-r3 <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp585_long_proj.nc"))
-plot(r3, main = "Std Dev SD Long-term" ,
+sd_sst_long <-  rast(paste0(pth, "/__data/projections/ens/sd_ens_ssp585_long_proj.nc"))
+plot(sd_sst_long, main = "Std Dev SD Long-term" ,
      col = viridis::magma(255),
      range = c(0,2)); maps::map("world", add = T, fill = T, col = "grey")
-r1 <- rast(paste0(deltapth, "delta_mean_ens_long_ssp585.nc"))
-plot(r1, main = "Delta SST Long-term",
+delta_sst_long <- rast(paste0(deltapth, "delta_mean_ens_long_ssp585.nc"))
+plot(delta_sst_long, main = "Delta SST Long-term",
      col = viridis::mako(255),
      range = c(0.5,4.5)); maps::map("world", add = T, fill = T, col = "grey")
 ```

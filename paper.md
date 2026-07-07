@@ -35,36 +35,36 @@ This one-day, hands-on workshop introduces marine ecologists to the use and appl
 
 # Statement of Need
 
-As the impacts of climate change on marine ecosystems intensify, there is a growing demand within the marine science community for tools that can integrate climate projections into ecological research. Earth System Models (ESMs), particularly those from the CMIP6 archive, provide essential insights into simulating future climate conditions. The physical oceanography and climate modeling communities have developed robust coding infrastructure and workflows for working with ESMs and gridded ocean data (e.g., typically using MATLAB, Python, and Climate Data Operators (CDO)) [@Irving:2019]. However, these coding platforms are not commonly used within the marine ecology community, where R remains the dominant programming language [@Lai:2019], resulting in a critical skills gap [@Asch:2016; @Halpin:2014]. ESM data, while highly relevant, often remain inaccessible to many marine ecologists due to the technical challenges involved in accessing and difficulty of processing model outputs.
+As the impacts of climate change on marine ecosystems intensify, there is a growing demand within the marine science community for tools that can integrate climate projections into ecological research. This workshop is designed for marine ecologists with basic or no prior experience in climate modeling who want to incorporate Earth System Model outputs into their own ecological research using R, and no prior experience with climate modeling, Earth System Models, or Bash/shell scripting is assumed. Earth System Models (ESMs), particularly those from the CMIP6 archive, provide essential insights into simulating future climate conditions. The physical oceanography and climate modeling communities have developed robust coding infrastructure and workflows for working with ESMs and gridded ocean data (e.g., typically using MATLAB, Python, and Climate Data Operators (CDO)) [@Irving:2019]. However, these coding platforms are not commonly used within the marine ecology community, where R remains the dominant programming language [@Lai:2019], resulting in a critical skills gap [@Asch:2016]. ESM data, while highly relevant, often remain inaccessible to many marine ecologists due to the technical challenges involved in accessing and difficulty of processing model outputs.
 
-Our workshop is designed to directly address this gap. Our goal is to make ESM data more accessible to marine ecologists by providing the technical expertise needed to work with these complex datasets in R. As such, this workshop is designed around Step 8, “Pre-process the data”, of the proposed workflow for working with ESM outputs described in @Schoeman:2023. The workshop format combines guided theoretical instruction with hands-on, live-coded tutorials that walk participants through downloading, and statistically downscaling (i.e., increasing the spatial and/or temporal resolution of modelled data), bias-correcting (i.e., adjusting model outputs to reduce systematic differences from observed conditions) sea-surface temperature projections from two ESMs within CMIP6, across two climate scenarios. These preprocessing steps are crucial to ensure that model outputs are not only scientifically rigorous, but also ecologically interpretable and appropriate for decision-making at local to regional scales. Our workshop aims to reduce technical barriers and foster capacity-building within the marine ecology community by providing practical and reproducible tools and methods for working with ESM output using R [@Kellie:2023].
+Our workshop is designed to directly address this gap. Our goal is to make ESM data more accessible to marine ecologists by providing the technical expertise needed to work with these complex datasets in R. As such, this workshop is designed around Step 8, “Pre-process the data”, of the proposed workflow for working with ESM outputs described in @Schoeman:2023. The format combines guided theoretical instruction with hands-on, live-coded tutorials that walk participants through downloading, and statistically downscaling (i.e., increasing the spatial and/or temporal resolution of modelled data), bias-correcting (i.e., adjusting model outputs to reduce systematic differences from observed conditions) sea-surface temperature projections from two ESMs within CMIP6, across two climate scenarios. These preprocessing steps are crucial to ensure that model outputs are not only scientifically rigorous, but also ecologically interpretable and appropriate for decision-making at local to regional scales. Our workshop aims to reduce technical barriers and foster capacity-building within the marine ecology community by providing practical and reproducible tools and methods for working with ESM output using R.
 
 # Learning objectives
 
 The learning objectives span seven modules, each targeting a key concept:
 
 1.  Introduction to ESMs (theory)
-    1.  What is an ESM, how do they work, what is CMIP6, and how are they used in marine ecological studies?
-    2.  Understanding climate scenarios and how to select appropriate models.
+    -   Describe what Earth System Models (ESMs) are, how they work, and their role in marine ecological research.
+    -   Explain the CMIP6 framework, climate scenarios, and considerations for selecting appropriate climate models.
 2.  Downloading ESM output (theory and live coding)
-    1.  Navigating the Earth System Grid Federation (ESGF) website and using shell scripts for downloading ESM data.
-    2.  Parallelizing downloads in R.
+    -   Access and download CMIP6 model output from the Earth System Grid Federation (ESGF).
+    -   Use shell scripts and R to efficiently download and manage large climate datasets.
 3.  Regridding and statistically downscaling (live coding)
-    1.  Challenges of handling raw ESM spatial data in R.
-    2.  Tools and techniques for regridding and downscaling.
+    -   Explain why regridding and statistical downscaling are required for ESMs.
+    -   Apply regridding and statistical downscaling methods to ESM outputs in R.
 4.  Observations (theory and live coding)
-    1.  Selecting observational data for bias correction.
-    2.  Regridding and downscaling observational datasets.
+    -   Identify suitable observational datasets (e.g., OISST) for bias correction.
+    -   Regrid and prepare observational datasets for comparison with ESM outputs.
 5.  Bias correction (theory and live coding)
-    1.  Importance and methods of bias correction: the delta method.
-    2.  Consequences of uncorrected ESM outputs.
-    3.  Implementing bias correction with the delta method in R.
+    -   Explain the purpose of bias correction and the delta method.
+    -   Apply the delta method to generate bias-corrected climate projections in R.
 6.  Evaluating ESM accuracy (live coding)
-    1.  Assessing model accuracy during the observational period.
-    2.  Common metrics and visualization approaches.
+    -   Evaluate ESM performance during the observational period using quantitative metrics and visualizations (e.g., Taylor diagrams).
+    -   Interpret model performance to inform model selection for ecological applications.
 7.  Making projections (live coding)
-    1.  Creating time series of projected SST to 2100.
-    2.  Mapping projections across multiple climate scenarios and time periods.
+    -   Generate future sea-surface temperature projections from the two CMIP6 models and two climate scenarios.
+
+    -   Visualize projected changes through time series plots and spatial maps.
 
 # Experience of use in teaching and learning situations
 

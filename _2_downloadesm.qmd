@@ -1,5 +1,14 @@
 # Download ESM output from ESGF
 
+::: callout-note
+# Learning objective:
+
+2.  Downloading ESM output (theory and live coding)
+
+    -   Access and download CMIP6 model output from the Earth System Grid Federation (ESGF).
+    -   Use shell scripts and R to efficiently download and manage large climate datasets.
+:::
+
 ## Downloading CMIP6 Earth System Models
 
 The Earth System Grid Federation (ESGF) manages the database for handling climate science data, and supports the Coupled Model Intercomparison Project, which is currently in its sixth iteration (CMIP6).
@@ -7,7 +16,7 @@ The Earth System Grid Federation (ESGF) manages the database for handling climat
 Today, we will be downloading our model outputs via the ESGF website. We will download the simulations for two models, with the following components:
 
 | Component Name      | Variable Name                       | Description                                                                                                                            |
-|---------------------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+|------------------|------------------|-------------------------------------|
 | Activity ID         | `ScenarioMIP`                       | ScenarioMIP                                                                                                                            |
 | Source ID           | `ACCESS-CM2`, `IPSL-CM6A-LR`        | Model names                                                                                                                            |
 | Experiment ID       | `SSP2-4.5`, `SSP5-8.5` `historical` | Climate scenario (`historical` ranges 1850-2014; `SSPs` range 2015-2100).                                                              |
@@ -133,7 +142,7 @@ list.files(paste0(pth, cmip_pth))
 
 Great! We have successfully downloaded our ESM outputs.
 
-If your scripts have downloaded data for 2100-2300 (i.e., some models will do this), we can remove those files with the `rm` argument in shell:
+If your scripts have downloaded data for 2100-2300 (i.e., some models will do this, but not all, and is subject to change), we can remove those files with the `rm` argument in shell:
 
 ```{r, eval = F}
 system(paste0("rm ", pth, cmip_pth, "/", 
